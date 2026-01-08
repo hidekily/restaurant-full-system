@@ -1,6 +1,6 @@
 import { createFileRoute, Link, Navigate } from '@tanstack/react-router'
 import {authClient} from '../lib/auth-client'
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 
 export const Route = createFileRoute('/')({
   component: RouteComponent,
@@ -8,25 +8,6 @@ export const Route = createFileRoute('/')({
 
 
 function RouteComponent() {
-
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-
-  const handleSignIn = async () => {
-    const { data, error } = await authClient.signIn.email({
-      email,
-      password,
-      callbackURL: 'http://localhost:3000/console/dashboard',
-    })
-
-    if (error) {
-      alert('Erro: ' + error.message)
-    } else {
-      alert('Login realizado!')
-      Navigate({ to: '/console/dashboard' })
-    }
-  }
-
   const getRedirectURL = () => window.location.origin + "/console/dashboard";
 
   const handleLoginGoogle = async () => {
@@ -73,51 +54,29 @@ function RouteComponent() {
 
   return (
     <div className='bg-zinc-800 h-full w-full flex justify-center items-center'>
-      <section className="h-[85%] w-[35%] border-1 border-red-500 rounded-lg 
-                          flex flex-col bg-zinc-900/50 shadow-2xl shadow-red-500 items-center gap-6"
+      <section className="h-[85%] w-[35%] border-1 border-red-500 rounded-lg justify-center items-center
+                          flex flex-col bg-zinc-900/50 shadow-2xl shadow-red-500"
       >
-        {/* section for email login */}
-        <section className="flex flex-col gap-5 mt-10 h-[85%] w-[80%] justify-center">
-          <span className='flex justify-self-start text-red-700'>
-            Email
-          </span>
 
-          <input 
-            type="email"
-            placeholder='example@gmail.com' 
-            className='bg-red-900/50 h-[12%] w-full rounded-md mb-2 text-white' 
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-
-          <span className='flex justify-self-start text-red-700'>
-            Password
-          </span>
-
-          <input 
-            type="password"
-            placeholder='Insert your password' 
-            className='bg-red-900/50 h-[12%] w-full rounded-md text-white'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-
-          <input type="submit" value="Login" 
-                 className='bg-red-800/70 h-[12%] w-full rounded-md text-white' 
-                  onClick={handleSignIn}
-          />
-          <Link to="/register" className='text-white underline flex justify-center mt-2'>
-            Don't have an account? Register here!
-          </Link>
+        <h1 className="text-red-700 text-3xl mb-20">Login🦥</h1>
+ 
+        <section className='flex flex-row gap-6 mt-10 bg-zinc-900 h-15 w-90 justify-center items-center rounded-lg p-5 mt-10'>
+          <button onClick={handleLoginGoogle} className='text-white'>
+            Login with Google
+          </button>
+          <section className='google' />
         </section>
-
-        <hr className="w-full border-red-700"/>
-
-        {/* section for login buttons */}
-        <section className="flex flex-row justify-center items-center gap-15 h-[15%]">
-          <button onClick={handleLoginGoogle} className='button-login google'></button>
-          <button onClick={handleLoginDiscord} className='button-login discord'></button>
-          <button onClick={handleLoginGithub} className='button-login github'></button>
+        <section className='flex flex-row gap-6 mt-10 bg-zinc-900 h-15 w-90 justify-center items-center rounded-lg p-5'>
+          <button onClick={handleLoginDiscord} className='text-white'>
+            Login with Discord
+          </button>
+          <section className='discord' />
+        </section>
+        <section className='flex flex-row gap-6 mt-10 bg-zinc-900 h-15 w-90 justify-center items-center rounded-lg p-5'>
+          <button onClick={handleLoginGithub} className='text-white'>
+            Login with Github
+          </button>
+          <section className='github' />
         </section>
       </section>
     </div>

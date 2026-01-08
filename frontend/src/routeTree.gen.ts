@@ -9,16 +9,12 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as RegisterRouteImport } from './routes/register'
 import { Route as ConsoleRouteImport } from './routes/console'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ConsolePedidosRouteImport } from './routes/console/pedidos'
+import { Route as ConsoleFinancaRouteImport } from './routes/console/financa'
 import { Route as ConsoleDashboardRouteImport } from './routes/console/dashboard'
 
-const RegisterRoute = RegisterRouteImport.update({
-  id: '/register',
-  path: '/register',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ConsoleRoute = ConsoleRouteImport.update({
   id: '/console',
   path: '/console',
@@ -29,6 +25,16 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConsolePedidosRoute = ConsolePedidosRouteImport.update({
+  id: '/pedidos',
+  path: '/pedidos',
+  getParentRoute: () => ConsoleRoute,
+} as any)
+const ConsoleFinancaRoute = ConsoleFinancaRouteImport.update({
+  id: '/financa',
+  path: '/financa',
+  getParentRoute: () => ConsoleRoute,
+} as any)
 const ConsoleDashboardRoute = ConsoleDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -38,45 +44,56 @@ const ConsoleDashboardRoute = ConsoleDashboardRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/console': typeof ConsoleRouteWithChildren
-  '/register': typeof RegisterRoute
   '/console/dashboard': typeof ConsoleDashboardRoute
+  '/console/financa': typeof ConsoleFinancaRoute
+  '/console/pedidos': typeof ConsolePedidosRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/console': typeof ConsoleRouteWithChildren
-  '/register': typeof RegisterRoute
   '/console/dashboard': typeof ConsoleDashboardRoute
+  '/console/financa': typeof ConsoleFinancaRoute
+  '/console/pedidos': typeof ConsolePedidosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/console': typeof ConsoleRouteWithChildren
-  '/register': typeof RegisterRoute
   '/console/dashboard': typeof ConsoleDashboardRoute
+  '/console/financa': typeof ConsoleFinancaRoute
+  '/console/pedidos': typeof ConsolePedidosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/console' | '/register' | '/console/dashboard'
+  fullPaths:
+    | '/'
+    | '/console'
+    | '/console/dashboard'
+    | '/console/financa'
+    | '/console/pedidos'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/console' | '/register' | '/console/dashboard'
-  id: '__root__' | '/' | '/console' | '/register' | '/console/dashboard'
+  to:
+    | '/'
+    | '/console'
+    | '/console/dashboard'
+    | '/console/financa'
+    | '/console/pedidos'
+  id:
+    | '__root__'
+    | '/'
+    | '/console'
+    | '/console/dashboard'
+    | '/console/financa'
+    | '/console/pedidos'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ConsoleRoute: typeof ConsoleRouteWithChildren
-  RegisterRoute: typeof RegisterRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/register': {
-      id: '/register'
-      path: '/register'
-      fullPath: '/register'
-      preLoaderRoute: typeof RegisterRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/console': {
       id: '/console'
       path: '/console'
@@ -91,6 +108,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/console/pedidos': {
+      id: '/console/pedidos'
+      path: '/pedidos'
+      fullPath: '/console/pedidos'
+      preLoaderRoute: typeof ConsolePedidosRouteImport
+      parentRoute: typeof ConsoleRoute
+    }
+    '/console/financa': {
+      id: '/console/financa'
+      path: '/financa'
+      fullPath: '/console/financa'
+      preLoaderRoute: typeof ConsoleFinancaRouteImport
+      parentRoute: typeof ConsoleRoute
+    }
     '/console/dashboard': {
       id: '/console/dashboard'
       path: '/dashboard'
@@ -103,10 +134,14 @@ declare module '@tanstack/react-router' {
 
 interface ConsoleRouteChildren {
   ConsoleDashboardRoute: typeof ConsoleDashboardRoute
+  ConsoleFinancaRoute: typeof ConsoleFinancaRoute
+  ConsolePedidosRoute: typeof ConsolePedidosRoute
 }
 
 const ConsoleRouteChildren: ConsoleRouteChildren = {
   ConsoleDashboardRoute: ConsoleDashboardRoute,
+  ConsoleFinancaRoute: ConsoleFinancaRoute,
+  ConsolePedidosRoute: ConsolePedidosRoute,
 }
 
 const ConsoleRouteWithChildren =
@@ -115,7 +150,6 @@ const ConsoleRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ConsoleRoute: ConsoleRouteWithChildren,
-  RegisterRoute: RegisterRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

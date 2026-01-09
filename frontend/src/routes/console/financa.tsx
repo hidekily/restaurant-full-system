@@ -1,3 +1,4 @@
+import Example from '@/components/recharts'
 import { createFileRoute, Link } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/console/financa')({
@@ -12,7 +13,9 @@ function RouteComponent() {
             <Link to="/console/pedidos">Pedidos 🐳</Link>
         </section>    
 
-        
+        <section className='mt-20 h-[80%] w-[95%] flex justify-center items-center'>
+            <Example />
+        </section>
     </div>
   )
 }

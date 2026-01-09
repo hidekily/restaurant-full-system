@@ -61,19 +61,19 @@ function RouteComponent() {
         <h1 className="text-red-700 text-3xl mb-20">Login🦥</h1>
  
         <section className='flex flex-row gap-6 mt-10 bg-zinc-900 h-15 w-90 justify-center items-center rounded-lg p-5 mt-10'>
-          <button onClick={handleLoginGoogle} className='text-white'>
+          <button onClick={handleLoginGoogle} className='text-white cursor-pointer'>
             Login with Google
           </button>
           <section className='google' />
         </section>
         <section className='flex flex-row gap-6 mt-10 bg-zinc-900 h-15 w-90 justify-center items-center rounded-lg p-5'>
-          <button onClick={handleLoginDiscord} className='text-white'>
+          <button onClick={handleLoginDiscord} className='text-white cursor-pointer'>
             Login with Discord
           </button>
           <section className='discord' />
         </section>
         <section className='flex flex-row gap-6 mt-10 bg-zinc-900 h-15 w-90 justify-center items-center rounded-lg p-5'>
-          <button onClick={handleLoginGithub} className='text-white'>
+          <button onClick={handleLoginGithub} className='text-white cursor-pointer'>
             Login with Github
           </button>
           <section className='github' />

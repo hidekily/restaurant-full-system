@@ -16,7 +16,7 @@ function RouteComponent() {
 
   useEffect (() => {
     fetchSession();
-  })
+  }, [])
 
   return(
     <>

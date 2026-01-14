@@ -1,6 +1,6 @@
 import { createFileRoute} from '@tanstack/react-router'
 import {authClient} from '../lib/auth-client'
-import {rateLimit} from '@tanstack/react-pacer'
+import {rateLimit, throttle} from '@tanstack/react-pacer'
 
 export const Route = createFileRoute('/')({
   component: RouteComponent,
@@ -12,21 +12,24 @@ function RouteComponent() {
   const getRedirectURL = () => window.location.origin + "/console/dashboard";
 
   const tryLogin = rateLimit(
-    async(provider: "google" | "discord" | "github") => {
-      const data = await authClient.signIn.social({
-        provider, 
-        callbackURL: getRedirectURL()
-      })
-      if(data.error){
-        alert(data.error.message)
-      }
-    },
+    throttle(
+        async(provider: "google" | "discord" | "github") => {
+        const data = await authClient.signIn.social({
+          provider, 
+          callbackURL: getRedirectURL()
+        })
+        if(data.error){
+          alert(data.error.message)
+        }
+      },
+      {wait: 5000}
+    ),
     {
-      limit:5,
+      limit: 5,
       window: 60 * 500,
       onReject: () => {
         alert("tente denovo daqui 30 minutos")
-      } 
+      }, 
     }
   )
 

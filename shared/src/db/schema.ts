@@ -11,6 +11,10 @@ import {
   pgEnum,
 } from "drizzle-orm/pg-core";
 
+// ============================================
+// BETTER-AUTH TABLES (já existentes)
+// ============================================
+
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
@@ -56,7 +60,7 @@ export const account = pgTable(
     refreshToken: text("refresh_token"),
     idToken: text("id_token"),
     accessTokenExpiresAt: timestamp("access_token_expires_at"),
-    refreshTokenExpiresAt: timestamp("refresh_token_expires_at"),
+    refreshTokenExpiresAt: timestamp("access_token_expires_at"),
     scope: text("scope"),
     password: text("password"),
     createdAt: timestamp("created_at").defaultNow().notNull(),
@@ -83,6 +87,11 @@ export const verification = pgTable(
   (table) => [index("verification_identifier_idx").on(table.identifier)]
 );
 
+// ============================================
+// RESTAURANT SYSTEM TABLES
+// ============================================
+
+// Enums
 export const areaEnum = pgEnum("area", ["interna", "externa"]);
 export const statusPedidoEnum = pgEnum("status_pedido", [
   "aberto",
@@ -91,6 +100,7 @@ export const statusPedidoEnum = pgEnum("status_pedido", [
   "pago",
 ]);
 
+// Mesa
 export const mesa = pgTable("mesa", {
   id: serial("id").primaryKey(),
   numero: integer("numero").notNull().unique(),
@@ -98,16 +108,20 @@ export const mesa = pgTable("mesa", {
   area: areaEnum("area").notNull(),
 });
 
+// Categoria (bebidas, pratos principais, sobremesas, etc)
 export const categoria = pgTable("categoria", {
   id: serial("id").primaryKey(),
   nome: text("nome").notNull().unique(),
+  imagemUrl: text("imagem_url"), // NOVO: opcional (sem .notNull())
 });
 
+// Tag (vegetariano, vegano, sem glúten, etc)
 export const tag = pgTable("tag", {
   id: serial("id").primaryKey(),
   nome: text("nome").notNull().unique(),
 });
 
+// Item do cardápio
 export const itemCardapio = pgTable("item_cardapio", {
   id: serial("id").primaryKey(),
   nome: text("nome").notNull(),
@@ -125,6 +139,7 @@ export const itemCardapio = pgTable("item_cardapio", {
     .notNull(),
 });
 
+// Tabela de junção: Item ↔ Tag (muitos-pra-muitos)
 export const itemTag = pgTable(
   "item_tag",
   {
@@ -138,6 +153,7 @@ export const itemTag = pgTable(
   (table) => [index("item_tag_item_idx").on(table.itemId), index("item_tag_tag_idx").on(table.tagId)]
 );
 
+// Pedido
 export const pedido = pgTable(
   "pedido",
   {
@@ -156,6 +172,7 @@ export const pedido = pgTable(
   (table) => [index("pedido_mesa_idx").on(table.mesaId)]
 );
 
+// Item do pedido (conecta pedido ↔ item do cardápio)
 export const itemPedido = pgTable(
   "item_pedido",
   {
@@ -176,6 +193,11 @@ export const itemPedido = pgTable(
   ]
 );
 
+// ============================================
+// RELATIONS (para queries com joins automáticos)
+// ============================================
+
+// Auth relations
 export const userRelations = relations(user, ({ many }) => ({
   sessions: many(session),
   accounts: many(account),
@@ -195,6 +217,7 @@ export const accountRelations = relations(account, ({ one }) => ({
   }),
 }));
 
+// Restaurant relations
 export const mesaRelations = relations(mesa, ({ many }) => ({
   pedidos: many(pedido),
 }));

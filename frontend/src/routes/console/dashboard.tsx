@@ -29,24 +29,7 @@ function RouteComponent() {
 
         <section className='mt-30 text-red-500 text-2xl overflow-auto h-[80%] w-[95%] grid grid-cols-5 justify-center items-center gap-4'>
           <div className='h-full w-full flex flex-col items-center gap-4 border-1 border-red-800 rounded-lg bg-zinc-900/80'>
-            <span className='mt-4'>segunda</span>            
-            <span>{'teste'}</span>
-          </div>
-          <div className='h-full w-full flex flex-col items-center gap-4 border-1 border-red-800 rounded-lg bg-zinc-900/80'>
-            <span className='mt-4'>terça</span>            
-            <span>{'teste'}</span>
-          </div>
-          <div className='h-full w-full flex flex-col items-center gap-4 border-1 border-red-800 rounded-lg bg-zinc-900/80'>
-            <span className='mt-4'>quarta</span>            
-            <span>{'teste'}</span>
-          </div>
-          <div className='h-full w-full flex flex-col items-center gap-4 border-1 border-red-800 rounded-lg bg-zinc-900/80'>
-            <span className='mt-4'>quinta</span>            
-            <span>{'teste'}</span>
-          </div>
-          <div className='h-full w-full flex flex-col items-center gap-4 border-1 border-red-800 rounded-lg bg-zinc-900/80'>
-            <span className='mt-4'>sexta</span>            
-            <span>{'teste'}</span>
+           <h1>Aqui vamos fazer o controle que o admin vai ter do cardapio</h1>
           </div>
         </section>   
       </div>

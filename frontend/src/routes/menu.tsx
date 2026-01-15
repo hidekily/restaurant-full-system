@@ -1,16 +1,23 @@
-import { createFileRoute} from '@tanstack/react-router'
+import { createFileRoute, Outlet} from '@tanstack/react-router'
 import { Categoria } from '@/data/categoryInterface'
-import { useEffect, useState } from 'react'
+import { useEffect, useState} from 'react'
+import { Link } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/menu')({
   component: RouteComponent,
 })
 
-function CategoryCard({nome, imagemUrl}: Categoria) {
+interface CategoryCardProps{
+  nome: string
+  imagemUrl?: string
+}
+
+
+function CategoryCard({nome, imagemUrl}: CategoryCardProps) {
   return (
-    <div className='h-full w-[50px] bg-zinc-900'>
-      <img src={imagemUrl} alt="imagem" />
-      <span>{nome}</span>
+    <div className='h-full w-[100px] bg-zinc-800 flex flex-col justify-center items-center text-white border-l border-r'>
+      <img src={imagemUrl} className='text-red-500'/>
+      <Link to="#" className='text-red-500'>{nome}</Link>
     </div>
   )
 }
@@ -20,8 +27,9 @@ function RouteComponent() {
 
   useEffect(() =>{
     async function fetchCategorias(){
-      const response = await fetch("http://localhost3001/api/admin/categories")
+      const response = await fetch("http://localhost:3001/api/admin/categories")
       const data = await response.json()
+      console.log("Categorias recebidas:", data)
       setCategorias(data)
     }
 
@@ -30,13 +38,15 @@ function RouteComponent() {
 
   return (
     <div className='bg-neutral-200 h-full w-full overflow-auto'>
-      <nav className='h-[10%] w-full fixed bg-zinc-800 overflow-auto'>
-        <div className="bg-emerald-900 w-[9000px] h-full">
+      <nav className='h-[15%] w-full fixed bg-zinc-800 overflow-auto'>
+        <div className="w-auto h-full flex flex-row">
           {categorias.map((categoria) => (
             <CategoryCard key={categoria.id} nome={categoria.nome} imagemUrl={categoria.imagemUrl} />
           ))} 
         </div>
       </nav>
+
+      <Outlet />
     </div>  
   )
 }

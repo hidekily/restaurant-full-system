@@ -10,6 +10,22 @@ function RouteComponent() {
   const [nome, setNome] = useState<string>("")
   const [imagemUrl, setImagemUrl] = useState<string>("")  
 
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault() // impede o reload da página
+
+    const storeData = await 
+     fetch("http://localhost:3001/api/admin/categories", {
+      method: "POST",
+      headers: {
+       "Content-Type": "application/json"
+      },
+      body: JSON.stringify({nome, imagemUrl})
+  })
+
+  setNome("")
+  setImagemUrl("")
+  }
+
   const [session, setSession] = useState<any>(null);
 
   async function fetchSession(){
@@ -33,17 +49,17 @@ function RouteComponent() {
         <section className='h-[100vh] w-full flex flex-row justify-center items-center gap-15'>
 
           <div className='input-box-dashboard'>
-            <h1 className='mt-4'>teste</h1>
-            <form action="" className='flex flex-col items-center text-center gap-5 mt-18'>
+            <h1 className='mt-4'>categoria</h1>
+            <form onSubmit={handleSubmit} className='flex flex-col items-center text-center gap-5 mt-18'>
               <input type="text" className='input-dashboard' placeholder='topic name' value={nome} onChange={(e) => {setNome(e.target.value)}}/>
-              <input type="file" accept='image/*' className='input-dashboard' value={imagemUrl} onChange={(e) => {setImagemUrl(e.target.value)}}/>
+              <input type="text" placeholder='image URL(optional)' className='input-dashboard' value={imagemUrl} onChange={(e) => {setImagemUrl(e.target.value)}}/>
               <input type="submit" value="submit" className='input-dashboard'/>
             </form>
           </div>
 
           <div className='input-box-dashboard'>
-            <h1 className='mt-4'>teste</h1>
-            <form action="" className='flex flex-col items-center text-center gap-5 mt-18'>
+            <h1 className='mt-4'>itens</h1>
+            <form onSubmit={handleSubmit} className='flex flex-col items-center text-center gap-5 mt-18'>
               <input type="text" className='input-dashboard' placeholder='item name'/>
               <input type="number" className='input-dashboard' placeholder='price'/>
               <input type="submit" value="submit" className='input-dashboard'/>

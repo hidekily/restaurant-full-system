@@ -18,3 +18,29 @@
 .github{
     background-image: url('/github.png');
 }
+
+.input-box-dashboard{
+     @apply bg-zinc-900 text-red-500 text-2xl;
+
+    display: flex;
+    flex-direction: column;
+
+    text-align: center;
+
+    height: 65%;
+    width: 35%;
+    gap: 5%;
+
+    border: red solid 1px;
+    border-radius: 15px;
+}
+
+.input-dashboard{
+    @apply bg-red-700 text-white;
+
+    height: 50px;
+    width: 60%;
+    border: 1px solid;
+    border-radius: 15px;
+    text-align: center;
+}

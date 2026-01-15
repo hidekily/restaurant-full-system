@@ -7,6 +7,9 @@ export const Route = createFileRoute('/console/dashboard')({
 })
 
 function RouteComponent() {
+  const [nome, setNome] = useState<string>("")
+  const [imagemUrl, setImagemUrl] = useState<string>("")  
+
   const [session, setSession] = useState<any>(null);
 
   async function fetchSession(){
@@ -27,10 +30,26 @@ function RouteComponent() {
           <Link to="/console/financa">Finanças 🦉</Link>
         </section>
 
-        <section className='mt-30 text-red-500 text-2xl overflow-auto h-[80%] w-[95%] grid grid-cols-5 justify-center items-center gap-4'>
-          <div className='h-full w-full flex flex-col items-center gap-4 border-1 border-red-800 rounded-lg bg-zinc-900/80'>
-           <h1>Aqui vamos fazer o controle que o admin vai ter do cardapio</h1>
+        <section className='h-[100vh] w-full flex flex-row justify-center items-center gap-15'>
+
+          <div className='input-box-dashboard'>
+            <h1 className='mt-4'>teste</h1>
+            <form action="" className='flex flex-col items-center text-center gap-5 mt-18'>
+              <input type="text" className='input-dashboard' placeholder='topic name' value={nome} onChange={(e) => {setNome(e.target.value)}}/>
+              <input type="file" accept='image/*' className='input-dashboard' value={imagemUrl} onChange={(e) => {setImagemUrl(e.target.value)}}/>
+              <input type="submit" value="submit" className='input-dashboard'/>
+            </form>
           </div>
+
+          <div className='input-box-dashboard'>
+            <h1 className='mt-4'>teste</h1>
+            <form action="" className='flex flex-col items-center text-center gap-5 mt-18'>
+              <input type="text" className='input-dashboard' placeholder='item name'/>
+              <input type="number" className='input-dashboard' placeholder='price'/>
+              <input type="submit" value="submit" className='input-dashboard'/>
+            </form>
+          </div>
+
         </section>   
       </div>
     </>

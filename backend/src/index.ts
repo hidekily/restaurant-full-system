@@ -3,12 +3,17 @@ import 'dotenv/config'
 import Fastify from 'fastify'
 import cors from '@fastify/cors'
 import {auth} from "shared/auth"
+import { categoriesRoutes } from './routes/admin/categorias'
 
 const app = Fastify({ logger: true })
 
 app.register(cors, {
   origin: 'http://localhost:3000',
   credentials: true,
+})
+
+app.register(categoriesRoutes, {
+  prefix: '/api/admin/categories'
 })
 
 app.all('/api/auth/*', async (request, reply) => {

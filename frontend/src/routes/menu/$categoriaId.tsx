@@ -31,9 +31,9 @@ function RouteComponent() {
   }, [categoriaId])
 
   return (
-    <div>
+    <div className='bg-zinc-900 h-full w-full grid grid-cols-2 grid-rows-auto overflow-auto justify-items-center items-center mt-[7.9%] gap-2'>
       {itens.map((item) => (
-        <div key={item.id}>
+        <div key={item.id} className='h-100 w-50 bg-teal-100 flex flex-col justify-center items-center'>
           <span>{item.nome}</span>
           <span>R$ {item.preco}</span>
         </div>

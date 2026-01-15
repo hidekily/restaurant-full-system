@@ -4,8 +4,24 @@ import Fastify from 'fastify'
 import cors from '@fastify/cors'
 import {auth} from "shared/auth"
 import { categoriesRoutes } from './routes/admin/categorias'
+import { menuCategoriesRoutes } from './routes/menu/categories'
+import { menuItemsRoutes } from './routes/menu/items'
+import { itemsConfigureRoutes } from './routes/admin/items'
 
 const app = Fastify({ logger: true })
+
+
+app.register(itemsConfigureRoutes, {
+  prefix: "/api/admin/items"
+})
+
+app.register(menuItemsRoutes, {
+  prefix: "/api/menu/items"
+})
+
+app.register(menuCategoriesRoutes, {
+  prefix: "/api/menu/categories"
+})
 
 app.register(cors, {
   origin: 'http://localhost:3000',

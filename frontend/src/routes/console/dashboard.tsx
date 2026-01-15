@@ -7,8 +7,28 @@ export const Route = createFileRoute('/console/dashboard')({
 })
 
 function RouteComponent() {
-  const [nome, setNome] = useState<string>("")
-  const [imagemUrl, setImagemUrl] = useState<string>("")  
+  const [nomeCategory, setNomeCategory] = useState<string>("")
+  const [imagemUrl, setImagemUrl] = useState<string>("") 
+  const [nomeItem, setNomeItem] =  useState<string>("")
+  const [categoriaId, setCategoriaId] = useState<string>("") 
+  const [preco, setPreco] = useState<string>("")
+
+  async function handleSubmitItem(e: React.FormEvent){
+    e.preventDefault()
+
+    const storeDataItem = await fetch("http://localhost:3001/api/admin/items", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: "include",
+      body: JSON.stringify({nome: nomeItem, categoriaId: categoriaId, preco: preco})
+    })
+
+    setCategoriaId("")
+    setNomeCategory("")
+    setPreco("")
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault() // impede o reload da página
@@ -19,10 +39,11 @@ function RouteComponent() {
       headers: {
        "Content-Type": "application/json"
       },
-      body: JSON.stringify({nome, imagemUrl})
+      credentials: "include",
+      body: JSON.stringify({nomeCategory, imagemUrl})
   })
 
-  setNome("")
+  setNomeItem("")
   setImagemUrl("")
   }
 
@@ -51,7 +72,7 @@ function RouteComponent() {
           <div className='input-box-dashboard'>
             <h1 className='mt-4'>categoria</h1>
             <form onSubmit={handleSubmit} className='flex flex-col items-center text-center gap-5 mt-18'>
-              <input type="text" className='input-dashboard' placeholder='topic name' value={nome} onChange={(e) => {setNome(e.target.value)}}/>
+              <input type="text" className='input-dashboard' placeholder='topic name' value={nomeCategory} onChange={(e) => {setNomeCategory(e.target.value)}}/>
               <input type="text" placeholder='image URL(optional)' className='input-dashboard' value={imagemUrl} onChange={(e) => {setImagemUrl(e.target.value)}}/>
               <input type="submit" value="submit" className='input-dashboard'/>
             </form>
@@ -59,9 +80,10 @@ function RouteComponent() {
 
           <div className='input-box-dashboard'>
             <h1 className='mt-4'>itens</h1>
-            <form onSubmit={handleSubmit} className='flex flex-col items-center text-center gap-5 mt-18'>
-              <input type="text" className='input-dashboard' placeholder='item name'/>
-              <input type="number" className='input-dashboard' placeholder='price'/>
+            <form onSubmit={handleSubmitItem} className='flex flex-col items-center text-center gap-5 mt-18'>
+              <input type="text" className='input-dashboard' placeholder='item name' value={nomeItem} onChange={(e) =>{setNomeItem(e.target.value)}}/>
+              <input type="number" className='input-dashboard' placeholder='price' value={preco} onChange={(e) =>{setPreco(e.target.value)}}/>
+              <input type="text"  className='input-dashboard' placeholder='which topic' value={categoriaId} onChange={(e) =>{setCategoriaId(e.target.value)}}/>
               <input type="submit" value="submit" className='input-dashboard'/>
             </form>
           </div>

@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as MenuRouteImport } from './routes/menu'
 import { Route as ConsoleRouteImport } from './routes/console'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as MenuCategoriaIdRouteImport } from './routes/menu/$categoriaId'
 import { Route as ConsolePedidosRouteImport } from './routes/console/pedidos'
 import { Route as ConsoleFinancaRouteImport } from './routes/console/financa'
 import { Route as ConsoleDashboardRouteImport } from './routes/console/dashboard'
@@ -30,6 +31,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const MenuCategoriaIdRoute = MenuCategoriaIdRouteImport.update({
+  id: '/$categoriaId',
+  path: '/$categoriaId',
+  getParentRoute: () => MenuRoute,
 } as any)
 const ConsolePedidosRoute = ConsolePedidosRouteImport.update({
   id: '/pedidos',
@@ -50,27 +56,30 @@ const ConsoleDashboardRoute = ConsoleDashboardRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/console': typeof ConsoleRouteWithChildren
-  '/menu': typeof MenuRoute
+  '/menu': typeof MenuRouteWithChildren
   '/console/dashboard': typeof ConsoleDashboardRoute
   '/console/financa': typeof ConsoleFinancaRoute
   '/console/pedidos': typeof ConsolePedidosRoute
+  '/menu/$categoriaId': typeof MenuCategoriaIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/console': typeof ConsoleRouteWithChildren
-  '/menu': typeof MenuRoute
+  '/menu': typeof MenuRouteWithChildren
   '/console/dashboard': typeof ConsoleDashboardRoute
   '/console/financa': typeof ConsoleFinancaRoute
   '/console/pedidos': typeof ConsolePedidosRoute
+  '/menu/$categoriaId': typeof MenuCategoriaIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/console': typeof ConsoleRouteWithChildren
-  '/menu': typeof MenuRoute
+  '/menu': typeof MenuRouteWithChildren
   '/console/dashboard': typeof ConsoleDashboardRoute
   '/console/financa': typeof ConsoleFinancaRoute
   '/console/pedidos': typeof ConsolePedidosRoute
+  '/menu/$categoriaId': typeof MenuCategoriaIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -81,6 +90,7 @@ export interface FileRouteTypes {
     | '/console/dashboard'
     | '/console/financa'
     | '/console/pedidos'
+    | '/menu/$categoriaId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -89,6 +99,7 @@ export interface FileRouteTypes {
     | '/console/dashboard'
     | '/console/financa'
     | '/console/pedidos'
+    | '/menu/$categoriaId'
   id:
     | '__root__'
     | '/'
@@ -97,12 +108,13 @@ export interface FileRouteTypes {
     | '/console/dashboard'
     | '/console/financa'
     | '/console/pedidos'
+    | '/menu/$categoriaId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ConsoleRoute: typeof ConsoleRouteWithChildren
-  MenuRoute: typeof MenuRoute
+  MenuRoute: typeof MenuRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -127,6 +139,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/menu/$categoriaId': {
+      id: '/menu/$categoriaId'
+      path: '/$categoriaId'
+      fullPath: '/menu/$categoriaId'
+      preLoaderRoute: typeof MenuCategoriaIdRouteImport
+      parentRoute: typeof MenuRoute
     }
     '/console/pedidos': {
       id: '/console/pedidos'
@@ -167,10 +186,20 @@ const ConsoleRouteChildren: ConsoleRouteChildren = {
 const ConsoleRouteWithChildren =
   ConsoleRoute._addFileChildren(ConsoleRouteChildren)
 
+interface MenuRouteChildren {
+  MenuCategoriaIdRoute: typeof MenuCategoriaIdRoute
+}
+
+const MenuRouteChildren: MenuRouteChildren = {
+  MenuCategoriaIdRoute: MenuCategoriaIdRoute,
+}
+
+const MenuRouteWithChildren = MenuRoute._addFileChildren(MenuRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ConsoleRoute: ConsoleRouteWithChildren,
-  MenuRoute: MenuRoute,
+  MenuRoute: MenuRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

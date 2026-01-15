@@ -1,8 +1,13 @@
 import { FastifyInstance } from "fastify";
 import { db } from "../../../../shared/src/db";
 import { categoria } from "../../../../shared/src/db/schema";
+import { verificarAdmin } from "../../middleware/auth";
 
 export async function categoriesRoutes(app: FastifyInstance){
+
+  // middleware para verificar se o usuario esta logado ou nao 
+  app.addHook("onRequest", verificarAdmin)
+
   // essa rota esta definindo o body da categoria, validando a info, inserindo ela na db e por ultimo, retornando um status de sucesso
   app.post("/", async(request, reply) =>{
     const {nome, imgUrl} = request.body as {

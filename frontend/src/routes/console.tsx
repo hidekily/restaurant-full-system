@@ -6,7 +6,6 @@ export const Route = createFileRoute('/console')({
   component: RouteComponent,
 })
 
-
 function RouteComponent() {
   const [session, setSession] = useState<any>(null)
   const [loading, setLoading] = useState(true)
@@ -24,17 +23,18 @@ function RouteComponent() {
     }
 
     fetchSession()
-  }, []) 
+  }, [])
 
   if (loading) {
     return (
-      <div className='bg-zinc-800 h-full w-full flex justify-center items-center'>
-        <span className='text-white'>Loading session...</span>
+      <div className='loading-container'>
+        <div className='flex flex-col items-center'>
+          <div className='loading-spinner' />
+          <span className='loading-text'>Carregando...</span>
+        </div>
       </div>
     )
   }
 
-  return (
-    <Outlet />
-  )
+  return <Outlet />
 }

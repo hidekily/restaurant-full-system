@@ -2,6 +2,8 @@ import { FastifyInstance } from "fastify";
 import { db } from "../../../../shared/src/db";
 import { categoria } from "../../../../shared/src/db/schema";
 import { verificarAdmin } from "../../middleware/auth";
+import { itemCardapio } from 'shared/db/schema';
+import { eq } from "drizzle-orm";
 
 export async function categoriesRoutes(app: FastifyInstance){
 
@@ -37,5 +39,14 @@ export async function categoriesRoutes(app: FastifyInstance){
     const allCategories = await db.select().from(categoria);
 
     return reply.send(allCategories)
+  })
+
+  // deleta as categorias
+  app.delete("/:id", async (request, reply) => {
+    const { id } = request.params as { id: string }
+
+    await db.delete(categoria).where(eq(categoria.id, Number(id)))
+
+    return reply.status(200).send({ message: "Categoria deletada" })
   })
 }

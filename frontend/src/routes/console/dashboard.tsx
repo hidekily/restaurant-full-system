@@ -80,7 +80,7 @@ function RouteComponent() {
 
         <section className='h-[100vh] w-full grid grid-cols-1 md:grid-cols-2 overflow-auto justify-items-center items-center gap-10 pt-25 px-4'>
           <div className='input-box-dashboard'>
-            <h1 className='mt-4'>categoria</h1>
+            <h1 className='mt-4'>adicionar categoria 🐣</h1>
             <form onSubmit={handleSubmit} className='flex flex-col items-center text-red-700 gap-8 mt-10'>
               <input type="text" className='input-dashboard' placeholder='topic name' value={nomeCategory} onChange={(e) => {setNomeCategory(e.target.value)}}/>
               <input type="text" placeholder='image URL(optional)' className='input-dashboard' value={imagemUrl} onChange={(e) => {setImagemUrl(e.target.value)}}/>
@@ -90,7 +90,7 @@ function RouteComponent() {
           </div>
 
           <div className='input-box-dashboard'>
-            <h1 className='mt-3'>itens</h1>
+            <h1 className='mt-3'>adicionar itens 🐣</h1>
             <form onSubmit={handleSubmitItem} className='flex flex-col items-center text-red-700 gap-4 mt-8'>
               <input type="text" className='input-dashboard' placeholder='item name' value={nomeItem} onChange={(e) =>{setNomeItem(e.target.value)}}/>
               <input type="number" className='input-dashboard' placeholder='price' value={preco} onChange={(e) =>{setPreco(e.target.value)}}/>
@@ -101,7 +101,7 @@ function RouteComponent() {
           </div>
 
            <div className='input-box-dashboard'>
-            <h1 className='mt-3'>delete catgory</h1>
+            <h1 className='mt-3'>delete catgory 🗑️</h1>
             <form onSubmit={handleSubmitItem} className='flex flex-col items-center text-red-700 gap-8 mt-8'>
               <input type="text" className='input-dashboard' placeholder='item name' value={nomeItem} onChange={(e) =>{setNomeItem(e.target.value)}}/>
               <hr className='h-[0.1rem] w-full'/>
@@ -110,7 +110,7 @@ function RouteComponent() {
           </div>
 
            <div className='input-box-dashboard'>
-            <h1 className='mt-3'>delete item</h1>
+            <h1 className='mt-3'>delete item 🗑️</h1>
             <form onSubmit={handleSubmitItem} className='flex flex-col items-center text-red-700 gap-6 mt-8'>
               <input type="text"  className='input-dashboard' placeholder='delete item' value={categoriaId} onChange={(e) =>{setCategoriaId(e.target.value)}}/>
               <input type="text"  className='input-dashboard' placeholder='delete item' value={categoriaId} onChange={(e) =>{setCategoriaId(e.target.value)}}/>

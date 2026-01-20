@@ -19,7 +19,7 @@ function RouteComponent() {
   }, [])
 
   return(
-    <div className='bg-zinc-800 h-full w-full flex justify-center'>
+    <div className='bg-linear-to-br from-zinc-950 to-indigo-900 h-full w-full flex justify-center'>
         <nav className='fixed h-[8.5%] w-full bg-zinc-950 flex flex-row rounded-md text-white border-b border-red-700'>
           <section className='w-[40%] h-[100%] flex flex-row justify-center items-center'>
             <span className='font-bold text-red-700 text-lg'>{session?.user.name + "🦦"}</span>
@@ -33,8 +33,6 @@ function RouteComponent() {
             </Link>
           </section>
         </nav>
-
-
     </div>
   )
 }

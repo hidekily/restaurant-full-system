@@ -1,75 +1,70 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { authClient } from '../lib/auth-client'
-import { rateLimit, throttle } from '@tanstack/react-pacer'
+import { createFileRoute} from '@tanstack/react-router'
+import {authClient} from '../lib/auth-client'
+import {rateLimit, throttle} from '@tanstack/react-pacer'
 
 export const Route = createFileRoute('/')({
   component: RouteComponent,
 })
+
+
 
 function RouteComponent() {
   const getRedirectURL = () => window.location.origin + "/console/dashboard";
 
   const tryLogin = rateLimit(
     throttle(
-      async (provider: "google" | "discord" | "github") => {
+        async(provider: "google" | "discord" | "github") => {
         const data = await authClient.signIn.social({
           provider,
           callbackURL: getRedirectURL()
         })
-        if (data.error) {
+        if(data.error){
           alert(data.error.message)
         }
       },
-      { wait: 5000 }
+      {wait: 5000}
     ),
     {
       limit: 5,
       window: 60 * 500,
       onReject: () => {
-        alert("Tente novamente em 30 minutos")
+        alert("tente denovo daqui 30 minutos")
       },
     }
   )
 
   return (
-    <div className='auth-container'>
-      <div className='auth-card animate-fade-in'>
-        <div className='auth-logo'>
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-            <path d="M2 17l10 5 10-5"/>
-            <path d="M2 12l10 5 10-5"/>
-          </svg>
-        </div>
+    <div className='bg-linear-to-br from-zinc-950 to-indigo-800 h-full w-full flex justify-center items-center'>
+      <section className="h-[85%] w-[35%] border-1 border-red-500 rounded-lg items-center
+                          flex flex-col bg-zinc-950 shadow-2xl shadow-red-500"
+      >
 
-        <h1 className='auth-title'>Bem-vindo de volta</h1>
-        <p className='auth-subtitle'>Entre com sua conta para continuar</p>
+        <span className="flex justify-center items-center gap-2 text-5xl mt-5 text-red-500/50">
+          <img src="/logo.jpg" alt="Logo" className="w-25 h-25 rounded-full text-red-600 border" />
+          SynK
+        </span>
 
-        <div className='w-full flex flex-col gap-3'>
-          <button onClick={() => tryLogin('google')} className='oauth-btn'>
-            <span className='oauth-icon oauth-icon-google' />
-            <span>Continuar com Google</span>
-          </button>
+        <hr className='h-[0.1rem] w-full bg-red-700 mt-4'/>
 
-          <button onClick={() => tryLogin('discord')} className='oauth-btn'>
-            <span className='oauth-icon oauth-icon-discord' />
-            <span>Continuar com Discord</span>
-          </button>
+        <section className='flex flex-row mt-12 bg-zinc-900 h-18 w-45 justify-center items-center rounded-full gap-4 text-red-700'>
+          <button onClick={() => {tryLogin('google')}} className='google text-white cursor-pointer'></button>
+          google
+        </section>
 
-          <button onClick={() => tryLogin('github')} className='oauth-btn'>
-            <span className='oauth-icon oauth-icon-github' />
-            <span>Continuar com GitHub</span>
-          </button>
-        </div>
+        <section className='flex flex-row mt-7 bg-zinc-900 h-18 w-45 justify-center items-center rounded-full gap-4 text-red-700'>
+          <button onClick={() => {tryLogin('discord')}} className='discord text-white cursor-pointer'></button>
+          discord
+        </section>
 
-        <div className='auth-divider'>
-          <span>Seguro</span>
-        </div>
+        <section className='flex flex-row mt-7 bg-zinc-900 h-18 w-45 justify-center items-center rounded-full gap-4 text-red-700'>
+          <button onClick={() => {tryLogin('github')}} className='github text-white cursor-pointer'></button>
+          github
+        </section>
 
-        <p className='text-[13px] text-center' style={{ color: 'var(--color-text-muted)' }}>
-          Ao continuar, você concorda com nossos Termos de Serviço e Política de Privacidade.
-        </p>
-      </div>
+        <hr className='h-[0.1rem] w-full bg-red-700 mt-10'/>
+
+        <h1 className='text-red-400 opacity-50 text-center mt-13 text-lg'>- Login with one of the options above -</h1>
+      </section>
     </div>
   )
 }

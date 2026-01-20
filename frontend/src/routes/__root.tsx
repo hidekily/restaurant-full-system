@@ -1,6 +1,5 @@
 import {
   createRootRoute,
-  Link,
   Outlet,
   HeadContent,
   Scripts,

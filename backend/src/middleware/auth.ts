@@ -6,8 +6,8 @@ export async function verificarAdmin(request: FastifyRequest, reply: FastifyRepl
     headers: request.headers
   }) 
 
-    if(!session){
-        return reply.status(401).send({error: "..."})        
+    if(!session || undefined === session.user){
+        return reply.status(401).send({error: "..."})
     }
     
 }

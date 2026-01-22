@@ -12,7 +12,7 @@ import {
 } from "drizzle-orm/pg-core";
 
 // ============================================
-// BETTER-AUTH TABLES (já existentes)
+// BETTER-AUTH TABLES (não mexer)
 // ============================================
 
 export const user = pgTable("user", {
@@ -44,7 +44,7 @@ export const session = pgTable(
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
   },
-  (table) => [index("session_userId_idx").on(table.userId)]
+  (table) => [index("session_user_id_idx").on(table.userId)]
 );
 
 export const account = pgTable(
@@ -60,7 +60,7 @@ export const account = pgTable(
     refreshToken: text("refresh_token"),
     idToken: text("id_token"),
     accessTokenExpiresAt: timestamp("access_token_expires_at"),
-    refreshTokenExpiresAt: timestamp("access_token_expires_at"),
+    refreshTokenExpiresAt: timestamp("refresh_token_expires_at"),
     scope: text("scope"),
     password: text("password"),
     createdAt: timestamp("created_at").defaultNow().notNull(),
@@ -68,7 +68,7 @@ export const account = pgTable(
       .$onUpdate(() => new Date())
       .notNull(),
   },
-  (table) => [index("account_userId_idx").on(table.userId)]
+  (table) => [index("account_user_id_idx").on(table.userId)]
 );
 
 export const verification = pgTable(
@@ -92,104 +92,107 @@ export const verification = pgTable(
 // ============================================
 
 // Enums
-export const areaEnum = pgEnum("area", ["interna", "externa"]);
-export const statusPedidoEnum = pgEnum("status_pedido", [
-  "aberto",
-  "preparando",
-  "pronto",
-  "pago",
+export const areaEnum = pgEnum("area", ["indoor", "outdoor"]);
+export const orderStatusEnum = pgEnum("order_status", [
+  "open",
+  "preparing",
+  "ready",
+  "paid",
 ]);
 
-// Mesa
-export const mesa = pgTable("mesa", {
+// Dining Table (mesa)
+export const diningTable = pgTable("dining_table", {
   id: serial("id").primaryKey(),
-  numero: integer("numero").notNull().unique(),
-  ocupada: boolean("ocupada").default(false).notNull(),
+  number: integer("number").notNull().unique(),
+  occupied: boolean("occupied").default(false).notNull(),
   area: areaEnum("area").notNull(),
 });
 
-// Categoria (bebidas, pratos principais, sobremesas, etc)
-export const categoria = pgTable("categoria", {
+// Category (bebidas, pratos principais, sobremesas, etc)
+export const category = pgTable("category", {
   id: serial("id").primaryKey(),
-  nome: text("nome").notNull().unique(),
-  imagemUrl: text("imagem_url"), // NOVO: opcional (sem .notNull())
+  name: text("name").notNull().unique(),
+  imageUrl: text("image_url"),
 });
 
 // Tag (vegetariano, vegano, sem glúten, etc)
 export const tag = pgTable("tag", {
   id: serial("id").primaryKey(),
-  nome: text("nome").notNull().unique(),
+  name: text("name").notNull().unique(),
 });
 
-// Item do cardápio
-export const itemCardapio = pgTable("item_cardapio", {
+// Menu Item (item do cardápio)
+export const menuItem = pgTable("menu_item", {
   id: serial("id").primaryKey(),
-  nome: text("nome").notNull(),
-  descricao: text("descricao"),
-  preco: decimal("preco", { precision: 10, scale: 2 }).notNull(),
-  imagemUrl: text("imagem_url"),
-  disponivel: boolean("disponivel").default(true).notNull(),
-  categoriaId: integer("categoria_id")
+  name: text("name").notNull(),
+  description: text("description"),
+  price: decimal("price", { precision: 10, scale: 2 }).notNull(),
+  imageUrl: text("image_url"),
+  available: boolean("available").default(true).notNull(),
+  categoryId: integer("category_id")
     .notNull()
-    .references(() => categoria.id, { onDelete: "restrict" }),
-  criadoEm: timestamp("criado_em").defaultNow().notNull(),
-  atualizadoEm: timestamp("atualizado_em")
+    .references(() => category.id, { onDelete: "restrict" }),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at")
     .defaultNow()
     .$onUpdate(() => new Date())
     .notNull(),
 });
 
-// Tabela de junção: Item ↔ Tag (muitos-pra-muitos)
-export const itemTag = pgTable(
-  "item_tag",
+// Junction table: MenuItem ↔ Tag (many-to-many)
+export const menuItemTag = pgTable(
+  "menu_item_tag",
   {
-    itemId: integer("item_id")
+    menuItemId: integer("menu_item_id")
       .notNull()
-      .references(() => itemCardapio.id, { onDelete: "cascade" }),
+      .references(() => menuItem.id, { onDelete: "cascade" }),
     tagId: integer("tag_id")
       .notNull()
       .references(() => tag.id, { onDelete: "cascade" }),
   },
-  (table) => [index("item_tag_item_idx").on(table.itemId), index("item_tag_tag_idx").on(table.tagId)]
+  (table) => [
+    index("menu_item_tag_item_idx").on(table.menuItemId),
+    index("menu_item_tag_tag_idx").on(table.tagId),
+  ]
 );
 
-// Pedido
-export const pedido = pgTable(
-  "pedido",
+// Order (pedido)
+export const order = pgTable(
+  "order",
   {
     id: serial("id").primaryKey(),
-    mesaId: integer("mesa_id")
+    tableId: integer("table_id")
       .notNull()
-      .references(() => mesa.id, { onDelete: "restrict" }),
-    status: statusPedidoEnum("status").default("aberto").notNull(),
-    observacao: text("observacao"),
-    criadoEm: timestamp("criado_em").defaultNow().notNull(),
-    atualizadoEm: timestamp("atualizado_em")
+      .references(() => diningTable.id, { onDelete: "restrict" }),
+    status: orderStatusEnum("status").default("open").notNull(),
+    notes: text("notes"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at")
       .defaultNow()
       .$onUpdate(() => new Date())
       .notNull(),
   },
-  (table) => [index("pedido_mesa_idx").on(table.mesaId)]
+  (table) => [index("order_table_idx").on(table.tableId)]
 );
 
-// Item do pedido (conecta pedido ↔ item do cardápio)
-export const itemPedido = pgTable(
-  "item_pedido",
+// Order Item (item do pedido - conecta order ↔ menuItem)
+export const orderItem = pgTable(
+  "order_item",
   {
     id: serial("id").primaryKey(),
-    pedidoId: integer("pedido_id")
+    orderId: integer("order_id")
       .notNull()
-      .references(() => pedido.id, { onDelete: "cascade" }),
-    itemCardapioId: integer("item_cardapio_id")
+      .references(() => order.id, { onDelete: "cascade" }),
+    menuItemId: integer("menu_item_id")
       .notNull()
-      .references(() => itemCardapio.id, { onDelete: "restrict" }),
-    quantidade: integer("quantidade").notNull().default(1),
-    precoUnitario: decimal("preco_unitario", { precision: 10, scale: 2 }).notNull(),
-    observacao: text("observacao"),
+      .references(() => menuItem.id, { onDelete: "restrict" }),
+    quantity: integer("quantity").notNull().default(1),
+    unitPrice: decimal("unit_price", { precision: 10, scale: 2 }).notNull(),
+    notes: text("notes"),
   },
   (table) => [
-    index("item_pedido_pedido_idx").on(table.pedidoId),
-    index("item_pedido_item_idx").on(table.itemCardapioId),
+    index("order_item_order_idx").on(table.orderId),
+    index("order_item_menu_item_idx").on(table.menuItemId),
   ]
 );
 
@@ -218,53 +221,53 @@ export const accountRelations = relations(account, ({ one }) => ({
 }));
 
 // Restaurant relations
-export const mesaRelations = relations(mesa, ({ many }) => ({
-  pedidos: many(pedido),
+export const diningTableRelations = relations(diningTable, ({ many }) => ({
+  orders: many(order),
 }));
 
-export const categoriaRelations = relations(categoria, ({ many }) => ({
-  itens: many(itemCardapio),
+export const categoryRelations = relations(category, ({ many }) => ({
+  menuItems: many(menuItem),
 }));
 
 export const tagRelations = relations(tag, ({ many }) => ({
-  itemTags: many(itemTag),
+  menuItemTags: many(menuItemTag),
 }));
 
-export const itemCardapioRelations = relations(itemCardapio, ({ one, many }) => ({
-  categoria: one(categoria, {
-    fields: [itemCardapio.categoriaId],
-    references: [categoria.id],
+export const menuItemRelations = relations(menuItem, ({ one, many }) => ({
+  category: one(category, {
+    fields: [menuItem.categoryId],
+    references: [category.id],
   }),
-  itemTags: many(itemTag),
-  itensPedido: many(itemPedido),
+  menuItemTags: many(menuItemTag),
+  orderItems: many(orderItem),
 }));
 
-export const itemTagRelations = relations(itemTag, ({ one }) => ({
-  item: one(itemCardapio, {
-    fields: [itemTag.itemId],
-    references: [itemCardapio.id],
+export const menuItemTagRelations = relations(menuItemTag, ({ one }) => ({
+  menuItem: one(menuItem, {
+    fields: [menuItemTag.menuItemId],
+    references: [menuItem.id],
   }),
   tag: one(tag, {
-    fields: [itemTag.tagId],
+    fields: [menuItemTag.tagId],
     references: [tag.id],
   }),
 }));
 
-export const pedidoRelations = relations(pedido, ({ one, many }) => ({
-  mesa: one(mesa, {
-    fields: [pedido.mesaId],
-    references: [mesa.id],
+export const orderRelations = relations(order, ({ one, many }) => ({
+  table: one(diningTable, {
+    fields: [order.tableId],
+    references: [diningTable.id],
   }),
-  itens: many(itemPedido),
+  items: many(orderItem),
 }));
 
-export const itemPedidoRelations = relations(itemPedido, ({ one }) => ({
-  pedido: one(pedido, {
-    fields: [itemPedido.pedidoId],
-    references: [pedido.id],
+export const orderItemRelations = relations(orderItem, ({ one }) => ({
+  order: one(order, {
+    fields: [orderItem.orderId],
+    references: [order.id],
   }),
-  itemCardapio: one(itemCardapio, {
-    fields: [itemPedido.itemCardapioId],
-    references: [itemCardapio.id],
+  menuItem: one(menuItem, {
+    fields: [orderItem.menuItemId],
+    references: [menuItem.id],
   }),
 }));

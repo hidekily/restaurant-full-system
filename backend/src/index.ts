@@ -3,10 +3,10 @@ import 'dotenv/config'
 import Fastify from 'fastify'
 import cors from '@fastify/cors'
 import {auth} from "shared/auth"
-import { categoriesRoutes } from './routes/admin/categorias'
+import { categoriesRoutes } from './routes/admin/categories'
 import { menuCategoriesRoutes } from './routes/menu/categories'
 import { menuItemsRoutes } from './routes/menu/items'
-import { itemsConfigureRoutes } from './routes/admin/items'
+import { itemsConfigureRoutes } from './routes/admin/menuItems'
 
 const app = Fastify({ logger: true })
 

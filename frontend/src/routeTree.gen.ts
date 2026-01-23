@@ -12,7 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as MenuRouteImport } from './routes/menu'
 import { Route as ConsoleRouteImport } from './routes/console'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as MenuCategoriaIdRouteImport } from './routes/menu/$categoriaId'
+import { Route as MenuCategoryIdRouteImport } from './routes/menu/$categoryId'
 import { Route as ConsolePedidosRouteImport } from './routes/console/pedidos'
 import { Route as ConsoleFinancaRouteImport } from './routes/console/financa'
 import { Route as ConsoleDashboardRouteImport } from './routes/console/dashboard'
@@ -32,9 +32,9 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MenuCategoriaIdRoute = MenuCategoriaIdRouteImport.update({
-  id: '/$categoriaId',
-  path: '/$categoriaId',
+const MenuCategoryIdRoute = MenuCategoryIdRouteImport.update({
+  id: '/$categoryId',
+  path: '/$categoryId',
   getParentRoute: () => MenuRoute,
 } as any)
 const ConsolePedidosRoute = ConsolePedidosRouteImport.update({
@@ -60,7 +60,7 @@ export interface FileRoutesByFullPath {
   '/console/dashboard': typeof ConsoleDashboardRoute
   '/console/financa': typeof ConsoleFinancaRoute
   '/console/pedidos': typeof ConsolePedidosRoute
-  '/menu/$categoriaId': typeof MenuCategoriaIdRoute
+  '/menu/$categoryId': typeof MenuCategoryIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -69,7 +69,7 @@ export interface FileRoutesByTo {
   '/console/dashboard': typeof ConsoleDashboardRoute
   '/console/financa': typeof ConsoleFinancaRoute
   '/console/pedidos': typeof ConsolePedidosRoute
-  '/menu/$categoriaId': typeof MenuCategoriaIdRoute
+  '/menu/$categoryId': typeof MenuCategoryIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -79,7 +79,7 @@ export interface FileRoutesById {
   '/console/dashboard': typeof ConsoleDashboardRoute
   '/console/financa': typeof ConsoleFinancaRoute
   '/console/pedidos': typeof ConsolePedidosRoute
-  '/menu/$categoriaId': typeof MenuCategoriaIdRoute
+  '/menu/$categoryId': typeof MenuCategoryIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -90,7 +90,7 @@ export interface FileRouteTypes {
     | '/console/dashboard'
     | '/console/financa'
     | '/console/pedidos'
-    | '/menu/$categoriaId'
+    | '/menu/$categoryId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -99,7 +99,7 @@ export interface FileRouteTypes {
     | '/console/dashboard'
     | '/console/financa'
     | '/console/pedidos'
-    | '/menu/$categoriaId'
+    | '/menu/$categoryId'
   id:
     | '__root__'
     | '/'
@@ -108,7 +108,7 @@ export interface FileRouteTypes {
     | '/console/dashboard'
     | '/console/financa'
     | '/console/pedidos'
-    | '/menu/$categoriaId'
+    | '/menu/$categoryId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -140,11 +140,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/menu/$categoriaId': {
-      id: '/menu/$categoriaId'
-      path: '/$categoriaId'
-      fullPath: '/menu/$categoriaId'
-      preLoaderRoute: typeof MenuCategoriaIdRouteImport
+    '/menu/$categoryId': {
+      id: '/menu/$categoryId'
+      path: '/$categoryId'
+      fullPath: '/menu/$categoryId'
+      preLoaderRoute: typeof MenuCategoryIdRouteImport
       parentRoute: typeof MenuRoute
     }
     '/console/pedidos': {
@@ -187,11 +187,11 @@ const ConsoleRouteWithChildren =
   ConsoleRoute._addFileChildren(ConsoleRouteChildren)
 
 interface MenuRouteChildren {
-  MenuCategoriaIdRoute: typeof MenuCategoriaIdRoute
+  MenuCategoryIdRoute: typeof MenuCategoryIdRoute
 }
 
 const MenuRouteChildren: MenuRouteChildren = {
-  MenuCategoriaIdRoute: MenuCategoriaIdRoute,
+  MenuCategoryIdRoute: MenuCategoryIdRoute,
 }
 
 const MenuRouteWithChildren = MenuRoute._addFileChildren(MenuRouteChildren)

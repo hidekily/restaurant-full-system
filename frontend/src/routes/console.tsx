@@ -1,4 +1,4 @@
-import { createFileRoute, Outlet } from '@tanstack/react-router'
+import { createFileRoute, Outlet, useNavigate } from '@tanstack/react-router'
 import { authClient } from '../lib/auth-client'
 import { useState, useEffect } from 'react'
 
@@ -9,6 +9,7 @@ export const Route = createFileRoute('/console')({
 function RouteComponent() {
   const [session, setSession] = useState<any>(null)
   const [loading, setLoading] = useState(true)
+  const navigate = useNavigate()
 
   useEffect(() => {
     async function fetchSession() {
@@ -25,7 +26,14 @@ function RouteComponent() {
     fetchSession()
   }, [])
 
-  if (loading) {
+  useEffect(() => {
+    if(!loading && !session){
+      window.alert("precisar estar logado")
+      navigate({to:"/"})
+    }
+  }, [loading, session])
+
+  if (loading){
     return (
       <div className='loading-container'>
         <div className='flex flex-col items-center'>
@@ -34,6 +42,10 @@ function RouteComponent() {
         </div>
       </div>
     )
+  }
+
+  if(!session){
+    return null
   }
 
   return <Outlet />

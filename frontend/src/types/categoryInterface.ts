@@ -1,6 +1,6 @@
 export interface Categoria{
-    nome: string,
+    name: string,
     id: number, 
-    imagemUrl?: string
+    imageUrl?: string
 }
 

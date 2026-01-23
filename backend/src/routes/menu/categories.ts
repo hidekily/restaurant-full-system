@@ -5,7 +5,7 @@ import { category } from "../../../../shared/src/db/schema"
 export async function menuCategoriesRoutes(app: FastifyInstance) {
   // GET /api/menu/categories - Listar categorias (público)
   app.get("/", async (request, reply) => {
-    const categorias = await db.select().from(category)
-    return reply.send(categorias)
+    const categories = await db.select().from(category)
+    return reply.send(categories)
   })
 }

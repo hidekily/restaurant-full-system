@@ -1,5 +1,5 @@
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import {validatedData} from '../data/financa'
+import {validatedData} from '../types/financa'
 
 export const Example = () => {
   return (

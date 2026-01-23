@@ -1,5 +1,5 @@
 import { createFileRoute, Outlet} from '@tanstack/react-router'
-import { Categoria } from '@/data/categoryInterface'
+import { Categoria } from '@/types/categoryInterface'
 import { useEffect, useState} from 'react'
 import { CategoryCard } from '@/components/categorycards'
 
@@ -8,13 +8,13 @@ export const Route = createFileRoute('/menu')({
 })
 
 function RouteComponent() {
-  const [categorias, setCategorias] = useState<Categoria[]>([])
+  const [categories, setCategories] = useState<Categoria[]>([])
 
   useEffect(() =>{
     async function fetchCategorias(){
       const response = await fetch("http://localhost:3001/api/menu/categories")
       const data = await response.json()
-      setCategorias(data)
+      setCategories(data)
     }
 
     fetchCategorias()
@@ -24,8 +24,8 @@ function RouteComponent() {
     <div className='bg-neutral-200 h-full w-full overflow-auto'>
       <nav className='h-[15%] w-full fixed bg-zinc-800 overflow-auto'>
         <div className="w-auto h-full flex flex-row">
-          {categorias.map((categoria) => (
-            <CategoryCard key={categoria.id} nome={categoria.nome} imagemUrl={categoria.imagemUrl} id={categoria.id}/>
+          {categories.map((category) => (
+            <CategoryCard key={category.id} name={category.name} imageUrl={category.imageUrl} id={category.id}/>
           ))}
         </div>
       </nav>

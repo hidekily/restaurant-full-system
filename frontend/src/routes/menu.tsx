@@ -21,7 +21,7 @@ function RouteComponent() {
   }, [])
 
   return (
-    <div className='bg-neutral-200 h-full w-full overflow-auto'>
+    <div className='bg-zinc-700 h-full w-full overflow-auto'>
       <nav className='h-[15%] w-full fixed bg-zinc-800 overflow-auto'>
         <div className="w-auto h-full flex flex-row">
           {categories.map((category) => (

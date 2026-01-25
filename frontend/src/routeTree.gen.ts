@@ -16,6 +16,8 @@ import { Route as MenuCategoryIdRouteImport } from './routes/menu/$categoryId'
 import { Route as ConsolePedidosRouteImport } from './routes/console/pedidos'
 import { Route as ConsoleFinancaRouteImport } from './routes/console/financa'
 import { Route as ConsoleDashboardRouteImport } from './routes/console/dashboard'
+import { Route as ConsoleDashboardDelRouteImport } from './routes/console/dashboard/del'
+import { Route as ConsoleDashboardAddRouteImport } from './routes/console/dashboard/add'
 
 const MenuRoute = MenuRouteImport.update({
   id: '/menu',
@@ -52,34 +54,50 @@ const ConsoleDashboardRoute = ConsoleDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => ConsoleRoute,
 } as any)
+const ConsoleDashboardDelRoute = ConsoleDashboardDelRouteImport.update({
+  id: '/del',
+  path: '/del',
+  getParentRoute: () => ConsoleDashboardRoute,
+} as any)
+const ConsoleDashboardAddRoute = ConsoleDashboardAddRouteImport.update({
+  id: '/add',
+  path: '/add',
+  getParentRoute: () => ConsoleDashboardRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/console': typeof ConsoleRouteWithChildren
   '/menu': typeof MenuRouteWithChildren
-  '/console/dashboard': typeof ConsoleDashboardRoute
+  '/console/dashboard': typeof ConsoleDashboardRouteWithChildren
   '/console/financa': typeof ConsoleFinancaRoute
   '/console/pedidos': typeof ConsolePedidosRoute
   '/menu/$categoryId': typeof MenuCategoryIdRoute
+  '/console/dashboard/add': typeof ConsoleDashboardAddRoute
+  '/console/dashboard/del': typeof ConsoleDashboardDelRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/console': typeof ConsoleRouteWithChildren
   '/menu': typeof MenuRouteWithChildren
-  '/console/dashboard': typeof ConsoleDashboardRoute
+  '/console/dashboard': typeof ConsoleDashboardRouteWithChildren
   '/console/financa': typeof ConsoleFinancaRoute
   '/console/pedidos': typeof ConsolePedidosRoute
   '/menu/$categoryId': typeof MenuCategoryIdRoute
+  '/console/dashboard/add': typeof ConsoleDashboardAddRoute
+  '/console/dashboard/del': typeof ConsoleDashboardDelRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/console': typeof ConsoleRouteWithChildren
   '/menu': typeof MenuRouteWithChildren
-  '/console/dashboard': typeof ConsoleDashboardRoute
+  '/console/dashboard': typeof ConsoleDashboardRouteWithChildren
   '/console/financa': typeof ConsoleFinancaRoute
   '/console/pedidos': typeof ConsolePedidosRoute
   '/menu/$categoryId': typeof MenuCategoryIdRoute
+  '/console/dashboard/add': typeof ConsoleDashboardAddRoute
+  '/console/dashboard/del': typeof ConsoleDashboardDelRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,6 +109,8 @@ export interface FileRouteTypes {
     | '/console/financa'
     | '/console/pedidos'
     | '/menu/$categoryId'
+    | '/console/dashboard/add'
+    | '/console/dashboard/del'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -100,6 +120,8 @@ export interface FileRouteTypes {
     | '/console/financa'
     | '/console/pedidos'
     | '/menu/$categoryId'
+    | '/console/dashboard/add'
+    | '/console/dashboard/del'
   id:
     | '__root__'
     | '/'
@@ -109,6 +131,8 @@ export interface FileRouteTypes {
     | '/console/financa'
     | '/console/pedidos'
     | '/menu/$categoryId'
+    | '/console/dashboard/add'
+    | '/console/dashboard/del'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -168,17 +192,44 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConsoleDashboardRouteImport
       parentRoute: typeof ConsoleRoute
     }
+    '/console/dashboard/del': {
+      id: '/console/dashboard/del'
+      path: '/del'
+      fullPath: '/console/dashboard/del'
+      preLoaderRoute: typeof ConsoleDashboardDelRouteImport
+      parentRoute: typeof ConsoleDashboardRoute
+    }
+    '/console/dashboard/add': {
+      id: '/console/dashboard/add'
+      path: '/add'
+      fullPath: '/console/dashboard/add'
+      preLoaderRoute: typeof ConsoleDashboardAddRouteImport
+      parentRoute: typeof ConsoleDashboardRoute
+    }
   }
 }
 
+interface ConsoleDashboardRouteChildren {
+  ConsoleDashboardAddRoute: typeof ConsoleDashboardAddRoute
+  ConsoleDashboardDelRoute: typeof ConsoleDashboardDelRoute
+}
+
+const ConsoleDashboardRouteChildren: ConsoleDashboardRouteChildren = {
+  ConsoleDashboardAddRoute: ConsoleDashboardAddRoute,
+  ConsoleDashboardDelRoute: ConsoleDashboardDelRoute,
+}
+
+const ConsoleDashboardRouteWithChildren =
+  ConsoleDashboardRoute._addFileChildren(ConsoleDashboardRouteChildren)
+
 interface ConsoleRouteChildren {
-  ConsoleDashboardRoute: typeof ConsoleDashboardRoute
+  ConsoleDashboardRoute: typeof ConsoleDashboardRouteWithChildren
   ConsoleFinancaRoute: typeof ConsoleFinancaRoute
   ConsolePedidosRoute: typeof ConsolePedidosRoute
 }
 
 const ConsoleRouteChildren: ConsoleRouteChildren = {
-  ConsoleDashboardRoute: ConsoleDashboardRoute,
+  ConsoleDashboardRoute: ConsoleDashboardRouteWithChildren,
   ConsoleFinancaRoute: ConsoleFinancaRoute,
   ConsolePedidosRoute: ConsolePedidosRoute,
 }

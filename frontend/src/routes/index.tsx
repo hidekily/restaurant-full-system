@@ -39,24 +39,24 @@ function RouteComponent() {
                           flex flex-col bg-zinc-950 shadow-2xl shadow-red-500"
       >
 
-        <span className="flex justify-center items-center gap-2 text-5xl mt-5 text-red-500/50">
+        <span className="customfont flex justify-center items-center gap-2 text-5xl mt-5 text-red-500/50 mr-10 font-bold">
           <img src="/logo.jpg" alt="Logo" className="w-25 h-25 rounded-full text-red-600 border" />
           SynK
         </span>
 
         <hr className='h-[0.1rem] w-full bg-red-700 mt-4'/>
 
-        <section className='flex flex-row mt-12 bg-zinc-900 h-18 w-45 justify-center items-center rounded-full gap-4 text-red-700'>
+        <section className='flex flex-row border-red-700 border- mt-12 bg-zinc-900 h-18 w-45 justify-center items-center rounded-full gap-4 text-red-700'>
           <button onClick={() => {tryLogin('google')}} className='google text-white cursor-pointer'></button>
           google
         </section>
 
-        <section className='flex flex-row mt-7 bg-zinc-900 h-18 w-45 justify-center items-center rounded-full gap-4 text-red-700'>
+        <section className='flex flex-row border-red-700 border- mt-7 bg-zinc-900 h-18 w-45 justify-center items-center rounded-full gap-4 text-red-700'>
           <button onClick={() => {tryLogin('discord')}} className='discord text-white cursor-pointer'></button>
           discord
         </section>
 
-        <section className='flex flex-row mt-7 bg-zinc-900 h-18 w-45 justify-center items-center rounded-full gap-4 text-red-700'>
+        <section className='flex flex-row border-red-700 border- mt-7 bg-zinc-900 h-18 w-45 justify-center items-center rounded-full gap-4 text-red-700'>
           <button onClick={() => {tryLogin('github')}} className='github text-white cursor-pointer'></button>
           github
         </section>

@@ -131,7 +131,7 @@ export const menuItem = pgTable("menu_item", {
   available: boolean("available").default(true).notNull(),
   categoryId: integer("category_id")
     .notNull()
-    .references(() => category.id, { onDelete: "restrict" }),
+    .references(() => category.id, { onDelete: "cascade" }),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")
     .defaultNow()

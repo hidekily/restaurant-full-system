@@ -23,9 +23,17 @@ function RouteComponent() {
     <div className='bg-linear-to-br from-zinc-950 to-indigo-900 h-full w-full flex flex-col'>
         <NavbarComponent um="financa 🦦" dois="dashboard 🦦" linkOne='/console/financa' linkTwo='/console/dashboard'/>
 
-        <section className='h-[90%] w-100 bg-emerald-900 flex flex-col items-center text-white gap-10 mt-10 text-3xl'>
- 
-        </section>
+        <div className='flex flex-row h-full w-full items-center gap-5 overflow--auto'>
+          <section className='h-[90%] w-100 bg-zinc-900 flex flex-col items-center text-white gap-10 text-3xl'>
+            <p className='text-5xl text-green-400'>Mesa: 5</p>
+            <p className='text-5xl text-red-500'>11:54am</p>
+            <p className='text-lg'>PEDIDO</p>
+            <p className='text-lg'>PEDIDO</p>
+            <p className='text-lg'>PEDIDO</p>
+            <p className='text-lg'>PEDIDO</p>
+          </section>
+              
+        </div>
     </div>
   )
 }

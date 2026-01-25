@@ -1,18 +1,57 @@
-import { createFileRoute} from '@tanstack/react-router'
-import { useState } from 'react';
+import { createFileRoute, Link, Outlet} from '@tanstack/react-router'
+import { useState, useEffect } from 'react';
 import { NavbarComponent } from '@/components/dashboardUI/navbar';
+import { ConfirmModal } from '@/components/confirmModal';
 
 export const Route = createFileRoute('/console/dashboard')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  // imports e functions dentro do componente
-  const [nameCategory, setNameCategory] = useState<string>("")
-  const [imageUrl, setImageUrl] = useState<string>("")
-  const [nomeItem, setNomeItem] =  useState<string>("")
-  const [categoryId, setCategoryId] = useState<string>("")
-  const [preco, setPreco] = useState<string>("")
+  // ta confuso mas vou explicar 🦦🤓
+  const [nameCategory, setNameCategory] = useState<string>("") // this one sets category name in the input
+  const [imageUrl, setImageUrl] = useState<string>("") // this one sets image url in the input
+  const [nomeItem, setNomeItem] =  useState<string>("") // this one sets item name in the input
+  const [categoryId, setCategoryId] = useState<string>("") // this one sets category id in the input for item creation
+  const [preco, setPreco] = useState<string>("") // this one sets item price in the input
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [categoryDelete, setCategoryDelete] = useState<{id: number, name: string} | null>(null)
+  const [isCategory, setCategory] = useState<{id: number, name: string}[]>()
+
+  useEffect(() =>{
+    fetchCategorias()
+  }, [])
+
+  async function fetchCategorias(){
+    const response = await fetch("http://localhost:3001/api/menu/categories")
+    const data = await response.json()
+    setCategory(data)
+  }
+
+  async function OpenModal(e: React.FormEvent){
+    e.preventDefault()
+    setIsOpen(true)
+  }
+
+  async function handleDeleteCategory(){
+    const res = await fetch(`http://localhost:3001/api/admin/categories/${categoryId}`, {
+      method: "DELETE",
+      credentials: "include"
+    })
+    fetchCategorias()
+    setIsOpen(false)
+    setCategoryId("")
+  }
+
+  async function handleDeleteItem(){
+    const res = await fetch(`http://localhost:3001/api/admin/items/${nomeItem}`, {
+      method: "DELETE",
+      credentials: "include"
+    })
+    fetchCategorias()
+    setIsOpen(false)
+    setCategoryId("")
+  }
 
   async function handleSubmitItem(e: React.FormEvent){
     e.preventDefault()
@@ -34,7 +73,7 @@ function RouteComponent() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
 
-  const storeData = await
+  const storeDataCategory = await
      fetch("http://localhost:3001/api/admin/categories", {
       method: "POST",
       headers: {
@@ -48,57 +87,34 @@ function RouteComponent() {
   setImageUrl("")
   }
 
-
   // separacao para n ficar confuso o codigo
   return(
       <>
-        {/* condigo UI */}
-        <div className='bg-linear-to-br from-zinc-950 to-indigo-900 h-full w-full flex flex-col items-center'>
+        <ConfirmModal
+          title={`Delete this category? : ${categoryId}`} 
+          isOpen={isOpen} 
+          onConfirm={handleDeleteCategory} 
+          onCancel={() => setIsOpen(false)}
+        />
 
+        <div className='customfont bg-zinc-950 h-full w-full flex flex-col items-center'>
           {/* esta em /src/routes/components/UI */}
           <NavbarComponent um="financa 🦦" dois="pedidos 🦦" linkOne='/console/financa' linkTwo='/console/pedidos'/>
 
-          <section className='h-[105%] w-full grid grid-cols-1 md:grid-cols-2 overflow-auto justify-items-center items-center gap-10 pt-4 px-4'>
-            <div className='input-box-dashboard'>
-              <h1 className='mt-4'>adicionar categoria 🐣</h1>
-              <form onSubmit={handleSubmit} className='flex flex-col items-center text-red-700 gap-8 mt-10'>
-                <input type="text" className='input-dashboard' placeholder='topic name' value={nameCategory} onChange={(e) => {setNameCategory(e.target.value)}}/>
-                <input type="text" placeholder='image URL(optional)' className='input-dashboard' value={imageUrl} onChange={(e) => {setImageUrl(e.target.value)}}/>
-                <hr className='h-[0.1rem] w-full'/> 
-                <input type="submit" value="submit" className='input-dashboard'/>
-              </form>
-            </div>
+          <div className='flex flex-row w-full h-full bg-teal-400'>
+            <section className='w-[20%] bg-zinc-800 border-r-2 border-red-500 flex flex-col gap-10 p-4 items-center'>
+              <Link to="/console/dashboard/add" className='w-40 h-15 bg-zinc-900 rounded-2xl flex justify-center items-center mt-10 text-green-400'>
+                Add Item
+              </Link>
+              <Link to="/console/dashboard/del" className='w-40 h-15 bg-zinc-900 rounded-2xl flex justify-center items-center text-red-500'>
+                Delete Item
+              </Link>
+            </section>
 
-            <div className='input-box-dashboard'>
-              <h1 className='mt-3'>adicionar itens 🐣</h1>
-              <form onSubmit={handleSubmitItem} className='flex flex-col items-center text-red-700 gap-4 mt-8'>
-                <input type="text" className='input-dashboard' placeholder='item name' value={nomeItem} onChange={(e) =>{setNomeItem(e.target.value)}}/>
-                <input type="number" className='input-dashboard' placeholder='price' value={preco} onChange={(e) =>{setPreco(e.target.value)}}/>
-                <input type="text"  className='input-dashboard' placeholder='which topic' value={categoryId} onChange={(e) =>{setCategoryId(e.target.value)}}/>
-                <hr className='h-[0.1rem] w-full'/>
-                <input type="submit" value="submit" className='input-dashboard'/>
-              </form>
-            </div>
-
-             <div className='input-box-dashboard'>
-              <h1 className='mt-3'>delete category 🗑️</h1>
-              <form  className='flex flex-col items-center text-red-700 gap-8 mt-8'>
-                <input type="text" className='input-dashboard' placeholder='category id' value={categoryId} onChange={(e) =>{setCategoryId(e.target.value)}}/>
-                <hr className='h-[0.1rem] w-full'/>
-                <input type="submit" value="submit" className='input-dashboard'/>
-              </form>
-            </div>
-
-             <div className='input-box-dashboard'>
-              <h1 className='mt-3'>delete item 🗑️</h1>
-              <form  className='flex flex-col items-center text-red-700 gap-6 mt-8'>
-                <input type="text"  className='input-dashboard' placeholder='item name' value={nomeItem} onChange={(e) =>{setNomeItem(e.target.value)}}/>
-                <input type="text"  className='input-dashboard' placeholder='category id' value={categoryId} onChange={(e) =>{setCategoryId(e.target.value)}}/>
-                <hr className='h-[0.1rem] w-full'/>
-                <input type="submit" value="submit" className='input-dashboard'/>
-              </form>
-            </div>
-          </section>
+            <section className='w-[80%] bg-zinc-900'>
+              <Outlet />
+            </section>
+          </div>
         </div>
       </>
   ) 

@@ -54,3 +54,4 @@ If you wanna run all files at the same time, use
 pnpm -r dev
 ```
 in the root file
+

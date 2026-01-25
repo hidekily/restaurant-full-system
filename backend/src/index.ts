@@ -24,7 +24,8 @@ app.register(menuCategoriesRoutes, {
 })
 
 app.register(cors, {
-  origin: 'http://localhost:3000',
+  origin: ['http://localhost:3000'],
+  methods:["DELETE", "GET", "POST"],
   credentials: true,
 })
 

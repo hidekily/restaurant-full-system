@@ -1,6 +1,5 @@
-@import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=TASA+Explorer:wght@400..800&family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=TASA+Explorer:wght@400..800&family=Yrsa:ital,wght@0,300..700;1,300..700&family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap');
+@import "tailwindcss";
 
 .google, .discord, .github {
     height: 20px;
@@ -17,9 +16,9 @@
 }
 
 .customfont2 {
-  font-family: "Zalando Sans Expanded", sans-serif;
+  font-family: "Yrsa", serif;
   font-optical-sizing: auto;
-  font-weight: 400;
+  font-weight: bold;
   font-style: normal;
 }
 
@@ -35,64 +34,28 @@
     background-image: url('/github.png');
 }
 
-.input-box-dashboard{
-     @apply bg-zinc-950 text-white text-2xl;
+
+.outlet-dashboard{
+    @apply p-2 flex flex-col gap-4 h-full w-full;
 
     display: flex;
     flex-direction: column;
-    text-align: center;
 
-    height: 95%;
-    width: 85%;
+    justify-content: center;
+    align-items: center;
+}
 
-    border: red solid 1px;
-    border-radius: 15px;
+.input-box{
+    @apply border border-stone-500 rounded-md p-2 w-full h-[50%] text-2xl flex flex-col gap-4;
+}
+.input-box h1{
+    @apply text-indigo-500 text-4xl font-bold    ;
+}
+
+.input-form{
+    @apply flex flex-col justify-center items-center gap-4 mt-4 text-white;
 }
 
 .input-dashboard{
-    @apply bg-zinc-900 text-white text-sm w-[70%];
-
-    height: 45px;
-    width: 85%;
-    border: 1px solid rgb(63, 63, 70);
-    border-radius: 12px;
-    text-align: center;
-    padding: 0 16px;
-
-    transition: all 0.2s ease-in-out;
-    outline: none;
-}
-
-.input-dashboard::placeholder{
-    color: rgb(113, 113, 122);
-    font-weight: 300;
-}
-
-.input-dashboard:hover{
-    border-color: rgb(185, 28, 28);
-    background-color: rgb(24, 24, 27);
-}
-
-.input-dashboard:focus{
-    border-color: rgb(220, 38, 38);
-    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
-    background-color: rgb(24, 24, 27);
-}
-
-.input-dashboard[type="submit"]{
-    @apply bg-red-700 text-white font-semibold cursor-pointer;
-
-    border: none;
-    transition: all 0.2s ease-in-out;
-}
-
-.input-dashboard[type="submit"]:hover{
-    @apply bg-red-600;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
-}
-
-.input-dashboard[type="submit"]:active{
-    transform: translateY(0);
-    box-shadow: none;
+    @apply border border-stone-500 rounded-md p-2 w-1/2 text-2xl;
 }

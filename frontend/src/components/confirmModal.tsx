@@ -12,21 +12,17 @@ export function ConfirmModal({title, isOpen, onCancel, onConfirm}:ModalProps) {
 
     return(
      <>
-        <div className="fixed inset-0 bg-opacity-0 flex justify-center items-center border text-red-500">
-            <section className="w-[45vw] h-[40vh] bg-zinc-800 to-indigo-900 flex flex-col rounded-2xl">
-                <span className="h-[40%] w-full flex justify-center items-center">
-                    <p className="text-red-700 text-lg">{title}</p>
+        <div className="customfont2 inset-0 fixed bg-gray-800/50 flex justify-center items-center">
+            <section className="bg-zinc-800 w-[50%] h-[35%] flex flex-col items-center gap-15 rounded-4xl">
+                <span className="text-white text-3xl mt-5">
+                    <p className="">{title}</p>
                 </span>
-                <section className="h-[60%] w-full flex flex-row justify-center items-center gap-3 mb-5">
-                    <button className="bg-green-500 w-[40%] h-[20%] rounded-lg border-green-200 text-zinc-900" 
-                            onClick={onCancel} 
-                        >
-                            CANCEL
+                <section className="flex flex-row gap-10 w-full h-full justify-center items-center mb-4">
+                    <button className="w-[40%] h-[40%] bg-zinc-950 text-white rounded-2xl hover:mt-1" onClick={onCancel}>
+                        CANCEL
                     </button>
-                    <button className="bg-red-900 w-[40%] h-[20%] rounded-lg text-black" 
-                            onClick={onConfirm} 
-                        >
-                        CONFIRM
+                    <button className="w-[40%] h-[40%] bg-zinc-950 text-red-700 rounded-2xl hover:mt-1" onClick={onConfirm}>
+                        DELETE
                     </button>
                 </section>
             </section>

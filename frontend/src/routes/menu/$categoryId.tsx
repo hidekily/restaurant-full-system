@@ -31,9 +31,9 @@ function RouteComponent() {
   }, [categoryId])
 
   return (
-    <div className='bg-zinc-900 h-full w-full grid grid-cols-2 grid-rows-auto overflow-auto justify-items-center items-center mt-[7.9%] gap-2'>
+    <div className='h-full w-full grid grid-cols-2 grid-rows-auto overflow-auto justify-items-center mt-[4%]'>
       {items.map((item) => (
-        <div key={item.id} className='h-100 w-50 bg-teal-100 flex flex-col justify-center items-center'>
+        <div key={item.id} className='h-50 w-50 bg-teal-100 flex flex-col justify-center items-center gap-4 rounded-2xl'>
           <span>{item.name}</span>
           <span>R$ {item.price}</span>
         </div>

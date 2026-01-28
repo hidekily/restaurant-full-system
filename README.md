@@ -53,16 +53,3 @@ If you wanna run all files at the same time, use
 ```bash
 pnpm -r dev
 ```
-in the root file
-
-terça: aula das 12h ate as 15h
-
-quarta: livre
-
-quinta: aula das 15h30 ate as 18h30
-
-sexta: livre
-
-sab: vou trabalhar, entao vou ficar aqui ate no maximo 16h40
-
-dom: livre

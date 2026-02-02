@@ -7,14 +7,14 @@ export const Route = createFileRoute('/console/dashboard/add')({
 })
 
 function RouteComponent() {
-  const { categoryList, fetchCategories } = useDashboardStore()
+  const { categoryList, fetchCategories, itemList, fetchItems } = useDashboardStore()
 
   const [nameCategory, setNameCategory] = useState<string>("") // this one sets category name in the input
   const [imageUrl, setImageUrl] = useState<string>("") // this one sets image url in the input
   const [nomeItem, setNomeItem] =  useState<string>("") // this one sets item name in the input
   const [preco, setPreco] = useState<string>("") // this one sets item price in the input
   const [categoryId, setCategoryId] = useState<string>("") // this one sets category id in the input for item creation
-  
+
 
   useEffect(() =>{
     fetchCategories()
@@ -73,7 +73,12 @@ function RouteComponent() {
         <form onSubmit={handleSubmitItem} className='input-form'>
           <input type="text" className='input-dashboard' placeholder='item name' value={nomeItem} onChange={(e) =>{setNomeItem(e.target.value)}}/>
           <input type="number" className='input-dashboard' placeholder='price' value={preco} onChange={(e) =>{setPreco(e.target.value)}}/>
-          <input type="text" className='input-dashboard' placeholder='category id' value={categoryId} onChange={(e) =>{setCategoryId(e.target.value)}}/>
+          <select className='input-dashboard' value={categoryId} onChange={(e) => setCategoryId(e.target.value)}>
+            <option>seletiona uma categoria</option>
+            {categoryList.map((cat) =>(
+              <option key={cat.id} value={cat.id}>{cat.name}</option>
+            ))}
+          </select>
           <input type="submit" value="add" className='input-dashboard text-green-600'/>
         </form>
       </div>

@@ -45,11 +45,15 @@
     align-items: center;
 }
 
+.outlet-dashboard option{
+    @apply bg-zinc-700;
+}
+
 .input-box{
     @apply border border-stone-500 rounded-md p-2 w-full h-[50%] text-2xl flex flex-col gap-4;
 }
 .input-box h1{
-    @apply text-indigo-500 text-4xl font-bold    ;
+    @apply text-4xl font-bold;
 }
 
 .input-form{
@@ -58,4 +62,6 @@
 
 .input-dashboard{
     @apply border border-stone-500 rounded-md p-2 w-1/2 text-2xl;
+
+    transition: 1s;
 }

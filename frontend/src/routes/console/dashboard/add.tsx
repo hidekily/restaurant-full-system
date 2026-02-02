@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
-import { useDashboardStore } from '@/types/DashboardStore'
+import { useDashboardStore } from '@/types/dashboardStore'
 
 export const Route = createFileRoute('/console/dashboard/add')({
   component: RouteComponent,
@@ -14,6 +14,7 @@ function RouteComponent() {
   const [nomeItem, setNomeItem] =  useState<string>("") // this one sets item name in the input
   const [preco, setPreco] = useState<string>("") // this one sets item price in the input
   const [categoryId, setCategoryId] = useState<string>("") // this one sets category id in the input for item creation
+  
 
   useEffect(() =>{
     fetchCategories()
@@ -23,7 +24,7 @@ function RouteComponent() {
   async function handleSubmitItem(e: React.FormEvent){
     e.preventDefault()
 
-    const storeDataItem = await fetch("http://localhost:3001/api/admin/items", {
+    const storeDataItem = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/items`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -42,7 +43,7 @@ function RouteComponent() {
     e.preventDefault()
 
   const storeDataCategory = await
-     fetch("http://localhost:3001/api/admin/categories", {
+     fetch(`${import.meta.env.VITE_API_URL}/api/admin/categories`, {
       method: "POST",
       headers: {
        "Content-Type": "application/json"
@@ -59,7 +60,7 @@ function RouteComponent() {
   return(
     <div className='customfont outlet-dashboard'>
       <div className='input-box'>
-        <h1>add category🐣</h1>
+        <h1 className='text-green-400'>add category🐣</h1>
         <form onSubmit={handleSubmit} className='input-form'>
           <input type="text" className='input-dashboard' placeholder='topic name' value={nameCategory} onChange={(e) => {setNameCategory(e.target.value)}}/>
           <input type="text" placeholder='image URL (optional)' className='input-dashboard' value={imageUrl} onChange={(e) => {setImageUrl(e.target.value)}}/>
@@ -68,7 +69,7 @@ function RouteComponent() {
       </div>
 
       <div className='input-box'>
-        <h1>add items 🐣</h1>
+        <h1 className='text-green-400'>add items 🐣</h1>
         <form onSubmit={handleSubmitItem} className='input-form'>
           <input type="text" className='input-dashboard' placeholder='item name' value={nomeItem} onChange={(e) =>{setNomeItem(e.target.value)}}/>
           <input type="number" className='input-dashboard' placeholder='price' value={preco} onChange={(e) =>{setPreco(e.target.value)}}/>

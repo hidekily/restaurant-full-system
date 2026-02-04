@@ -33,9 +33,15 @@ function RouteComponent() {
   return (
     <div className='h-full w-full grid grid-cols-2 grid-rows-auto overflow-auto justify-items-center mt-[4%]'>
       {items.map((item) => (
-        <div key={item.id} className='h-50 w-50 bg-teal-100 flex flex-col justify-center items-center gap-4 rounded-2xl'>
-          <span>{item.name}</span>
-          <span>R$ {item.price}</span>
+        <div key={item.id} className='h-80 w-80 bg-zinc-900 flex flex-col justify-center items-center gap-4 rounded-2xl text-red-600'>
+          <div className='flex flex-col justify-center items-center gap-2'>
+            <span>{item.name}</span>
+            <span>{item.price}</span>
+          </div>
+          <div className='flex flex-row gap-5 justify-center item-center'>
+            <button className='button-add-menu'></button>
+            <button className='button-add-menu'></button>
+          </div>
         </div>
       ))}
     </div>

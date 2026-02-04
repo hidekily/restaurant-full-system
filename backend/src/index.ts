@@ -8,6 +8,7 @@ import { categoriesRoutes } from './routes/admin/categories'
 import { menuCategoriesRoutes } from './routes/menu/categories'
 import { menuItemsRoutes } from './routes/menu/items'
 import { itemsConfigureRoutes } from './routes/admin/menuItems'
+import { ordersRoutes } from './routes/admin/orders'
 
 const app = Fastify({ logger: true })
 
@@ -18,6 +19,10 @@ app.register(rateLimit, {
 })
 
 // Route registrations for /admin and /menu
+app.register(ordersRoutes, {
+  prefix: "/api/admin/orders"
+})
+
 app.register(itemsConfigureRoutes, {
   prefix: "/api/admin/items"
 })

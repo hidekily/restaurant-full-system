@@ -65,3 +65,11 @@
 
     transition: 1s;
 }
+
+.button-status{
+    @apply bg-zinc-700 rounded-lg w-[35%] h-[8%] border text-red-700 flex justify-center items-center;
+}
+
+.button-add-menu{
+    @apply rounded-lg h-10 w-15 border-1 text-white bg-teal-900;
+}

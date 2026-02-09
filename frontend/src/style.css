@@ -71,5 +71,5 @@
 }
 
 .button-add-menu{
-    @apply rounded-lg h-10 w-15 border-1 text-white bg-teal-900;
+    @apply rounded-lg border-1 bg-zinc-700 text-center;
 }

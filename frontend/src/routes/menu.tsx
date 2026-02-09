@@ -21,15 +21,25 @@ function RouteComponent() {
   }, [])
 
   return (
+    // modal
+    
+
+    // div da pagina como um todo
     <div className='bg-zinc-700 h-full w-full overflow-auto'>
       <nav className='h-[15%] w-full bg-zinc-800 overflow-auto border-b-1 text-white'>
         <div className="w-auto h-full flex flex-row">
           {categories.map((category) => (
             <CategoryCard key={category.id} name={category.name} imageUrl={category.imageUrl} id={category.id}/>
           ))}
+
+          <button
+            onClick={() => setCartModal(true)}
+            className="fixed bottom-6 right-6 h-14 w-14 rounded-full bg-red-600 text-white text-xl font-bold shadow-lg flex items-center justify-center z-50"
+          >
+          {itemsFromSchema.length}
+          </button>
         </div>
       </nav>
-
       <Outlet />
     </div>
   )

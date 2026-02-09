@@ -73,3 +73,11 @@
 .button-add-menu{
     @apply rounded-lg border-1 bg-zinc-700 text-center;
 }
+
+.carrinho{
+    @apply hover:bg-zinc-600 cursor-pointer;
+    background-image: url("/shopping-bag.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 50%;
+}

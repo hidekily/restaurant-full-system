@@ -22,7 +22,7 @@ function RootDocument() {
         <HeadContent />
       </head>
       <body>
-        <div className="h-[100vh] w-[100vw]">
+        <div className="h-screen w-screen">
           <Outlet />
         </div>
         <Scripts />

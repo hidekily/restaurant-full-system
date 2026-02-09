@@ -35,8 +35,8 @@ function RouteComponent() {
 
   return (
     <div className='bg-linear-to-br from-zinc-950 to-indigo-800 h-full w-full flex justify-center items-center'>
-      <section className="h-[85%] w-[35%] border-1 border-red-500 rounded-lg items-center
-                          flex flex-col bg-zinc-950 shadow-2xl shadow-red-500"
+      <section className="h-[85%] w-[35%] rounded-lg items-center
+                          flex flex-col bg-zinc-950 shadow-2xl shadow-teal-700"
       >
 
         <span className="customfont flex justify-center items-center gap-2 text-5xl mt-5 text-red-500/50 mr-10 font-bold">

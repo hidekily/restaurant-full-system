@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as MenuRouteImport } from './routes/menu'
 import { Route as ConsoleRouteImport } from './routes/console'
+import { Route as CartRouteImport } from './routes/cart'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as MenuCategoryIdRouteImport } from './routes/menu/$categoryId'
 import { Route as ConsolePedidosRouteImport } from './routes/console/pedidos'
@@ -27,6 +28,11 @@ const MenuRoute = MenuRouteImport.update({
 const ConsoleRoute = ConsoleRouteImport.update({
   id: '/console',
   path: '/console',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CartRoute = CartRouteImport.update({
+  id: '/cart',
+  path: '/cart',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -67,6 +73,7 @@ const ConsoleDashboardAddRoute = ConsoleDashboardAddRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cart': typeof CartRoute
   '/console': typeof ConsoleRouteWithChildren
   '/menu': typeof MenuRouteWithChildren
   '/console/dashboard': typeof ConsoleDashboardRouteWithChildren
@@ -78,6 +85,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/cart': typeof CartRoute
   '/console': typeof ConsoleRouteWithChildren
   '/menu': typeof MenuRouteWithChildren
   '/console/dashboard': typeof ConsoleDashboardRouteWithChildren
@@ -90,6 +98,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/cart': typeof CartRoute
   '/console': typeof ConsoleRouteWithChildren
   '/menu': typeof MenuRouteWithChildren
   '/console/dashboard': typeof ConsoleDashboardRouteWithChildren
@@ -103,6 +112,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/cart'
     | '/console'
     | '/menu'
     | '/console/dashboard'
@@ -114,6 +124,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/cart'
     | '/console'
     | '/menu'
     | '/console/dashboard'
@@ -125,6 +136,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/cart'
     | '/console'
     | '/menu'
     | '/console/dashboard'
@@ -137,6 +149,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CartRoute: typeof CartRoute
   ConsoleRoute: typeof ConsoleRouteWithChildren
   MenuRoute: typeof MenuRouteWithChildren
 }
@@ -155,6 +168,13 @@ declare module '@tanstack/react-router' {
       path: '/console'
       fullPath: '/console'
       preLoaderRoute: typeof ConsoleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cart': {
+      id: '/cart'
+      path: '/cart'
+      fullPath: '/cart'
+      preLoaderRoute: typeof CartRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -249,6 +269,7 @@ const MenuRouteWithChildren = MenuRoute._addFileChildren(MenuRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CartRoute: CartRoute,
   ConsoleRoute: ConsoleRouteWithChildren,
   MenuRoute: MenuRouteWithChildren,
 }

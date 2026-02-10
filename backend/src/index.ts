@@ -9,6 +9,7 @@ import { menuItemsRoutes } from './routes/menu/items.js'
 import { itemsConfigureRoutes } from './routes/admin/menuItems.js'
 import { ordersRoutes } from './routes/admin/orders.js'
 
+const port = Number(process.env.PORT) || 3001
 const app = Fastify({ logger: true })
 
 app.register(cors, {
@@ -80,7 +81,7 @@ app.all('/api/auth/*',
 
     reply.status(response.status)
 
-    response.headers.forEach((value, key) => {
+    response.headers.forEach((value: any, key: string | (string & Record<never, never>)) => {
       reply.header(key, value)
     })
 
@@ -88,7 +89,7 @@ app.all('/api/auth/*',
     return reply.send(body)
 })  
 
-app.listen({ port: 3001 }, (err, address) => {
+app.listen({ port, host: "0.0.0.0" }, (err, address) => {
   if (err) {
     app.log.error(err)
     process.exit(1)

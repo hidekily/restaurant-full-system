@@ -36,7 +36,7 @@ app.register(menuCategoriesRoutes, {
 })
 
 app.register(cors, {
-  origin: ['http://localhost:3000', 'https://synk-six.vercel.app/'],
+  origin: ['http://localhost:3000', 'https://ayusynk-gy0sivf7y-hidekilys-projects.vercel.app/'],
   methods:["DELETE", "GET", "POST", "PATCH"],
   credentials: true,
 })

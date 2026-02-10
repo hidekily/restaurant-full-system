@@ -1,7 +1,7 @@
 import { FastifyInstance } from "fastify";
 import { db } from "shared/db";
 import { category } from "shared/db/schema";
-import { verificarAdmin } from "../../middleware/auth";
+import { verificarAdmin } from "../../middleware/auth.js";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
 

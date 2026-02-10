@@ -4,11 +4,11 @@ import Fastify from 'fastify'
 import rateLimit from '@fastify/rate-limit'
 import cors from '@fastify/cors'
 import {auth} from "shared/auth"
-import { categoriesRoutes } from './routes/admin/categories'
-import { menuCategoriesRoutes } from './routes/menu/categories'
-import { menuItemsRoutes } from './routes/menu/items'
-import { itemsConfigureRoutes } from './routes/admin/menuItems'
-import { ordersRoutes } from './routes/admin/orders'
+import { categoriesRoutes } from './routes/admin/categories.js'
+import { menuCategoriesRoutes } from './routes/menu/categories.js'
+import { menuItemsRoutes } from './routes/menu/items.js'
+import { itemsConfigureRoutes } from './routes/admin/menuItems.js'
+import { ordersRoutes } from './routes/admin/orders.js'
 
 const app = Fastify({ logger: true })
 

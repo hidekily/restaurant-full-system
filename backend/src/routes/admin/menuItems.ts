@@ -1,5 +1,5 @@
 import { FastifyInstance } from "fastify";
-import { verificarAdmin } from "../../middleware/auth";
+import { verificarAdmin } from "../../middleware/auth.js";
 import { menuItem } from 'shared/db/schema';
 import { db } from "shared/db"; 
 import { eq } from "drizzle-orm";

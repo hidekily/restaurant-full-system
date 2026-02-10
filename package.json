@@ -1,9 +1,10 @@
 {
   "name": "relay",
   "private": true,
-  "scripts": {
-    "dev": "pnpm -r dev",
-    "dev:backend": "pnpm --filter backend dev",
-    "dev:frontend": "pnpm --filter frontend dev"
-  }
+"scripts": {
+  "dev": "pnpm -r dev",
+  "dev:backend": "pnpm --filter backend dev",
+  "dev:frontend": "pnpm --filter frontend dev",
+  "build:backend": "pnpm --filter shared build && pnpm --filter backend build"
+}
 }

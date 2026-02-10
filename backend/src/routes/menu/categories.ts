@@ -1,6 +1,6 @@
 import { FastifyInstance } from "fastify"
-import { db } from "../../../../shared/src/db"
-import { category } from "../../../../shared/src/db/schema"
+import { db } from "shared/db"
+import { category } from "shared/db/schema"
 
 export async function menuCategoriesRoutes(app: FastifyInstance) {
   // GET /api/menu/categories - Listar categorias (público)

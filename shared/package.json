@@ -2,10 +2,13 @@
   "name": "shared",
   "private": true,
   "type": "module",
+  "scripts": {
+  "build": "tsc"
+  },
   "exports": {
-    "./db": "./src/db/index.ts",
-    "./db/schema": "./src/db/schema.ts",
-    "./auth": "./src/auth/index.ts"
+  "./db": "./dist/db/index.js",
+  "./db/schema": "./dist/db/schema.js",
+  "./auth": "./dist/auth/index.js"
   },
   "dependencies": {
     "better-auth": "^1.4.10",

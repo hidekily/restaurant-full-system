@@ -81,8 +81,10 @@ app.all('/api/auth/*',
 
     reply.status(response.status)
 
-    response.headers.forEach((value: any, key: string | (string & Record<never, never>)) => {
-      reply.header(key, value)
+    response.headers.forEach((value: string, key: string) => {
+      if (!key.toLowerCase().startsWith("access-control")){
+        reply.header(key, value)
+      }
     })
 
     const body = await response.text()

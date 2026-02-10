@@ -1,5 +1,4 @@
 import 'dotenv/config'
-
 import Fastify from 'fastify'
 import rateLimit from '@fastify/rate-limit'
 import cors from '@fastify/cors'
@@ -11,6 +10,18 @@ import { itemsConfigureRoutes } from './routes/admin/menuItems.js'
 import { ordersRoutes } from './routes/admin/orders.js'
 
 const app = Fastify({ logger: true })
+
+app.register(cors, {
+  origin: (origin, cb) => {
+    if(!origin || origin.includes("localhost") || origin.includes("vercel.app")){
+      cb(null, true)
+    } else {
+      cb(new Error("Not allowed by CORS"), false)
+    }
+  },
+  methods:["DELETE", "GET", "POST", "PATCH"],
+  credentials: true,
+})
 
 // Global rate limit
 app.register(rateLimit, {
@@ -33,12 +44,6 @@ app.register(menuItemsRoutes, {
 
 app.register(menuCategoriesRoutes, {
   prefix: "/api/menu/categories"
-})
-
-app.register(cors, {
-  origin: ['http://localhost:3000', 'https://ayusynk-gy0sivf7y-hidekilys-projects.vercel.app/'],
-  methods:["DELETE", "GET", "POST", "PATCH"],
-  credentials: true,
 })
 
 app.register(categoriesRoutes, {

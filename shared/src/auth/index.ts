@@ -6,13 +6,8 @@ export const auth = betterAuth({
     database: drizzleAdapter(db, {
         provider: "pg", 
     }),
-    trustedOrigins: ['http://localhost:3000', '/\.vercel\.app$/'],
+    trustedOrigins: ['http://localhost:3000', 'https://ayusynk.vercel.app'],
     baseURL: process.env.AUTH_BASE_URL || 'http://localhost:3001',
-    
-    emailAndPassword: {
-        enabled: true,
-        enableEmailVerification: true,
-    },
 
     socialProviders: {
         google: {

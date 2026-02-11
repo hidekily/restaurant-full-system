@@ -20,6 +20,7 @@ app.register(cors, {
       cb(new Error("Not allowed by CORS"), false)
     }
   },
+  
   methods:["DELETE", "GET", "POST", "PATCH", "OPTIONS"],
   credentials: true,
 })

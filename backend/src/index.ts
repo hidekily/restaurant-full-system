@@ -62,6 +62,13 @@ app.all('/api/auth/*',
 
   async (request, reply) => {
     if(request.method === 'OPTIONS') {
+      const origin = request.headers.origin
+      if (origin && (origin.includes('localhost') || origin.includes('vercel.app'))) {
+        reply.header('Access-Control-Allow-Origin', origin)
+        reply.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS')
+        reply.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+        reply.header('Access-Control-Allow-Credentials', 'true')
+      }
       return reply.status(204).send()
     }
 

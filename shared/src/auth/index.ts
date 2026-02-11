@@ -8,6 +8,17 @@ export const auth = betterAuth({
     }),
     trustedOrigins: ['http://localhost:3000', 'https://ayusynk.vercel.app'],
     baseURL: process.env.BETTER_AUTH_URL || 'http://localhost:3001',
+
+    advanced:{
+        crossSubDomainCookies: {
+            enabled: false,
+        },
+        defaultCookieAttributes: {
+            sameSite: "none",
+            secure: true,
+        },
+    },
+
     socialProviders: {
         google: {
             prompt: "select_account",

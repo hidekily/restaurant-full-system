@@ -8,6 +8,7 @@ import { menuCategoriesRoutes } from './routes/menu/categories.js'
 import { menuItemsRoutes } from './routes/menu/items.js'
 import { itemsConfigureRoutes } from './routes/admin/menuItems.js'
 import { ordersRoutes } from './routes/admin/orders.js'
+import { request } from 'http'
 
 const port = Number(process.env.PORT) || 3001
 const app = Fastify({ logger: true })
@@ -51,10 +52,6 @@ app.register(categoriesRoutes, {
   prefix: '/api/admin/categories'
 })
 
-app.options('/api/auth/*', async (request, reply) => {
-  return reply.status(204).send()
-})
-
 app.all('/api/auth/*', 
   {config: {
     rateLimit: {
@@ -62,7 +59,12 @@ app.all('/api/auth/*',
       timeWindow: '1 minute'
     }
   }}, 
+
   async (request, reply) => {
+    if(request.method === 'OPTIONS') {
+      return reply.status(204).send()
+    }
+
     const url = new URL(request.url, `http://${request.headers.host}`)
 
     let bodyText = undefined

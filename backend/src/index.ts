@@ -94,11 +94,14 @@ app.all('/api/auth/*',
 
     reply.status(response.status)
 
-    response.headers.forEach((value: string, key: string) => {
-      if (!key.toLowerCase().startsWith("access-control")){
+    for (const [key, value] of response.headers.entries()) {
+      if (!key.toLowerCase().startsWith("access-control") && key.toLowerCase() !== 'set-cookie') {
         reply.header(key, value)
       }
-    })
+    }
+    for (const cookie of response.headers.getSetCookie()) {
+      reply.header('set-cookie', cookie)
+    }
 
     const body = await response.text()
     return reply.send(body)

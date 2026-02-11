@@ -7,8 +7,8 @@ export const auth = betterAuth({
         provider: "pg", 
     }),
     trustedOrigins: ['http://localhost:3000', 'https://ayusynk.vercel.app'],
-    baseURL: process.env.AUTH_BASE_URL || 'http://localhost:3001',
-
+    baseURL: process.env.BETTER_AUTH_URL || 'http://localhost:3001',
+    
     socialProviders: {
         google: {
             prompt: "select_account",

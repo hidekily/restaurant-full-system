@@ -105,7 +105,7 @@ app.all('/api/auth/*',
 
 const start = async () => {
   try {
-    await app.listen({ port, host: '0.0.0.0' })
+    await app.listen({ port, host: '::' })
     console.log(`🚀 Backend rodando na porta ${port}`)
   } catch (err) {
     app.log.error(err)

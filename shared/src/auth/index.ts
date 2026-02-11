@@ -1,33 +1,18 @@
 import { betterAuth } from "better-auth"
 import { drizzleAdapter } from "better-auth/adapters/drizzle"
-import { emailOTP } from "better-auth/plugins/email-otp"
 import { db } from "../db/index.js"
 
 export const auth = betterAuth({
     database: drizzleAdapter(db, {
         provider: "pg", 
     }),
-    trustedOrigins: ['http://localhost:3000'],
-    baseURL: 'http://localhost:3001',
+    trustedOrigins: ['http://localhost:3000', '/\.vercel\.app$/'],
+    baseURL: process.env.AUTH_BASE_URL || 'http://localhost:3001',
     
     emailAndPassword: {
         enabled: true,
         enableEmailVerification: true,
     },
-
-    plugins: [
-        emailOTP({
-            async sendVerificationOTP({ email, otp, type }) {
-                if (type === "sign-in") {
-
-                } else if (type === "email-verification") {
-
-                } else {
-
-                }
-            },
-        })
-    ],
 
     socialProviders: {
         google: {

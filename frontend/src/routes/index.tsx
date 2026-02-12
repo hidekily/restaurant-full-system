@@ -1,6 +1,7 @@
 import { createFileRoute} from '@tanstack/react-router'
 import {authClient} from '../lib/auth-client'
 import {rateLimit, throttle} from '@tanstack/react-pacer'
+import { useEffect } from 'react';
 
 export const Route = createFileRoute('/')({
   component: RouteComponent,
@@ -30,6 +31,17 @@ function RouteComponent() {
       },
     }
   )
+
+  useEffect(() => {
+  const params = new URLSearchParams(window.location.search)
+  if (params.get('error')) {
+    authClient.getSession().then((session) => {
+      if (session.data) {
+        window.location.href = '/console/dashboard'
+      }
+    })
+  }
+}, [])
 
   return (
     <div className='bg-linear-to-br from-zinc-950 to-indigo-800 h-full w-full flex justify-center items-center'>

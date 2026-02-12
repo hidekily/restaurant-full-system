@@ -2,13 +2,23 @@ import { createFileRoute, Link, Outlet} from '@tanstack/react-router'
 import { Categoria } from '@/types/categoryInterface'
 import { useEffect, useState} from 'react'
 import { CategoryCard } from '@/components/categorycards'
+import {z} from 'zod'
+import { useCartStore } from '@/types/useCartStore'
+import { useSearch } from '@tanstack/react-router'
+
+const validateSearchParams = z.object({
+  table: z.string().optional()
+})
 
 export const Route = createFileRoute('/menu')({
-  component: RouteComponent,
+  validateSearch: validateSearchParams,
+  component: RouteComponent,  
 })
 
 function RouteComponent() {
   const [categories, setCategories] = useState<Categoria[]>([])
+  const { setTableId } = useCartStore()
+  const search = useSearch({from: '/menu'})
 
   useEffect(() =>{
     async function fetchCategorias(){
@@ -16,14 +26,16 @@ function RouteComponent() {
       const data = await response.json()
       setCategories(data)
     }
-
     fetchCategorias()
   }, [])
 
-  return (
-    // modal
-    
+  useEffect(() => {
+    if(search.table) {
+      setTableId(search.table)
+    }
+  }, [search.table, setTableId])
 
+  return (
     // div da pagina como um todo
     <div className='bg-zinc-700 h-full w-full overflow-auto'>
       <nav className='h-[15%] w-full bg-zinc-800 overflow-auto border-b-1 text-white'>

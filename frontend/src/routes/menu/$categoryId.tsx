@@ -70,7 +70,7 @@ function RouteComponent() {
         </div>
       ))}
 
-      {totalItems > 0 && (
+      {totalItems >= 0 && (
         <button
           onClick={handleAddAllToCart}
           className='fixed bottom-6 left-1/2 -translate-x-1/2 bg-red-600 text-white px-8 py-4 rounded-full text-lg font-bold shadow-lg z-50'

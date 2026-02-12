@@ -6,8 +6,6 @@ export const Route = createFileRoute('/')({
   component: RouteComponent,
 })
 
-
-
 function RouteComponent() {
   const getRedirectURL = () => window.location.origin + "/console/dashboard";
 

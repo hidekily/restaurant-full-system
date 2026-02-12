@@ -52,6 +52,14 @@ app.register(categoriesRoutes, {
   prefix: '/api/admin/categories'
 })
 
+app.get('/', async (request, reply) => {
+  const error = (request.query as any).error
+  if (error) {
+    return reply.redirect(`https://ayusynk.vercel.app/?error=${error}`)
+  }
+  return reply.status(404).send({ error: 'Not found' })
+})
+
 app.all('/api/auth/*', 
   {config: {
     rateLimit: {
@@ -91,10 +99,6 @@ app.all('/api/auth/*',
     })
 
     const response = await auth.handler(webRequest)
-
-    if (request.url.includes('/callback/')) {
-      console.log('CALLBACK COOKIES:', request.headers.cookie)
-    }
 
     reply.status(response.status)
 

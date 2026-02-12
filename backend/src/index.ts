@@ -73,7 +73,7 @@ app.all('/api/auth/*',
     }
 
     const url = new URL(request.url, process.env.BETTER_AUTH_URL || `http://${request.headers.host}`)
-    
+
     let bodyText = undefined
     if (request.method !== 'GET' && request.method !== 'HEAD') {
       bodyText = JSON.stringify(request.body)
@@ -91,6 +91,10 @@ app.all('/api/auth/*',
     })
 
     const response = await auth.handler(webRequest)
+
+    if (request.url.includes('/callback/')) {
+      console.log('CALLBACK COOKIES:', request.headers.cookie)
+    }
 
     reply.status(response.status)
 

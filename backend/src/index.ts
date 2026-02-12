@@ -72,8 +72,8 @@ app.all('/api/auth/*',
       return reply.status(204).send()
     }
 
-    const url = new URL(request.url, `http://${request.headers.host}`)
-
+    const url = new URL(request.url, process.env.BETTER_AUTH_URL || `http://${request.headers.host}`)
+    
     let bodyText = undefined
     if (request.method !== 'GET' && request.method !== 'HEAD') {
       bodyText = JSON.stringify(request.body)

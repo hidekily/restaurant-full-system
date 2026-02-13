@@ -7,8 +7,7 @@ export declare const auth: import("better-auth").Auth<{
             sameSite: "none";
             secure: true;
         };
-    } | {
-        defaultCookieAttributes?: undefined;
+        skipStateCookieCheck: boolean;
     };
     socialProviders: {
         google: {

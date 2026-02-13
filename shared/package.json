@@ -3,15 +3,15 @@
   "private": true,
   "type": "module",
   "scripts": {
-  "build": "tsc"
+    "build": "tsc"
   },
   "exports": {
-  "./db": "./dist/db/index.js",
-  "./db/schema": "./dist/db/schema.js",
-  "./auth": "./dist/auth/index.js"
+    "./db": "./dist/db/index.js",
+    "./db/schema": "./dist/db/schema.js",
+    "./auth": "./dist/auth/index.js"
   },
   "dependencies": {
-    "better-auth": "^1.4.10",
+    "better-auth": "^1.4.18",
     "drizzle-orm": "^0.45.0",
     "pg": "^8.16.3"
   },

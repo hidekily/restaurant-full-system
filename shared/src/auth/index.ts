@@ -16,7 +16,10 @@ export const auth = betterAuth({
         defaultCookieAttributes: {
             sameSite: "none",
             secure: true,
+            
         },
+        skipCSRFCheck: false,
+        skipStateCookieCheck: true,
     } : {},
 
     socialProviders: {

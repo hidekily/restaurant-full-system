@@ -115,6 +115,10 @@ app.all('/api/auth/*',
     return reply.send(body)
 })  
 
+  app.setNotFoundHandler((request, reply) => {
+    reply.redirect(`https://ayusynk.vercel.app${request.url}`)
+  })
+
 const start = async () => {
   try {
     await app.listen({ port, host: '::' })

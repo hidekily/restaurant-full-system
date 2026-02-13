@@ -7,6 +7,8 @@ export declare const auth: import("better-auth").Auth<{
             sameSite: "none";
             secure: true;
         };
+    };
+    oauthConfig: {
         skipStateCookieCheck: boolean;
     };
     socialProviders: {

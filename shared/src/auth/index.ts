@@ -16,10 +16,6 @@ export const auth = betterAuth({
         },
     },
 
-    account: {
-        skipStateCookieCheck: true,
-    },
-
     socialProviders: {
         google: {
             prompt: "select_account",

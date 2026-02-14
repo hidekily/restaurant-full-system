@@ -16,7 +16,7 @@ export const auth = betterAuth({
         },
     },
 
-    oauthConfig: {
+    account: {
         skipStateCookieCheck: true,
     },
 

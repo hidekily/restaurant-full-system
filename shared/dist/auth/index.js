@@ -13,7 +13,7 @@ export const auth = betterAuth({
             secure: true,
         },
     },
-    oauthConfig: {
+    account: {
         skipStateCookieCheck: true,
     },
     socialProviders: {

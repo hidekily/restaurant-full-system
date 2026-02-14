@@ -8,8 +8,8 @@ export declare const auth: import("better-auth").Auth<{
             secure: true;
         };
     };
-    oauthConfig: {
-        skipStateCookieCheck: boolean;
+    account: {
+        skipStateCookieCheck: true;
     };
     socialProviders: {
         google: {

@@ -52,14 +52,6 @@ app.register(categoriesRoutes, {
   prefix: '/api/admin/categories'
 })
 
-app.get('/', async (request, reply) => {
-  const error = (request.query as any).error
-  if (error) {
-    return reply.redirect(`https://ayusynk.vercel.app/?error=${error}`)
-  }
-  return reply.status(404).send({ error: 'Not found' })
-})
-
 app.all('/api/auth/*', 
   {config: {
     rateLimit: {
@@ -80,7 +72,7 @@ app.all('/api/auth/*',
       return reply.status(204).send()
     }
 
-    const url = new URL(request.url, process.env.BETTER_AUTH_URL || `http://${request.headers.host}`)
+    const url = new URL(request.url, `http://${request.headers.host}`)
 
     let bodyText = undefined
     if (request.method !== 'GET' && request.method !== 'HEAD') {
@@ -114,10 +106,6 @@ app.all('/api/auth/*',
     const body = await response.text()
     return reply.send(body)
 })  
-
-  app.setNotFoundHandler((request, reply) => {
-    reply.redirect(`https://ayusynk.vercel.app${request.url}`)
-  })
 
 const start = async () => {
   try {

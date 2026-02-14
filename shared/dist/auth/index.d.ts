@@ -3,13 +3,13 @@ export declare const auth: import("better-auth").Auth<{
     trustedOrigins: string[];
     baseURL: string;
     advanced: {
+        crossSubDomainCookies: {
+            enabled: false;
+        };
         defaultCookieAttributes: {
             sameSite: "none";
             secure: true;
         };
-    };
-    account: {
-        skipStateCookieCheck: true;
     };
     socialProviders: {
         google: {

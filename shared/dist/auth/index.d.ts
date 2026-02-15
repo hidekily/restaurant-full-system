@@ -7,7 +7,6 @@ export declare const auth: import("better-auth").Auth<{
             enabled: false;
         };
         defaultCookieAttributes: {
-            sameSite: "none";
             secure: true;
         };
     };

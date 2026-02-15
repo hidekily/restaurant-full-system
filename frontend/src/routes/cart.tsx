@@ -50,7 +50,7 @@ function RouteComponent() {
                         </div>
                     )
                 })}
-                <span>{totalPrice}</span>
+                <span>{`Total: R$  ` + totalPrice}</span>
             </div>
             <button className='w-[80%] h-[7%] bg-zinc-600 rounded-2xl'>
                 Finalizar Pedido

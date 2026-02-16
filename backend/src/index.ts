@@ -14,7 +14,7 @@ const app = Fastify({ logger: true })
 
 app.register(cors, {
   origin: (origin, cb) => {
-    if(!origin || origin.includes("localhost") || origin.includes("vercel.app")){
+    if(!origin || origin.includes("localhost") || origin.includes("vercel.app") || origin.includes("xn--q9jyb4c")){
       cb(null, true)
     } else {
       cb(new Error("Not allowed by CORS"), false)
@@ -63,7 +63,7 @@ app.all('/api/auth/*',
   async (request, reply) => {
     if(request.method === 'OPTIONS') {
       const origin = request.headers.origin
-      if (origin && (origin.includes('localhost') || origin.includes('vercel.app'))) {
+        if (origin && (origin.includes('localhost') || origin.includes('vercel.app') || origin.includes('xn--q9jyb4c'))) {        
         reply.header('Access-Control-Allow-Origin', origin)
         reply.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS')
         reply.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')

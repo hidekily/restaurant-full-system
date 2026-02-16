@@ -8,14 +8,28 @@ export const Route = createFileRoute('/cart')({
 })
 
 function RouteComponent() {
-    const { items, tableId } = useCartStore()
+    const { items, tableId, clearCart } = useCartStore()
     const [cartItems, setCartItems] = useState<any[]>([])
-
 
     async function fetchCartItems() {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/api/menu/items/by-ids?ids=${items.map(item => item.menuItemId).join(',')}`)
         const data = await res.json()
         setCartItems(data)
+    }
+    
+    async function handleSubmitOrdersToOrderTab(){
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/menu/clientorders`, {
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify({tableId, items})
+        })
+
+        if(res.ok){
+            clearCart()
+            window.alert("order confirmed!")
+        }
     }
 
     useEffect(() => {
@@ -52,7 +66,7 @@ function RouteComponent() {
                 })}
                 <span>{`Total: R$  ` + totalPrice}</span>
             </div>
-            <button className='w-[80%] h-[7%] bg-zinc-600 rounded-2xl'>
+            <button className='w-[80%] h-[7%] bg-zinc-600 rounded-2xl' onClick={handleSubmitOrdersToOrderTab}>
                 Finalizar Pedido
             </button>
         </div>

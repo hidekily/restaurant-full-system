@@ -8,6 +8,7 @@ import { menuCategoriesRoutes } from './routes/menu/categories.js'
 import { menuItemsRoutes } from './routes/menu/items.js'
 import { itemsConfigureRoutes } from './routes/admin/menuItems.js'
 import { ordersRoutes } from './routes/admin/orders.js'
+import { clientOrders } from './routes/menu/orders.js'
 
 const port = Number(process.env.PORT) || 3001
 const app = Fastify({ logger: true })
@@ -34,6 +35,10 @@ app.register(rateLimit, {
 // Route registrations for /admin and /menu
 app.register(ordersRoutes, {
   prefix: "/api/admin/orders"
+})
+
+app.register(clientOrders,{
+  prefix:"/api/menu/clientorders"
 })
 
 app.register(itemsConfigureRoutes, {

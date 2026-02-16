@@ -37,16 +37,16 @@ function RouteComponent() {
     return (
         <div className='h-full w-full bg-zinc-800 flex flex-col justify-center items-center gap-4'>
             <Link to="/menu" className="text-white">Voltar ao Menu</Link>
-            <div className='w-[80%] h-[65%] bg-zinc-700 rounded-2xl flex flex-col justify-start items-center gap-4 p-4'>
+            <div className='w-[80%] h-[65%] bg-zinc-700 rounded-2xl flex flex-col justify-start items-center gap-4 p-4 overflow-auto'>
                 <span>{tableId}</span>
                 {items.map(item => {
                     const details = cartItems.find(ci => ci.id === item.menuItemId)
                     if(!details) return null
                     return (
                         <div key={item.menuItemId} className='flex justify-between items-center w-full bg-zinc-600 rounded-2xl p-4 text-white'>
-                         <span>{details.name}</span>
-                         <span>{details.price}</span>
-                        <span>{item.quantity}</span>
+                         <span>{ `Item: ` + details.name}</span>
+                         <span>{`Price: ` + details.price}</span>
+                        <span>{`quantity: ` + item.quantity}</span>
                         </div>
                     )
                 })}

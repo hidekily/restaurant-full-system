@@ -5,7 +5,7 @@ export const auth = betterAuth({
     database: drizzleAdapter(db, {
         provider: "pg",
     }),
-    trustedOrigins: ['http://localhost:3000', 'https://ayusynk.vercel.app'],
+    trustedOrigins: ['http://localhost:3000', 'https://ayusynk.vercel.app', 'https://synk.xn--q9jyb4c'],
     baseURL: process.env.BETTER_AUTH_URL || 'http://localhost:3001',
     advanced: {
         crossSubDomainCookies: {

@@ -1,4 +1,6 @@
-import {create} from 'zustand'
+
+import { create } from 'zustand'
+import { createJSONStorage, persist } from 'zustand/middleware'
 
 interface CartItem {
   menuItemId: number
@@ -13,25 +15,33 @@ interface CartStore {
   setTableId: (tableId: string) => void
 }
 
-export const useCartStore = create<CartStore>((set) => ({
-  items: [],
-  tableId: "",
-  clearCart: () => set({ items: [] }),
-  setTableId: (tableId: string) => set((state) => ({ tableId: tableId})),
+export const useCartStore = create<CartStore>()(
+  persist(
+    (set) => ({
+      items: [],
+      tableId: "",
+      clearCart: () => set({ items: [] }),
+      setTableId: (tableId: string) => set({ tableId }),
 
-    addItem: (item: CartItem) => set((state) => {
-      const res = state.items.findIndex((comparing) => comparing.menuItemId === item.menuItemId)
-      
-      return res === - 1 ? 
-       {items: [...state.items, item]} 
-       :
-       {items: state.items.map((comparing) => 
-          comparing.menuItemId === item.menuItemId ? {
-            ...comparing, quantity: comparing.quantity + 1
-        } : comparing 
-      )}
-    })
+      addItem: (item: CartItem) => set((state) => {
+        const res = state.items.findIndex(
+          (comparing) => comparing.menuItemId === item.menuItemId
+        )
 
+        return res === -1
+          ? { items: [...state.items, item] }
+          : {
+              items: state.items.map((comparing) =>
+                comparing.menuItemId === item.menuItemId
+                  ? { ...comparing, quantity: comparing.quantity + item.quantity }
+                  : comparing
+              ),
+            }
+      }),
+    }),
+    {
+      name: 'cart-storage',
+      storage: createJSONStorage(() => sessionStorage),
     }
   )
 )

@@ -13,13 +13,15 @@ function RouteComponent() {
   const [orders, setOrders] = useState<OrderProps[]>([]);
 
   async function fetchOrders(){
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/orders)`)
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/orders`, {
+      credentials: "include"
+    })
     const data = await res.json()
     setOrders(data)
   }
 
   async function handleStatusCompleted(orderId: string) {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/orders/${orderId}}`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/orders/${orderId}`, {
     method: "PATCH", 
     headers:{
       "Content-Type" : "application/json" 
@@ -58,11 +60,11 @@ function RouteComponent() {
           {orders && orders.map && orders.map((order) => (
             <div className='bg-zinc-600 w-90 h-full'>
               <p>teste</p>
-              <p>{order.tableId}</p>
-              <p>{order.status}</p>
-              <p>{order.createdAt}</p>
+              <p>Table: {order.tableId}</p>
+              <p>Status: {order.status}</p>
+              <p>Data: {order.createdAt}</p>
               {order.items.map((items) => (
-                <p>{items.menuItemid}</p>
+                <p key={items.id}>{items.menuItem.name} | {items.quantity}X</p>
               ))}
               <div>
                 <button 

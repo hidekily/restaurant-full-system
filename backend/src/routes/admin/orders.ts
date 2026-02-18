@@ -55,7 +55,11 @@ export async function ordersRoutes(app: FastifyInstance){
     app.get("/", async(request, reply) => {
         const pedidos = await db.query.order.findMany({
             with:{
-                items: true,
+                items: {
+                    with: {
+                        menuItem: true
+                    }
+                },
                 table: true
             }
         })

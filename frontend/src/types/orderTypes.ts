@@ -4,6 +4,11 @@ interface itemsProps{
     done: boolean,
     quantity: number,
     unitPrice: number
+    menuItem: {
+        id: number,
+        name: string,
+        price: string
+    }
 }
   
 export interface OrderProps{

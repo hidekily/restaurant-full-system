@@ -7,7 +7,7 @@ import { useCartStore } from '@/types/useCartStore'
 import { useSearch } from '@tanstack/react-router'
 
 const validateSearchParams = z.object({
-  table: z.string().optional()
+  tableId: z.union([z.string(), z.number()]).transform(String).optional()
 })
 
 export const Route = createFileRoute('/menu')({
@@ -30,10 +30,13 @@ function RouteComponent() {
   }, [])
 
   useEffect(() => {
-    if(search.table) {
-      setTableId(search.table)
+    console.log("search object:", search)
+    console.log("search.table:", search.tableId)
+    if(search.tableId) {
+      console.log("Setting tableId:", search.tableId)
+      setTableId(String(search.tableId))
     }
-  }, [search.table, setTableId])
+  }, [search.tableId, setTableId])
 
   return (
     // div da pagina como um todo

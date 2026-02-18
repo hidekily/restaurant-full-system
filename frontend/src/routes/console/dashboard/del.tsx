@@ -58,7 +58,7 @@ function RouteComponent() {
                 <option key={cat.id} value={cat.id}>{cat.name}</option>
               ))}
             </select>
-            <input type="submit" value="delete" className="input-dashboard text-red-500" />
+            <input type="submit" value="delete" className="input-dashboard text-red-500 bg-black" />
           </form>
         </div>
 
@@ -77,7 +77,7 @@ function RouteComponent() {
                 <option key={item.id} value={item.id}>{item.name} - R${item.price}</option>
               ))}
             </select>
-            <input type="submit" value="delete" className="input-dashboard text-red-500" />
+            <input type="submit" value="delete" className="input-dashboard text-red-500 bg-black" />
           </form>
         </div>
       </div>

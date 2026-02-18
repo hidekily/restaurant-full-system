@@ -64,7 +64,7 @@ function RouteComponent() {
         <form onSubmit={handleSubmit} className='input-form'>
           <input type="text" className='input-dashboard' placeholder='topic name' value={nameCategory} onChange={(e) => {setNameCategory(e.target.value)}}/>
           <input type="text" placeholder='image URL (optional)' className='input-dashboard' value={imageUrl} onChange={(e) => {setImageUrl(e.target.value)}}/>
-          <input type="submit" value="add" className='input-dashboard text-green-600'/>
+          <input type="submit" value="add" className='input-dashboard text-green-600 bg-black'/>
         </form>
       </div>
 
@@ -79,7 +79,7 @@ function RouteComponent() {
               <option key={cat.id} value={cat.id}>{cat.name}</option>
             ))}
           </select>
-          <input type="submit" value="add" className='input-dashboard text-green-600'/>
+          <input type="submit" value="add" className='input-dashboard text-green-600 bg-black'/>
         </form>
       </div>
     </div>

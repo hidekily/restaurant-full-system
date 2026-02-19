@@ -3,7 +3,7 @@ import {validatedData} from '../types/financa'
 
 export const Example = () => {
   return (
-    <div style={{ minWidth: '0' ,width: '80%', height: '80%'}}>
+    <div style={{ minWidth: '1' ,width: '100%', height: '70%'}}>
       <ResponsiveContainer>
         <AreaChart
           data={validatedData}
@@ -18,7 +18,7 @@ export const Example = () => {
           <XAxis dataKey="name" />
           <YAxis />
           <Tooltip />
-          <Area type="monotone" dataKey="caixa" stroke="#8884d8" fill="#8884d8" />
+          <Area type="monotone" dataKey="caixa" stroke="#2c9481" fill="#4d6ee3" />
         </AreaChart>
       </ResponsiveContainer>
     </div>

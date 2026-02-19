@@ -67,7 +67,7 @@
 }
 
 .button-status{
-    @apply bg-zinc-700 rounded-lg w-[35%] h-[8%] border text-red-700 flex justify-center items-center;
+    @apply bg-zinc-700 rounded-lg w-25 h-10 border text-red-700 flex justify-center items-center;
 }
 
 .button-add-menu{

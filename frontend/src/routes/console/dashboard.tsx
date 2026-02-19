@@ -9,7 +9,7 @@ export const Route = createFileRoute('/console/dashboard')({
 })
 
 function RouteComponent() {
-  const [state, setState] = useState(false)
+  const [state, setState] = useState(true)
 
   return (
     // O Provider "coloca na mesa" os dados

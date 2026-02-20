@@ -1,7 +1,5 @@
 import Example from '@/components/recharts'
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { authClient } from '../../lib/auth-client'
-import { useState, useEffect } from 'react'
 import { FinanceContainer } from '@/components/financeContainer'
 import { NavbarComponent } from '@/components/dashboardUI/navbar';
 
@@ -10,16 +8,6 @@ export const Route = createFileRoute('/console/financa')({
 })
 
 function RouteComponent() {
-  const [session, setSession] = useState<any>(null);
-
-  async function fetchSession(){
-    const {data} = await authClient.getSession();
-    setSession(data);
-  }
-
-  useEffect (() => {
-    fetchSession();
-  }, [])
 
   return (
     <div className='bg-linear-to-br from-zinc-950 to-indigo-900 h-full w-full flex flex-col items-center'>

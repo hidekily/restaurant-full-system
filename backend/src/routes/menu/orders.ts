@@ -46,6 +46,6 @@ export function clientOrders(app: FastifyInstance){
 
         const [newOrderItems] = await db.insert(orderItem).values(storeOrderItemsValues).returning()
 
-        return reply.status(204).send({data: {newOrderItems, newOrderTableId}, message:"deu certo"})
+        return reply.status(201).send({data: {newOrderItems, newOrderTableId}, message:"deu certo"})
     })
 }

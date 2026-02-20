@@ -50,6 +50,10 @@ export async function categoriesRoutes(app: FastifyInstance){
 
     const parseResult = idParamsSchema.safeParse({ id })
 
+    if(!parseResult.success){
+      return reply.status(400).send("id invalido")
+    }
+
     await db.delete(category).where(eq(category.id, Number(id)))
 
     return reply.status(201).send({message:"success  on deleting your category 🦦"})

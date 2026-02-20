@@ -1,7 +1,7 @@
 import { FastifyInstance } from "fastify";
 import { db } from "shared/db";
 import { eq } from "drizzle-orm";
-import { number, z } from "zod"
+import { z } from "zod"
 import { diningTable } from "shared/db/schema";
 import { verificarAdmin } from "../../middleware/auth";
 

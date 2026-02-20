@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect} from 'react'
+import { useDashboardStore } from '@/types/dashboardStore'
 
 export function TablesComponent() {
   const [tableNum, setTableNum] = useState<string>("")
   const [area, setArea] = useState<string>("")
+  const {tablesList, fetchTables} = useDashboardStore()
 
   async function handleSubmitTableNum(e: React.FormEvent){
     e.preventDefault()
@@ -18,6 +20,7 @@ export function TablesComponent() {
 
     setArea('')
     setTableNum("")
+    fetchTables()
   }
 
   async function handleDeleteTableNum(e: React.FormEvent){
@@ -28,9 +31,13 @@ export function TablesComponent() {
       credentials: "include"
     })
 
-    setArea('')
     setTableNum('')
+    fetchTables()
   }
+
+  useEffect(() =>{
+    fetchTables()
+  }, [])
 
   return(
     <div className='customfont outlet-dashboard'>
@@ -50,7 +57,12 @@ export function TablesComponent() {
       <div className='input-box'>
         <h1 className='text-red-500'>delete table</h1>
         <form className='input-form' onSubmit={handleDeleteTableNum}>
-          <input placeholder='delete uma mesa' value={tableNum} className='input-dashboard' onChange={(e) => setTableNum(e.target.value)}/>
+          <select value={tableNum} onChange={(e) => setTableNum(e.target.value)} className='input-dashboard'>
+            <option>Selecione uma categoria</option>
+            {tablesList.map((table) => (
+              <option key={table.id} value={table.id}>{table.number} | {table.area}</option>
+            ))}
+          </select>
           <input value="delete" type="submit" className='input-dashboard text-red-500 bg-black'/>
         </form>
       </div>

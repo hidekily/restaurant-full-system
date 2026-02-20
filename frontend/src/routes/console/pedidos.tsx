@@ -26,8 +26,11 @@ function RouteComponent() {
     headers:{
       "Content-Type" : "application/json" 
     },
+    credentials: "include",
     body: JSON.stringify({status: "completed"})
     })
+
+    fetchOrders()
   }
 
   async function handleStatusOnHold(orderId: string) {
@@ -36,19 +39,14 @@ function RouteComponent() {
     headers:{
       "Content-Type" : "application/json" 
     },
+    credentials: "include",
     body: JSON.stringify({status: "onhold"})
     })
 
     fetchOrders()
   }
 
-  async function fetchSession(){
-    const {data} = await authClient.getSession();
-    setSession(data);
-  }
-
   useEffect (() => {
-    fetchSession();
     fetchOrders();
   }, [])
 

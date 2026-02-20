@@ -44,6 +44,10 @@ export async function itemsConfigureRoutes(app: FastifyInstance){
 
         const parseResult = idParamsSchema.safeParse({id})
 
+        if(!parseResult.success){
+            return reply.status(400).send("id invalido")
+        }
+
         await db.delete(menuItem).where(eq(menuItem.id, Number(id)))
     
         return reply.status(200).send({data:parseResult, message: "success on deleting your item🦦" })

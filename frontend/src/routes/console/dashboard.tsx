@@ -19,24 +19,25 @@ function RouteComponent() {
         <div className='flex flex-row w-full h-full'>
           <section className='w-[20%] bg-zinc-800 border-r-2 border-red-500 flex flex-col gap-7 p-4 items-center'>
 
+            <h1 className='text-2xl text-teal-500 mt-4'>functionalities</h1>
+
             <button onClick={() => setState(true)}
                     className='w-50 h-15 bg-zinc-900 rounded-2xl flex justify-center items-center mt-5 text-teal-600'
-  
-            >
-              Tables
-            </button>
+            > Tables</button>
+
             <Link to="/console/dashboard/add" 
                   className='w-50 h-15 bg-zinc-900 rounded-2xl flex justify-center items-center text-green-400'
                   onClick={() => setState(false)}
-            >
-              Add 
-            </Link>
+            > Add</Link>
+
             <Link to="/console/dashboard/del" 
                   className='w-50 h-15 bg-zinc-900 rounded-2xl flex justify-center items-center text-red-500'
                   onClick={() => setState(false)}
-            >
-              Delete 
-            </Link>
+            > Delete</Link>
+
+            <hr className='h-1 w-full text-red-500' />
+
+            <h1 className='text-xl text-teal-500'>visualizations</h1>
           </section>
 
           <section className='w-[80%] bg-zinc-900'> 

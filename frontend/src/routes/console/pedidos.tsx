@@ -1,6 +1,5 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
-import { authClient } from '../../lib/auth-client'
-import { useState, useEffect, use } from 'react'
+import { createFileRoute } from '@tanstack/react-router'
+import { useState, useEffect } from 'react'
 import { NavbarComponent } from '@/components/dashboardUI/navbar';
 import { OrderProps } from '@/types/orderTypes';
 

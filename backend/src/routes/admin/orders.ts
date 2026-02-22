@@ -21,7 +21,7 @@ export async function ordersRoutes(app: FastifyInstance){
         const result = createOrderSchema.safeParse(request.body)
 
         if(!result.success){
-            return reply.status(400).send({error:"here 1"})
+            return reply.status(400).send({error:"Invalid request body"})
         }
 
         const {tableId, items} = result.data
@@ -49,7 +49,7 @@ export async function ordersRoutes(app: FastifyInstance){
 
         const [newOrderItem] = await db.insert(orderItem).values(storeOrderItemProps).returning()
 
-        return reply.status(201).send({data: newOrder, newOrderItem, message: "here2"})
+        return reply.status(201).send({data: newOrder, newOrderItem, message: "Order created successfully"})
     })
 
     app.get("/", async(request, reply) => {
@@ -76,12 +76,12 @@ export async function ordersRoutes(app: FastifyInstance){
         const { id } = request.params as { id: string }
 
         if(!result.success){
-            throw new Error("here3")
+            return reply.status(400).send({error:"Invalid request body"})
         }
 
         const res = await db.update(order).set({status: result.data.status}).where(eq(order.id, Number(id)))
 
-        return reply.status(201).send({data: res, message: "deu certo"})
+        return reply.status(201).send({data: res, message: "Order status updated successfully"})
     })
 
     app.patch("/:orderId/items/:itemId", async(request, reply) => {
@@ -94,9 +94,11 @@ export async function ordersRoutes(app: FastifyInstance){
         const result = orderItemSchema.safeParse(request.body)
 
         if(!result.success){
-            throw new Error("erro")
+            return reply.status(400).send({error:"Invalid request body"})
         }
 
         const res = await db.update(orderItem).set({done: result.data.done}).where(eq(orderItem.id, Number(itemId)))
+
+        return reply.status(201).send({data: res, message: "Order item status updated successfully"})
     })
 }

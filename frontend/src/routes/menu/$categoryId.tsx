@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 import { useCartStore } from '@/types/useCartStore'
+import { API_URL } from '@/lib/api'
 
 export const Route = createFileRoute('/menu/$categoryId')({
   component: RouteComponent,
@@ -24,7 +25,7 @@ function RouteComponent() {
 
   useEffect(() => {
     async function fetchItems() {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/menu/items?categoryId=${categoryId}`)
+      const res = await fetch(`${API_URL}/api/menu/items?categoryId=${categoryId}`)
       const data = await res.json()
       setItems(data)
     }

@@ -5,6 +5,7 @@ import { CategoryCard } from '@/components/categorycards'
 import {z} from 'zod'
 import { useCartStore } from '@/types/useCartStore'
 import { useSearch } from '@tanstack/react-router'
+import { API_URL } from '@/lib/api'
 
 const validateSearchParams = z.object({
   tableId: z.union([z.string(), z.number()]).transform(String).optional()
@@ -22,7 +23,7 @@ function RouteComponent() {
 
   useEffect(() =>{
     async function fetchCategorias(){
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/menu/categories`)
+      const response = await fetch(`${API_URL}/api/menu/categories`)
       const data = await response.json()
       setCategories(data)
     }

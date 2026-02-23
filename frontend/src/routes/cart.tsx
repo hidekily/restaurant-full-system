@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useCartStore } from '@/types/useCartStore'
 import { useEffect, useState } from 'react'
 import { Link } from '@tanstack/react-router'
+import { API_URL } from '@/lib/api'
 
 export const Route = createFileRoute('/cart')({
   component: RouteComponent,
@@ -12,13 +13,13 @@ function RouteComponent() {
     const [cartItems, setCartItems] = useState<any[]>([])
 
     async function fetchCartItems() {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/menu/items/by-ids?ids=${items.map(item => item.menuItemId).join(',')}`)
+        const res = await fetch(`${API_URL}/api/menu/items/by-ids?ids=${items.map(item => item.menuItemId).join(',')}`)
         const data = await res.json()
         setCartItems(data)
     }
     
     async function handleSubmitOrdersToOrderTab(){
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/menu/clientorders`, {
+        const res = await fetch(`${API_URL}/api/menu/clientorders`, {
             method: "POST",
             headers: {
                 "Content-Type" : "application/json"

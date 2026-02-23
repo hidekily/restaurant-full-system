@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 import { ConfirmModal } from '@/components/confirmModal'
 import { useDashboardStore } from '@/types/dashboardStore'
+import { API_URL } from '@/lib/api'
 
 export const Route = createFileRoute('/console/dashboard/del')({
   component: RouteComponent,
@@ -20,7 +21,7 @@ function RouteComponent() {
 
 
   async function handleDeleteCategory() {
-    await fetch(`${import.meta.env.VITE_API_URL}/api/admin/categories/${categoryId}`, {
+    await fetch(`${API_URL}/api/admin/categories/${categoryId}`, {
       method: "DELETE",
       credentials: "include",
     })
@@ -30,7 +31,7 @@ function RouteComponent() {
   }
 
   async function handleDeleteItem() {
-    await fetch(`${import.meta.env.VITE_API_URL}/api/admin/items/${itemId}`, {
+    await fetch(`${API_URL}/api/admin/items/${itemId}`, {
       method: "DELETE",
       credentials: "include",
     })

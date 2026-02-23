@@ -2,17 +2,17 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useState, useEffect } from 'react'
 import { NavbarComponent } from '@/components/dashboardUI/navbar';
 import { OrderProps } from '@/types/orderTypes';
+import { API_URL } from '@/lib/api';
 
 export const Route = createFileRoute('/console/pedidos')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  const [session, setSession] = useState<any>(null);
   const [orders, setOrders] = useState<OrderProps[]>([]);
 
   async function fetchOrders(){
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/orders`, {
+    const res = await fetch(`${API_URL}/api/admin/orders`, {
       credentials: "include"
     })
     const data = await res.json()
@@ -20,7 +20,7 @@ function RouteComponent() {
   }
 
   async function handleStatusCompleted(orderId: string) {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/orders/${orderId}`, {
+    const res = await fetch(`${API_URL}/api/admin/orders/${orderId}`, {
     method: "PATCH", 
     headers:{
       "Content-Type" : "application/json" 
@@ -33,7 +33,7 @@ function RouteComponent() {
   }
 
   async function handleStatusOnHold(orderId: string) {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/orders/${orderId}`, {
+    const res = await fetch(`${API_URL}/api/admin/orders/${orderId}`, {
     method: "PATCH", 
     headers:{
       "Content-Type" : "application/json" 

@@ -147,7 +147,7 @@ export const order = pgTable(
     id: serial("id").primaryKey(),
     tableId: integer("table_id")
       .notNull()
-      .references(() => diningTable.id, { onDelete: "restrict" }),
+      .references(() => diningTable.id, { onDelete: "cascade" }),
     status: orderStatusEnum("status").default("pending").notNull(),
     notes: text("notes"),
     total: decimal("total", { precision: 10, scale: 2 }),
@@ -169,7 +169,7 @@ export const orderItem = pgTable(
       .references(() => order.id, { onDelete: "cascade" }),
     menuItemId: integer("menu_item_id")
       .notNull()
-      .references(() => menuItem.id, { onDelete: "restrict" }),
+      .references(() => menuItem.id, { onDelete: "cascade" }),
     quantity: integer("quantity").notNull().default(1),
     unitPrice: decimal("unit_price", { precision: 10, scale: 2 }).notNull(),
     done: boolean("done").default(false).notNull(),

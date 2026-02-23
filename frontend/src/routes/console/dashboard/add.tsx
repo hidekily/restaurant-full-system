@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 import { useDashboardStore } from '@/types/dashboardStore'
+import { API_URL } from '@/lib/api'
 
 export const Route = createFileRoute('/console/dashboard/add')({
   component: RouteComponent,
@@ -24,7 +25,7 @@ function RouteComponent() {
   async function handleSubmitItem(e: React.FormEvent){
     e.preventDefault()
 
-    const storeDataItem = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/items`, {
+    const storeDataItem = await fetch(`${API_URL}/api/admin/items`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -43,7 +44,7 @@ function RouteComponent() {
     e.preventDefault()
 
   const storeDataCategory = await
-     fetch(`${import.meta.env.VITE_API_URL}/api/admin/categories`, {
+     fetch(`${API_URL}/api/admin/categories`, {
       method: "POST",
       headers: {
        "Content-Type": "application/json"

@@ -1,5 +1,6 @@
 import { useState, useEffect} from 'react'
 import { useDashboardStore } from '@/types/dashboardStore'
+import { API_URL } from '@/lib/api'
 
 export function TablesComponent() {
   const [tableNum, setTableNum] = useState<string>("")
@@ -9,7 +10,7 @@ export function TablesComponent() {
   async function handleSubmitTableNum(e: React.FormEvent){
     e.preventDefault()
 
-    const storeData = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/tables`, {
+    const storeData = await fetch(`${API_URL}/api/admin/tables`, {
       method: "POST",
       headers:{
         "Content-Type" : "application/json"
@@ -26,7 +27,7 @@ export function TablesComponent() {
   async function handleDeleteTableNum(e: React.FormEvent){
     e.preventDefault()
 
-    await fetch(`${import.meta.env.VITE_API_URL}/api/admin/tables/${tableNum}`, {
+    await fetch(`${API_URL}/api/admin/tables/${tableNum}`, {
       method: "DELETE",
       credentials: "include"
     })

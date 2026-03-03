@@ -58,10 +58,10 @@ function RouteComponent() {
   return (
     <div className='h-full w-full grid grid-cols-2 grid-rows-auto overflow-auto justify-items-center mt-[4%] pb-24'>
       {items.map((item) => (
-        <div key={item.id} className='h-50 w-55 bg-zinc-900 flex flex-col justify-center items-center gap-4 rounded-2xl text-red-600'>
-          <div className='flex flex-col justify-start items-center gap-2 h-[50%] w-full'>
-            <span className='mt-5 font-bold text-lg'>{item.name}</span>
-            <span className='text-lg font-semibold'>{item.price}</span>
+        <div key={item.id} className='h-55 w-45 bg-zinc-900 flex flex-col justify-center items-center gap-4 rounded-2xl text-red-600'>
+          <div className='flex flex-col justify-center items-center gap-3 h-[60%] w-full text-center p-1'>
+            <span className='mt-5 font-bold text-sm'>{item.name}</span>
+            <span className='text-md font-semibold'>{item.price}</span>
           </div>
           <div className='flex flex-row gap-5 justify-center items-center'>
             <button onClick={() => handleDecrease(item.id)} className='h-10 w-10 bg-zinc-700 rounded-full text-white text-xl'>-</button>

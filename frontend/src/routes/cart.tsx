@@ -19,7 +19,7 @@ function RouteComponent() {
     }
     
     async function handleSubmitOrdersToOrderTab(){
-        const res = await fetch(`${API_URL}/api/menu/clientorders`, {
+        const handleResponse = await fetch(`${API_URL}/api/menu/clientorders`, {
             method: "POST",
             headers: {
                 "Content-Type" : "application/json"
@@ -27,7 +27,7 @@ function RouteComponent() {
             body: JSON.stringify({tableId: Number(tableId), items})
         })
 
-        if(res.ok){
+        if(handleResponse.ok){
             clearCart()
             window.alert("order confirmed!")
         }
@@ -51,17 +51,24 @@ function RouteComponent() {
 
     return (
         <div className='h-full w-full bg-zinc-800 flex flex-col justify-center items-center gap-4'>
-            <Link to="/menu" className="text-white">Voltar ao Menu</Link>
-            <div className='w-[80%] h-[65%] bg-zinc-700 rounded-2xl flex flex-col justify-start items-center gap-4 p-4 overflow-auto'>
-                <span>{tableId}</span>
+            <Link to="/menu" className="bg-zinc-600 text-black w-[80%] h-10 rounded-lg flex items-center justify-center">Voltar ao Menu</Link>
+            <div className='w-[80%] h-[65%] bg-zinc-700 rounded-2xl flex flex-col justify-center items-center gap-4 p-4 overflow-auto'>
+                <span>table: {tableId}</span>
                 {items.map(item => {
                     const details = cartItems.find(ci => ci.id === item.menuItemId)
                     if(!details) return null
                     return (
-                        <div key={item.menuItemId} className='flex justify-between items-center w-full bg-zinc-600 rounded-2xl p-4 text-white'>
-                         <span>{ `Item: ` + details.name}</span>
-                         <span>{`Price: ` + details.price}</span>
-                        <span>{`quantity: ` + item.quantity}</span>
+                        <div key={item.menuItemId} className='grid grid-cols-3 justify-items-center w-full bg-zinc-600 rounded-2xl p-4 text-white'>
+                            <span>
+                                {`Item: ` + details.name}
+                            </span>
+                            <span>
+                                {`Price: ` + details.price}
+                            </span>
+                            <span className='flex flex-row items-center justify-center gap-2'>
+                                quantity :
+                                <p className='text-black'>{item.quantity}</p>
+                            </span>
                         </div>
                     )
                 })}

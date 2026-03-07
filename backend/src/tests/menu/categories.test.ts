@@ -1,8 +1,5 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 import Fastify from 'fastify'
-
-console.log("database url", process.env.DATABASE_URL)
-
 import { menuCategoriesRoutes } from "../../routes/menu/categories"
 
 const app = Fastify()
@@ -35,4 +32,17 @@ describe('GET /api/menu/categories', () => {
     const data = response.json()
     expect(Array.isArray(data)).toBe(true)
   })
+
+  it('should return categories props', async () => {
+    const response = await app.inject({
+      method: 'GET',
+      url: '/api/menu/categories'
+    })
+
+    const data = response.json() as {id: number, name: string, ImgUrl: string | null}[]
+    data.forEach(category => {
+      expect(category).toHaveProperty('name')
+    });
+  })
 })
+

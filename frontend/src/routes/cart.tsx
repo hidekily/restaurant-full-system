@@ -24,7 +24,7 @@ function RouteComponent() {
             headers: {
                 "Content-Type" : "application/json"
             },
-            body: JSON.stringify({tableId: Number(tableId), items})
+            body: JSON.stringify({table: Number(tableId), items})
         })
 
         if(handleResponse.ok){

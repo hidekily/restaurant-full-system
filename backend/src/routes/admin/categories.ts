@@ -40,7 +40,7 @@ export async function categoriesRoutes(app: FastifyInstance){
     return reply.send(allCategories)
   })
 
-  // deleta as categorias
+  // deleta as categorias means delete the categories
   app.delete("/:id", async (request, reply) => {
     const { id } = request.params as { id: string }
 

@@ -59,9 +59,9 @@ export function TablesComponent() {
         <h1 className='text-red-500'>delete table</h1>
         <form className='input-form' onSubmit={handleDeleteTableNum}>
           <select value={tableNum} onChange={(e) => setTableNum(e.target.value)} className='input-dashboard'>
-            <option>Selecione uma categoria</option>
-            {tablesList.map((table) => (
-              <option key={table.id} value={table.id}>{table.number} | {table.area}</option>
+            <option>Select table</option>
+            {tablesList.sort((tableA, tableB) => tableA.number - tableB.number).map((table) => (
+              <option value={table.id} key={table.id}>{table.area} | {table.number} </option>
             ))}
           </select>
           <input value="delete" type="submit" className='input-dashboard text-red-500 bg-black'/>

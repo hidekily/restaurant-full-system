@@ -3,9 +3,10 @@ import { FastifyInstance } from 'fastify'
 import { db } from "shared/db"
 import { menuItem, order, orderItem } from "shared/db/schema"
 import { eq } from "drizzle-orm"
+import { diningTable } from "shared/db/schema"
 
 const createOrderSchema = z.object({
-        tableId: z.number().int(),
+        table: z.number().int(),
         items: z.array(z.object({
             menuItemId: z.number().int(),
             quantity: z.number().min(1),
@@ -20,10 +21,16 @@ export function clientOrders(app: FastifyInstance){
             return reply.status(400).send({error:"falha ao buscar dados"})
         }
 
-        const {tableId, items} = result.data
+        const {table, items} = result.data
+
+        const [checkTable] = await db.select().from(diningTable).where(eq(diningTable.number, table))
+
+        if(!checkTable){
+            return reply.status(404).send({error:"mesa não encontrada"})
+        }
 
         const [newOrderTableId] = await db.insert(order).values({
-            tableId, 
+            tableId: checkTable.id,
         }).returning()
 
         const storeOrderItemsValues = await Promise.all(

@@ -17,6 +17,8 @@ function RouteComponent() {
   const [categoryId, setCategoryId] = useState<string>("") // this one sets category id in the input for item creation
 
 
+  // vou mudar tudo para Tanstack Query/React query
+
   useEffect(() =>{
     fetchCategories()
   }, [])

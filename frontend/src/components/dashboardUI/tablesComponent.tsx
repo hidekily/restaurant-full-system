@@ -11,7 +11,9 @@ export function TablesComponent() {
   const {data} = useQuery<{id: number, number: number, area: string}[]>({ //esse eu vou usar o submit
     queryKey: ['tables'],
     queryFn: async() => {
-      const response = await fetch(`${API_URL}/api/admin/tables`)
+      const response = await fetch(`${API_URL}/api/admin/tables`, {
+        credentials: 'include'
+      })
       return response.json()
     }
   })
@@ -70,7 +72,7 @@ export function TablesComponent() {
         <form className='input-form' onSubmit={handleDeleteTableNum}>
           <select value={tableNum} onChange={(e) => setTableNum(e.target.value)} className='input-dashboard'>
             <option>Select table</option>
-            {data.sort((a, b) => a.number - b.number).map((table) => (
+            {data && data.sort && data.sort((a, b) => a.number - b.number).map((table) => (
               <option value={table.id} key={table.id}>{table.area} | {table.number} </option>
             ))}
           </select>

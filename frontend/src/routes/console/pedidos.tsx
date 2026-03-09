@@ -15,7 +15,9 @@ function RouteComponent() {
   const {data, isLoading, error} = useQuery<OrderProps[]>({
     queryKey: ["orders"],
     queryFn: async() =>  {
-      const response = await fetch(`${API_URL}/api/admin/orders`)
+      const response = await fetch(`${API_URL}/api/admin/orders`, {
+        credentials: 'include'
+      })
       return response.json()
     }
   })

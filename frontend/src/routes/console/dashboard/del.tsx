@@ -19,7 +19,9 @@ function RouteComponent() {
   const {data: categoryData, isLoading: categoryLoading, error: categoryError} = useQuery<Categoria[]>({
     queryKey: ['categories'],
     queryFn: async() => {
-      const response = await fetch(`${API_URL}/api/admin/categories`)
+      const response = await fetch(`${API_URL}/api/admin/categories`, {
+        credentials: 'include'
+      })
       return response.json()
     }
   })
@@ -71,7 +73,7 @@ function RouteComponent() {
           <form className="input-form" onSubmit={(e) => { e.preventDefault(); setDeletingType("category") }}>
             <select className="input-dashboard" value={categoryId} onChange={(e) => setCategoryId(e.target.value)}>
               <option>Selecione uma categoria</option>
-              {categoryData.map((cat) => (
+              {categoryData && categoryData.map && categoryData.map((cat) => (
                 <option key={cat.id} value={cat.id}>{cat.name}</option>
               ))}
             </select>

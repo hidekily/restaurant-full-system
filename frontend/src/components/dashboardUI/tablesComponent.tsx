@@ -1,15 +1,27 @@
-import { useState, useEffect} from 'react'
-import { useDashboardStore } from '@/types/dashboardStore'
+import { useState} from 'react'
 import { API_URL } from '@/lib/api'
+import { useQueryClient, useQuery} from '@tanstack/react-query'
 
 export function TablesComponent() {
   const [tableNum, setTableNum] = useState<string>("")
   const [area, setArea] = useState<string>("")
-  const {tablesList, fetchTables} = useDashboardStore()
+
+  const queryClient = useQueryClient()
+
+  const {data} = useQuery<{id: number, number: number, area: string}[]>({ //esse eu vou usar o submit
+    queryKey: ['tables'],
+    queryFn: async() => {
+      const response = await fetch(`${API_URL}/api/admin/tables`)
+      return response.json()
+    }
+  })
+
+  // useMutation({
+  // vou usar dps para implementar loading e error com algum modal que vou fzr
+  // })
 
   async function handleSubmitTableNum(e: React.FormEvent){
     e.preventDefault()
-
     const storeData = await fetch(`${API_URL}/api/admin/tables`, {
       method: "POST",
       headers:{
@@ -21,7 +33,7 @@ export function TablesComponent() {
 
     setArea('')
     setTableNum("")
-    fetchTables()
+    queryClient.invalidateQueries({queryKey: ["tables"]})
   }
 
   async function handleDeleteTableNum(e: React.FormEvent){
@@ -33,12 +45,10 @@ export function TablesComponent() {
     })
 
     setTableNum('')
-    fetchTables()
+    queryClient.invalidateQueries({queryKey: ['tables']})
   }
 
-  useEffect(() =>{
-    fetchTables()
-  }, [])
+  if(!data) return null
 
   return(
     <div className='customfont outlet-dashboard'>
@@ -60,7 +70,7 @@ export function TablesComponent() {
         <form className='input-form' onSubmit={handleDeleteTableNum}>
           <select value={tableNum} onChange={(e) => setTableNum(e.target.value)} className='input-dashboard'>
             <option>Select table</option>
-            {tablesList.sort((tableA, tableB) => tableA.number - tableB.number).map((table) => (
+            {data.sort((a, b) => a.number - b.number).map((table) => (
               <option value={table.id} key={table.id}>{table.area} | {table.number} </option>
             ))}
           </select>

@@ -1,28 +1,29 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useEffect, useState } from 'react'
-import { useDashboardStore } from '@/types/dashboardStore'
+import {useState } from 'react'
 import { API_URL } from '@/lib/api'
+import {useQuery, useQueryClient } from '@tanstack/react-query'
+import { Categoria } from '@/types/categoryInterface'
 
 export const Route = createFileRoute('/console/dashboard/add')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  const { categoryList, fetchCategories, itemList, fetchItems } = useDashboardStore()
+  const [nameCategory, setNameCategory] = useState<string>("") 
+  const [imageUrl, setImageUrl] = useState<string>("") 
+  const [nomeItem, setNomeItem] =  useState<string>("") 
+  const [preco, setPreco] = useState<string>("") 
+  const [categoryId, setCategoryId] = useState<string>("") 
 
-  const [nameCategory, setNameCategory] = useState<string>("") // this one sets category name in the input
-  const [imageUrl, setImageUrl] = useState<string>("") // this one sets image url in the input
-  const [nomeItem, setNomeItem] =  useState<string>("") // this one sets item name in the input
-  const [preco, setPreco] = useState<string>("") // this one sets item price in the input
-  const [categoryId, setCategoryId] = useState<string>("") // this one sets category id in the input for item creation
+  const queryClient = useQueryClient()
 
-
-  // vou mudar tudo para Tanstack Query/React query
-
-  useEffect(() =>{
-    fetchCategories()
-  }, [])
-
+  const {data, isLoading, error} = useQuery<Categoria[]>({
+    queryKey: ['categories'],
+    queryFn: async() => {
+      const response = await fetch(`${API_URL}/api/menu/categories`)
+      return response.json()
+    }
+  })
 
   async function handleSubmitItem(e: React.FormEvent){
     e.preventDefault()
@@ -39,7 +40,7 @@ function RouteComponent() {
     setCategoryId("")
     setNameCategory("")
     setPreco("")
-    fetchCategories()
+    queryClient.invalidateQueries({queryKey: ['categories']})
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -57,8 +58,12 @@ function RouteComponent() {
 
   setNameCategory("")
   setImageUrl("")
-  fetchCategories()
+  queryClient.invalidateQueries({queryKey: ['categories']})
   }
+
+  if(isLoading) return <span>loading...</span>
+  if(error) return <span>deu erro</span>
+  if(!data) return null // ess fita aqui eh so p/ fazer o data.map n ficar com linha de erro por n conseguir identificar o type da data
 
   return(
     <div className='customfont outlet-dashboard'>
@@ -78,7 +83,7 @@ function RouteComponent() {
           <input type="number" className='input-dashboard' placeholder='price' value={preco} onChange={(e) =>{setPreco(e.target.value)}}/>
           <select className='input-dashboard' value={categoryId} onChange={(e) => setCategoryId(e.target.value)}>
             <option>seletiona uma categoria</option>
-            {categoryList.map((cat) =>(
+            {data.map((cat) =>(
               <option key={cat.id} value={cat.id}>{cat.name}</option>
             ))}
           </select>

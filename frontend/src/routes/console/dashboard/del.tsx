@@ -1,33 +1,46 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useEffect, useState } from 'react'
-import { ConfirmModal } from '@/components/confirmModal'
-import { useDashboardStore } from '@/types/dashboardStore'
+import {useState } from 'react'
 import { API_URL } from '@/lib/api'
+import { useQueryClient, useQuery } from '@tanstack/react-query'
+import { Categoria } from '@/types/categoryInterface'
+import { ConfirmModal } from '@/components/confirmModal'
 
 export const Route = createFileRoute('/console/dashboard/del')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  const { categoryList, fetchCategories, itemList, fetchItems } = useDashboardStore()
-
   const [categoryId, setCategoryId] = useState<string>("")
   const [itemId, setItemId] = useState<string>("")
   const [deletingType, setDeletingType] = useState<"category" | "item" | null>(null)
 
-  useEffect(() => {
-    fetchCategories()
-  }, [])
+  const queryClient = useQueryClient()
 
+  const {data: categoryData, isLoading: categoryLoading, error: categoryError} = useQuery<Categoria[]>({
+    queryKey: ['categories'],
+    queryFn: async() => {
+      const response = await fetch(`${API_URL}/api/admin/categories`)
+      return response.json()
+    }
+  })
+  
+  const {data: itemData, isLoading: itemLoading, error: itemError} = useQuery<{id: number, name: string, price: string}[]>({
+    queryKey: ['items', categoryId],
+    queryFn: async() => {
+      const response = await fetch(`${API_URL}/api/menu/items?categoryId=${categoryId}`)
+      return response.json()
+    },
+    enabled: !!categoryId
+  })
 
   async function handleDeleteCategory() {
     await fetch(`${API_URL}/api/admin/categories/${categoryId}`, {
       method: "DELETE",
       credentials: "include",
     })
-    fetchCategories()
     setDeletingType(null)
     setCategoryId("")
+    queryClient.invalidateQueries({queryKey: ['categories']})
   }
 
   async function handleDeleteItem() {
@@ -35,10 +48,13 @@ function RouteComponent() {
       method: "DELETE",
       credentials: "include",
     })
-    fetchCategories()
     setDeletingType(null)
     setCategoryId("")
+    queryClient.invalidateQueries({queryKey: ['categories', categoryId]})
+
   }
+
+  if(!categoryData) return null
 
   return (
     <>
@@ -55,7 +71,7 @@ function RouteComponent() {
           <form className="input-form" onSubmit={(e) => { e.preventDefault(); setDeletingType("category") }}>
             <select className="input-dashboard" value={categoryId} onChange={(e) => setCategoryId(e.target.value)}>
               <option>Selecione uma categoria</option>
-              {categoryList.map((cat) => (
+              {categoryData.map((cat) => (
                 <option key={cat.id} value={cat.id}>{cat.name}</option>
               ))}
             </select>
@@ -66,15 +82,15 @@ function RouteComponent() {
         <div className="input-box">
           <h1 className='text-red-800'>delete item 🗑️</h1>
           <form className="input-form" onSubmit={(e) => { e.preventDefault(); setDeletingType("item") }}>
-            <select className="input-dashboard" onChange={(e) => fetchItems(e.target.value)}>
+            <select className="input-dashboard" onChange={(e) => setCategoryId(e.target.value)}>
               <option>Selecione a categoria</option>
-              {categoryList.map((cat) => (
+              {categoryData.map((cat) => (
                 <option key={cat.id} value={cat.id}>{cat.name}</option>
               ))}
             </select>
             <select className="input-dashboard" value={itemId} onChange={(e) => setItemId(e.target.value)}>
               <option>Selecione um item</option>
-              {itemList.map((item) => (
+              {(itemData ?? []).map((item) => (
                 <option key={item.id} value={item.id}>{item.name} - R${item.price}</option>
               ))}
             </select>

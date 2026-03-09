@@ -1,23 +1,24 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useState, useEffect } from 'react'
 import { NavbarComponent } from '@/components/dashboardUI/navbar';
-import { OrderProps } from '@/types/orderTypes';
 import { API_URL } from '@/lib/api';
+import { useQueryClient, useQuery } from '@tanstack/react-query';
+import { OrderProps } from '@/types/orderTypes';
 
 export const Route = createFileRoute('/console/pedidos')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  const [orders, setOrders] = useState<OrderProps[]>([]);
+  const queryClient = useQueryClient()
 
-  async function fetchOrders(){
-    const res = await fetch(`${API_URL}/api/admin/orders`, {
-      credentials: "include"
-    })
-    const data = await res.json()
-    setOrders(data)
-  }
+
+  const {data, isLoading, error} = useQuery<OrderProps[]>({
+    queryKey: ["orders"],
+    queryFn: async() =>  {
+      const response = await fetch(`${API_URL}/api/admin/orders`)
+      return response.json()
+    }
+  })
 
   async function handleStatusCompleted(orderId: string) {
     const res = await fetch(`${API_URL}/api/admin/orders/${orderId}`, {
@@ -29,7 +30,7 @@ function RouteComponent() {
     body: JSON.stringify({status: "completed"})
     })
 
-    fetchOrders()
+    queryClient.invalidateQueries({queryKey: ['orders']})
   }
 
   async function handleStatusOnHold(orderId: string) {
@@ -41,20 +42,16 @@ function RouteComponent() {
     credentials: "include",
     body: JSON.stringify({status: "onhold"})
     })
-
-    fetchOrders()
+    
+    queryClient.invalidateQueries({queryKey: ['orders']})
   }
-
-  useEffect (() => {
-    fetchOrders();
-  }, [])
 
   return(
     <div className='bg-zinc-800 h-full w-full flex flex-col'>
         <NavbarComponent um="financa 🦦" dois="dashboard 🦦" linkOne='/console/financa' linkTwo='/console/dashboard'/>
 
         <div className='w-full h-full overflow-auto flex flex-row items-center gap-2 p-2'>
-          {orders && orders.map && orders.map((order) => (
+          {data && data.map && data.map((order) => (
             <div key={order.id} className='bg-zinc-600 w-90 h-[100%] flex flex-col rounded-2xl'>
               <div className='h-[90%] p-2 flex flex-col gap-2'>
                 <p>Table: {order.tableId}</p>

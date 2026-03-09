@@ -1,11 +1,12 @@
 import { createFileRoute, Link, Outlet} from '@tanstack/react-router'
-import { Categoria } from '@/types/categoryInterface'
-import { useEffect, useState} from 'react'
 import { CategoryCard } from '@/components/categorycards'
 import {z} from 'zod'
-import { useCartStore } from '@/types/useCartStore'
-import { useSearch } from '@tanstack/react-router'
 import { API_URL } from '@/lib/api'
+import { useQuery} from '@tanstack/react-query'
+import { Categoria } from '@/types/categoryInterface'
+import { useCartStore } from '@/types/useCartStore'
+import { useSearch} from '@tanstack/react-router'
+import { useEffect } from 'react'
 
 const validateSearchParams = z.object({
   tableId: z.union([z.string(), z.number()]).transform(String).optional()
@@ -17,27 +18,25 @@ export const Route = createFileRoute('/menu')({
 })
 
 function RouteComponent() {
-  const [categories, setCategories] = useState<Categoria[]>([])
   const { setTableId } = useCartStore()
   const search = useSearch({from: '/menu'})
 
-  useEffect(() =>{
-    async function fetchCategorias(){
+
+  const {data} = useQuery<Categoria[]>({
+    queryKey: ['categories'],
+    queryFn: async() => {
       const response = await fetch(`${API_URL}/api/menu/categories`)
-      const data = await response.json()
-      setCategories(data)
+      return response.json()
     }
-    fetchCategorias()
-  }, [])
+  })
 
   useEffect(() => {
-    console.log("search object:", search)
-    console.log("search.table:", search.tableId)
     if(search.tableId) {
-      console.log("Setting tableId:", search.tableId)
       setTableId(String(search.tableId))
     }
   }, [search.tableId, setTableId])
+
+  if(!data) return null
 
   return (
     // div da pagina como um todo
@@ -46,7 +45,7 @@ function RouteComponent() {
         <div className="w-auto h-full flex flex-row">
           <Link to="/cart" className="carrinho h-full w-[100px] bg-zinc-800 flex flex-col justify-center items-center text-white border-l border-r">
           </Link>
-          {categories.map((category) => (
+          {data.map((category) => (
             <CategoryCard key={category.id} name={category.name} imageUrl={category.imageUrl} id={category.id}/>
           ))}
         </div>

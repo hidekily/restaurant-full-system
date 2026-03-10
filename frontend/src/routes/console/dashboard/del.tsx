@@ -110,7 +110,7 @@ function RouteComponent() {
 
       <div className="outlet-dashboard">
         <div className="input-box">
-          <h1 className='text-red-800'>delete category 🗑️</h1>
+          <h1 className='text-[#7A5C3E] customfont2'>delete category 🗑️</h1>
           <form className="input-form" onSubmit={(e) => { e.preventDefault(); setDeletingType("category") }}>
             <select className="input-dashboard" value={categoryId} onChange={(e) => setCategoryId(e.target.value)}>
               <option>Selecione uma categoria</option>
@@ -118,12 +118,12 @@ function RouteComponent() {
                 <option key={cat.id} value={cat.id}>{cat.name}</option>
               ))}
             </select>
-            <input type="submit" value="delete" className="input-dashboard text-red-500 bg-black" />
+            <input type="submit" value="delete" className="input-dashboard text-red-500 bg-[#F2C56B]" />
           </form>
         </div>
 
         <div className="input-box">
-          <h1 className='text-red-800'>delete item 🗑️</h1>
+          <h1 className='text-[#7A5C3E] customfont2'>delete item 🗑️</h1>
           <form className="input-form" onSubmit={(e) => { e.preventDefault(); setDeletingType("item")}}>
             <select className="input-dashboard" onChange={(e) => setCategoryId(e.target.value)}>
               <option>Selecione a categoria</option>
@@ -137,7 +137,7 @@ function RouteComponent() {
                 <option key={item.id} value={item.id}>{item.name} - R${item.price}</option>
               ))}
             </select>
-            <input type="submit" value="delete" className="input-dashboard text-red-500 bg-black" />
+            <input type="submit" value="delete" className="input-dashboard text-red-500 bg-[#F2C56B]" />
           </form>
         </div>
       </div>

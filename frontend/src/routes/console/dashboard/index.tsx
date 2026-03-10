@@ -60,7 +60,7 @@ export function RouteComponent() {
   return(
     <div className='customfont outlet-dashboard'>
       <div className='input-box'>
-        <h1 className='text-green-500'>add table</h1>
+        <h1 className='text-[#7A5C3E] customfont2'>add table</h1>
         <form className="input-form" onSubmit={handleSubmitTableNum}>
           <input placeholder='adicione uma mesa' value={tableNum} className='input-dashboard' onChange={(e) => setTableNum(e.target.value)}/>
           <select className='input-dashboard' value={area} onChange={(e) => setArea(e.target.value)}>
@@ -68,12 +68,12 @@ export function RouteComponent() {
             <option value="indoor">indoor</option>
             <option value="outdoor">outdoor</option>
           </select>
-          <input value="add" type="submit" className='input-dashboard text-green-500 bg-black' />
+          <input value="add" type="submit" className='input-dashboard text-green-500 bg-[#F2C56B]' />
         </form>
       </div>
 
       <div className='input-box'>
-        <h1 className='text-red-500'>delete table</h1>
+        <h1 className='text-[#7A5C3E] customfont2'>delete table</h1>
         <form className='input-form' onSubmit={handleDeleteTableNum}>
           <select value={tableNum} onChange={(e) => setTableNum(e.target.value)} className='input-dashboard'>
             <option>Select table</option>
@@ -81,7 +81,7 @@ export function RouteComponent() {
               <option value={table.id} key={table.id}>{table.area} | {table.number} </option>
             ))}
           </select>
-          <input value="delete" type="submit" className='input-dashboard text-red-500 bg-black'/>
+          <input value="delete" type="submit" className='input-dashboard text-red-500 bg-[#F2C56B]'/>
         </form>
       </div>
     </div>

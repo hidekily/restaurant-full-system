@@ -8,23 +8,23 @@ export const Route = createFileRoute('/console/dashboard')({
 function RouteComponent() {
   return (
     // O Provider "coloca na mesa" os dados
-      <div className='customfont bg-[#E8D8C4] h-full w-full flex flex-col items-center'>
+      <div className='bg-[#E8D8C4] h-full w-full flex flex-col items-center'>
         <NavbarComponent um="financa 🦦" dois="pedidos 🦦" linkOne='/console/financa' linkTwo='/console/pedidos'/>
 
         <div className='flex flex-row w-full h-full'>
-          <section className='w-[20%] bg-[#F4EAE0]/50 border-r-2 border-red-500 flex flex-col gap-7 p-4 items-center'>
+          <section className='w-[20%] bg-[#F4EAE0]/50 border-r-2 border-[#C4956A] flex flex-col gap-7 p-4 items-center'>
             <Link to="/console/dashboard"
-                    className='w-[80%] h-15 bg-[#C4956A] rounded-2xl flex text-md justify-center items-center mt-5 text-teal-600
+                    className='w-full h-15 bg-[#C4956A] rounded-2xl flex text-md justify-center items-center mt-5 text-teal-600
                                tablesImg'
             />
 
             <Link to="/console/dashboard/add" 
-                  className='w-[80%] h-15 bg-[#C4956A] rounded-2xl flex text-md justify-center items-center text-green-400
+                  className='w-full h-15 bg-[#C4956A] rounded-2xl flex text-md justify-center items-center text-green-400
                              addImg'
             />
 
             <Link to="/console/dashboard/del" 
-                  className='w-[80%] h-15 bg-[#C4956A] rounded-2xl flex text-md justify-center items-center text-red-500
+                  className='w-full h-15 bg-[#C4956A] rounded-2xl flex text-md justify-center items-center text-red-500
                              delImg'
             />
           </section>

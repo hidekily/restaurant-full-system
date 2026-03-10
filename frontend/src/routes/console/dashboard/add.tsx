@@ -84,18 +84,18 @@ function RouteComponent() {
         )}
       {}
 
-      <div className='customfont outlet-dashboard'>
+      <div className='outlet-dashboard'>
         <div className='input-box'>
-          <h1 className='text-green-400'>add category🐣</h1>
+          <h1 className='text-[#7A5C3E] customfont2'>add category🐣</h1>
           <form onSubmit={(e) => {e.preventDefault(), handleCategoryMutation.mutate(), setOkType("category")}} className='input-form'>
             <input type="text" className='input-dashboard' placeholder='topic name' value={nameCategory} onChange={(e) => {setNameCategory(e.target.value)}}/>
             <input type="text" placeholder='image URL (optional)' className='input-dashboard' value={imageUrl} onChange={(e) => {setImageUrl(e.target.value)}}/>
-            <input type="submit" value="add" className='input-dashboard text-green-600 bg-black'/>
+            <input type="submit" value="add" className='input-dashboard text-green-600 bg-[#F2C56B]'/>
           </form>
         </div>
 
         <div className='input-box'>
-          <h1 className='text-green-400'>add items 🐣</h1>
+          <h1 className='text-[#7A5C3E] customfont2'>add items 🐣</h1>
           <form onSubmit={(e) => {e.preventDefault(), handleItemMutation.mutate(), setOkType("item")}} className='input-form'>
             <input type="text" className='input-dashboard' placeholder='item name' value={nomeItem} onChange={(e) =>{setNomeItem(e.target.value)}}/>
             <input type="number" className='input-dashboard' placeholder='price' value={preco} onChange={(e) =>{setPreco(e.target.value)}}/>
@@ -105,7 +105,7 @@ function RouteComponent() {
                 <option key={cat.id} value={cat.id}>{cat.name}</option>
               ))}
             </select>
-            <input type="submit" value="add" className='input-dashboard text-green-600 bg-black'/>
+            <input type="submit" value="add" className='input-dashboard text-green-600 bg-[#F2C56B]'/>
           </form>
         </div>
       </div>

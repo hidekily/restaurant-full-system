@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=TASA+Explorer:wght@400..800&family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Noto+Serif+JP:wght@200..900&display=swap');
 @import "tailwindcss";
 
 .google, .discord, .github {
@@ -8,17 +8,18 @@
     background-size: cover;
 }
 
-.customfont {
-  font-family: "TASA Explorer", sans-serif;
+
+.customfont{
+  font-family: "Noto Sans JP", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 400;
+  font-weight: 40;
   font-style: normal;
 }
 
 .customfont2 {
-  font-family: "Yrsa", serif;
+  font-family: "Noto Serif JP", serif;
   font-optical-sizing: auto;
-  font-weight: bold;
+  font-weight: 40;
   font-style: normal;
 }
 
@@ -67,24 +68,24 @@
 }
 
 .outlet-dashboard option{
-    @apply bg-zinc-700;
+    @apply bg-[#4A3728] text-[#F2C56B];
 }
 
 .input-box{
-    @apply border border-stone-500 rounded-md p-2 w-full h-[50%] text-2xl flex flex-col gap-4 bg-[#E8D8C4];
+    @apply border border-stone-500 rounded-md p-2 w-[80%] h-[90%] text-2xl flex flex-col gap-4 bg-[#E8D8C4];
 }
 .input-box h1{
     @apply text-4xl font-bold;
 }
 
 .input-form{
-    @apply flex flex-col justify-center items-center gap-4 mt-4 text-white;
+    @apply flex flex-col justify-center items-center gap-4 mt-4 h-[70%] w-full;
 }
 
 .input-dashboard{
-    @apply border border-stone-500 rounded-md p-2 w-1/2 text-2xl;
+    @apply border border-stone-500 rounded-md p-2 w-1/2 text-2xl text-[#7A5C3E];
 
-    transition: 1s;
+    transition: 1s; 
 }
 
 .button-status{

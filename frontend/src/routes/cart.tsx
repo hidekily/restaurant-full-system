@@ -56,23 +56,18 @@ function RouteComponent() {
                     const details = cartItems.find(ci => ci.id === item.menuItemId)
                     if(!details) return null
                     return (
-                        <div key={item.menuItemId} className='grid grid-cols-3 justify-items-center w-full bg-[#F4EAE0] rounded-2xl p-4 text-[#2C2118] border border-[#C4956A]/30'>
-                            <span className='font-medium'>
-                                {`Item: ` + details.name}
-                            </span>
-                            <span className='text-[#C4956A] font-semibold'>
-                                {`R$ ` + details.price}
-                            </span>
-                            <span className='flex flex-row items-center justify-center gap-2'>
-                                qtd:
-                                <p className='font-bold text-[#4A3728]'>{item.quantity}</p>
+                        <div key={item.menuItemId} className='grid grid-cols-[1fr_auto_auto] items-center gap-x-3 w-full bg-[#F4EAE0] rounded-2xl p-4 text-[#2C2118] border border-[#C4956A]/30'>
+                            <span className='font-medium text-sm'>{details.name}</span>
+                            <span className='text-[#C4956A] font-semibold text-sm whitespace-nowrap'>{`R$ ` + details.price}</span>
+                            <span className='flex flex-row items-center gap-1 text-sm whitespace-nowrap'>
+                                qtd: <p className='font-bold text-[#4A3728]'>{item.quantity}</p>
                             </span>
                         </div>
                     )
                 })}
                 <span className='text-[#4A3728] font-bold text-lg'>{`Total: R$  ` + totalPrice}</span>
             </div>
-            <button className='w-[80%] h-[7%] bg-[#E8A838] text-[#2C2118] font-bold rounded-2xl shadow-md' onClick={handleSubmitOrdersToOrderTab}>
+            <button className='w-[80%] h-[7%] bg-[#E8A838] text-[#2C2118] font-bold rounded-2xl shadow-md hover:bg-[#4A3728] hover:text-[#F2C56B] transition-colors active:scale-95 transition-transform' onClick={handleSubmitOrdersToOrderTab}>
                 Finalizar Pedido
             </button>
         </div>

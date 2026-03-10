@@ -8,29 +8,25 @@ export const Route = createFileRoute('/console/dashboard')({
 function RouteComponent() {
   return (
     // O Provider "coloca na mesa" os dados
-      <div className='customfont bg-zinc-950 h-full w-full flex flex-col items-center'>
+      <div className='customfont bg-[#E8D8C4] h-full w-full flex flex-col items-center'>
         <NavbarComponent um="financa 🦦" dois="pedidos 🦦" linkOne='/console/financa' linkTwo='/console/pedidos'/>
 
         <div className='flex flex-row w-full h-full'>
-          <section className='w-[20%] bg-zinc-800 border-r-2 border-red-500 flex flex-col gap-7 p-4 items-center'>
-
-            <h1 className='text-md text-teal-500 mt-4'>testeHideki</h1>
-
+          <section className='w-[20%] bg-[#F4EAE0]/50 border-r-2 border-red-500 flex flex-col gap-7 p-4 items-center'>
             <Link to="/console/dashboard"
-                    className='w-50 h-15 bg-zinc-900 rounded-2xl flex justify-center items-center mt-5 text-teal-600'
-            > Tables</Link>
+                    className='w-[80%] h-15 bg-[#C4956A] rounded-2xl flex text-md justify-center items-center mt-5 text-teal-600
+                               tablesImg'
+            />
 
             <Link to="/console/dashboard/add" 
-                  className='w-50 h-15 bg-zinc-900 rounded-2xl flex justify-center items-center text-green-400'
-            > Add</Link>
+                  className='w-[80%] h-15 bg-[#C4956A] rounded-2xl flex text-md justify-center items-center text-green-400
+                             addImg'
+            />
 
             <Link to="/console/dashboard/del" 
-                  className='w-50 h-15 bg-zinc-900 rounded-2xl flex justify-center items-center text-red-500'
-            > Delete</Link>
-
-            <hr className='h-1 w-full text-red-500' />
-
-            <h1 className='text-md text-teal-500'>testeZizaw</h1>
+                  className='w-[80%] h-15 bg-[#C4956A] rounded-2xl flex text-md justify-center items-center text-red-500
+                             delImg'
+            />
           </section>
 
           <section className='w-[80%] bg-zinc-900'> 

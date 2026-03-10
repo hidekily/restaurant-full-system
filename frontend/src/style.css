@@ -34,9 +34,30 @@
     background-image: url('/github.png');
 }
 
+.tablesImg{
+    background-image: url('/restaurant.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center
+}
+
+.addImg{
+    background-image: url('/add.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center
+}
+
+.delImg{
+    background-image: url('/delete.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center
+}
+
 
 .outlet-dashboard{
-    @apply p-2 flex flex-col gap-4 h-full w-full;
+    @apply p-2 flex flex-col gap-4 h-full w-full bg-[#F4EAE0];
 
     display: flex;
     flex-direction: column;
@@ -50,7 +71,7 @@
 }
 
 .input-box{
-    @apply border border-stone-500 rounded-md p-2 w-full h-[50%] text-2xl flex flex-col gap-4;
+    @apply border border-stone-500 rounded-md p-2 w-full h-[50%] text-2xl flex flex-col gap-4 bg-[#E8D8C4];
 }
 .input-box h1{
     @apply text-4xl font-bold;

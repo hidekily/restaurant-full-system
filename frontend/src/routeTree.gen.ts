@@ -17,6 +17,7 @@ import { Route as MenuCategoryIdRouteImport } from './routes/menu/$categoryId'
 import { Route as ConsolePedidosRouteImport } from './routes/console/pedidos'
 import { Route as ConsoleFinancaRouteImport } from './routes/console/financa'
 import { Route as ConsoleDashboardRouteImport } from './routes/console/dashboard'
+import { Route as ConsoleDashboardIndexRouteImport } from './routes/console/dashboard/index'
 import { Route as ConsoleDashboardDelRouteImport } from './routes/console/dashboard/del'
 import { Route as ConsoleDashboardAddRouteImport } from './routes/console/dashboard/add'
 
@@ -60,6 +61,11 @@ const ConsoleDashboardRoute = ConsoleDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => ConsoleRoute,
 } as any)
+const ConsoleDashboardIndexRoute = ConsoleDashboardIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ConsoleDashboardRoute,
+} as any)
 const ConsoleDashboardDelRoute = ConsoleDashboardDelRouteImport.update({
   id: '/del',
   path: '/del',
@@ -82,18 +88,19 @@ export interface FileRoutesByFullPath {
   '/menu/$categoryId': typeof MenuCategoryIdRoute
   '/console/dashboard/add': typeof ConsoleDashboardAddRoute
   '/console/dashboard/del': typeof ConsoleDashboardDelRoute
+  '/console/dashboard/': typeof ConsoleDashboardIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cart': typeof CartRoute
   '/console': typeof ConsoleRouteWithChildren
   '/menu': typeof MenuRouteWithChildren
-  '/console/dashboard': typeof ConsoleDashboardRouteWithChildren
   '/console/financa': typeof ConsoleFinancaRoute
   '/console/pedidos': typeof ConsolePedidosRoute
   '/menu/$categoryId': typeof MenuCategoryIdRoute
   '/console/dashboard/add': typeof ConsoleDashboardAddRoute
   '/console/dashboard/del': typeof ConsoleDashboardDelRoute
+  '/console/dashboard': typeof ConsoleDashboardIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -107,6 +114,7 @@ export interface FileRoutesById {
   '/menu/$categoryId': typeof MenuCategoryIdRoute
   '/console/dashboard/add': typeof ConsoleDashboardAddRoute
   '/console/dashboard/del': typeof ConsoleDashboardDelRoute
+  '/console/dashboard/': typeof ConsoleDashboardIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -121,18 +129,19 @@ export interface FileRouteTypes {
     | '/menu/$categoryId'
     | '/console/dashboard/add'
     | '/console/dashboard/del'
+    | '/console/dashboard/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/cart'
     | '/console'
     | '/menu'
-    | '/console/dashboard'
     | '/console/financa'
     | '/console/pedidos'
     | '/menu/$categoryId'
     | '/console/dashboard/add'
     | '/console/dashboard/del'
+    | '/console/dashboard'
   id:
     | '__root__'
     | '/'
@@ -145,6 +154,7 @@ export interface FileRouteTypes {
     | '/menu/$categoryId'
     | '/console/dashboard/add'
     | '/console/dashboard/del'
+    | '/console/dashboard/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -212,6 +222,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConsoleDashboardRouteImport
       parentRoute: typeof ConsoleRoute
     }
+    '/console/dashboard/': {
+      id: '/console/dashboard/'
+      path: '/'
+      fullPath: '/console/dashboard/'
+      preLoaderRoute: typeof ConsoleDashboardIndexRouteImport
+      parentRoute: typeof ConsoleDashboardRoute
+    }
     '/console/dashboard/del': {
       id: '/console/dashboard/del'
       path: '/del'
@@ -232,11 +249,13 @@ declare module '@tanstack/react-router' {
 interface ConsoleDashboardRouteChildren {
   ConsoleDashboardAddRoute: typeof ConsoleDashboardAddRoute
   ConsoleDashboardDelRoute: typeof ConsoleDashboardDelRoute
+  ConsoleDashboardIndexRoute: typeof ConsoleDashboardIndexRoute
 }
 
 const ConsoleDashboardRouteChildren: ConsoleDashboardRouteChildren = {
   ConsoleDashboardAddRoute: ConsoleDashboardAddRoute,
   ConsoleDashboardDelRoute: ConsoleDashboardDelRoute,
+  ConsoleDashboardIndexRoute: ConsoleDashboardIndexRoute,
 }
 
 const ConsoleDashboardRouteWithChildren =

@@ -81,3 +81,7 @@
     background-position: center;
     background-size: 50%;
 }
+
+.bolinhaModal{
+    @apply w-15 h-15 rounded-full bg-[#e8828a]/80 flex justify-center items-center text-2xl border-1 border-[#7A5C3E]
+}

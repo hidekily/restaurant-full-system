@@ -1,8 +1,13 @@
+import { createFileRoute } from '@tanstack/react-router'
 import { useState} from 'react'
 import { API_URL } from '@/lib/api'
 import { useQueryClient, useQuery} from '@tanstack/react-query'
 
-export function TablesComponent() {
+export const Route = createFileRoute('/console/dashboard/')({
+  component: RouteComponent,
+})
+
+export function RouteComponent() {
   const [tableNum, setTableNum] = useState<string>("")
   const [area, setArea] = useState<string>("")
 

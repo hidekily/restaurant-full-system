@@ -41,9 +41,7 @@ function RouteComponent() {
 
     const totalPrice = items.reduce((index, item) => {
         const details = cartItems.find(ci => ci.id === item.menuItemId)
-        
         if(!details){return index}
-
         return(
             index + (details.price * item.quantity)
         )

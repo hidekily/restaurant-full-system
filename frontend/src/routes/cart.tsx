@@ -48,31 +48,31 @@ function RouteComponent() {
     }, 0)
 
     return (
-        <div className='h-full w-full bg-zinc-800 flex flex-col justify-center items-center gap-4'>
-            <Link to="/menu" className="bg-zinc-600 text-black w-[80%] h-10 rounded-lg flex items-center justify-center">Voltar ao Menu</Link>
-            <div className='w-[80%] h-[65%] bg-zinc-700 rounded-2xl flex flex-col justify-center items-center gap-4 p-4 overflow-auto'>
-                <span>table: {tableId}</span>
+        <div className='h-full w-full bg-[#F4EAE0] flex flex-col justify-center items-center gap-4'>
+            <Link to="/menu" className="bg-[#4A3728] text-[#F2C56B] w-[80%] h-10 rounded-lg flex items-center justify-center font-semibold">Voltar ao Menu</Link>
+            <div className='w-[80%] h-[65%] bg-[#E8D8C4] rounded-2xl flex flex-col justify-center items-center gap-4 p-4 overflow-auto border border-[#C4956A]/40 shadow-md'>
+                <span className='text-[#7A5C3E] font-semibold'>Mesa: {tableId}</span>
                 {items.map(item => {
                     const details = cartItems.find(ci => ci.id === item.menuItemId)
                     if(!details) return null
                     return (
-                        <div key={item.menuItemId} className='grid grid-cols-3 justify-items-center w-full bg-zinc-600 rounded-2xl p-4 text-white'>
-                            <span>
+                        <div key={item.menuItemId} className='grid grid-cols-3 justify-items-center w-full bg-[#F4EAE0] rounded-2xl p-4 text-[#2C2118] border border-[#C4956A]/30'>
+                            <span className='font-medium'>
                                 {`Item: ` + details.name}
                             </span>
-                            <span>
-                                {`Price: ` + details.price}
+                            <span className='text-[#C4956A] font-semibold'>
+                                {`R$ ` + details.price}
                             </span>
                             <span className='flex flex-row items-center justify-center gap-2'>
-                                quantity :
-                                <p className='text-black'>{item.quantity}</p>
+                                qtd:
+                                <p className='font-bold text-[#4A3728]'>{item.quantity}</p>
                             </span>
                         </div>
                     )
                 })}
-                <span>{`Total: R$  ` + totalPrice}</span>
+                <span className='text-[#4A3728] font-bold text-lg'>{`Total: R$  ` + totalPrice}</span>
             </div>
-            <button className='w-[80%] h-[7%] bg-zinc-600 rounded-2xl' onClick={handleSubmitOrdersToOrderTab}>
+            <button className='w-[80%] h-[7%] bg-[#E8A838] text-[#2C2118] font-bold rounded-2xl shadow-md' onClick={handleSubmitOrdersToOrderTab}>
                 Finalizar Pedido
             </button>
         </div>

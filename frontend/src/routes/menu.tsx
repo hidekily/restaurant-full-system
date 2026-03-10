@@ -40,10 +40,10 @@ function RouteComponent() {
 
   return (
     // div da pagina como um todo
-    <div className='bg-zinc-700 h-full w-full overflow-auto'>
-      <nav className='h-[15%] w-full bg-zinc-800 overflow-auto border-b-1 text-white'>
+    <div className='bg-[#F4EAE0] h-full w-full overflow-auto'>
+      <nav className='h-[15%] w-full bg-[#C4956A] overflow-auto border-b-1 text-white'>
         <div className="w-auto h-full flex flex-row">
-          <Link to="/cart" className="carrinho h-full w-[100px] bg-zinc-800 flex flex-col justify-center items-center text-white border-l border-r">
+          <Link to="/cart" className="carrinho h-full w-[100px] bg-[#3E8D8C4] flex flex-col justify-center items-center text-white border-l border-r">
           </Link>
           {data.map((category) => (
             <CategoryCard key={category.id} name={category.name} imageUrl={category.imageUrl} id={category.id}/>

@@ -9,8 +9,8 @@ interface CategoryCardProps{
 
 export function CategoryCard({id, name, imageUrl}: CategoryCardProps) {
   return (
-      <Link to="/menu/$categoryId" 
-            className='h-full w-[100px] bg-zinc-800 flex flex-col justify-center items-center text-white border-l border-r hover:bg-zinc-700/80 cursor-pointer' 
+      <Link to="/menu/$categoryId"
+            className='h-full w-[100px] bg-[#7A5C3E] flex flex-col justify-center items-center text-[#F4EAE0] border-l border-r border-[#4A3728] cursor-pointer'
             params={{categoryId: String(id)}}
       >
         {imageUrl && <img src={imageUrl} alt={name} className="w-[80%] h-[60%] object-cover mb-2 rounded-lg"/>}

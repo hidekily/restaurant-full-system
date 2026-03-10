@@ -29,7 +29,7 @@ function RouteComponent() {
             />
           </section>
 
-          <section className='w-[80%] bg-zinc-900'> 
+          <section className='w-[80%] bg-[#F4EAE0]'>
             <Outlet />
           </section>
 

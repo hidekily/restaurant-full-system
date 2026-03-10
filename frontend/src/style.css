@@ -89,11 +89,11 @@
 }
 
 .button-status{
-    @apply bg-zinc-700 rounded-lg w-25 h-10 border text-red-700 flex justify-center items-center;
+    @apply bg-[#E8D8C4] rounded-lg w-25 h-10 border border-[#C4956A]/40 text-[#4A3728] font-semibold flex justify-center items-center;
 }
 
 .button-add-menu{
-    @apply rounded-lg border-1 bg-zinc-700 text-center;
+    @apply rounded-lg border-1 bg-[#C4956A] text-[#2C2118] text-center;
 }
 
 .carrinho{

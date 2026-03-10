@@ -45,7 +45,7 @@ function RouteComponent() {
 
   return (
     <div className='bg-[#F4EAE0]/80 h-full w-full flex justify-center items-center'>
-      <section className="h-[75%] w-[35%] rounded-lg items-center
+      <section className="h-[75%] w-[50%] rounded-lg items-center
                           flex flex-col bg-[#E8D8C4] shadow-2xl shadow-[#2C2118]"
       >
 

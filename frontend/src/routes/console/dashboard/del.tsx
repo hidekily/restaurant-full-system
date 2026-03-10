@@ -67,7 +67,7 @@ function RouteComponent() {
 
   return (
     <>
-      {deletingType && !handleDeleteMutation.isPending && !handleDeleteMutation.isSuccess && (
+      {deletingType && !handleDeleteMutationItem.isSuccess && !handleDeleteMutation.isSuccess && (
         <Modal header={<div className='bolinhaModal'>🗑️</div>} 
         title={`delete this ${deletingType === "category" ? "category?" : "item?"}`}
         subtitle={<>
@@ -77,7 +77,9 @@ function RouteComponent() {
           } , are you sure?
         </>} 
         buttons={[
-          {text: "Cancel", onclick: () => setDeletingType(null), colorVariant: "mid" },
+          {text: "Cancel", 
+            onclick: () => deletingType === 'category' ? (handleDeleteMutation.reset(), setDeletingType(null)) :  (handleDeleteMutationItem.reset(), setDeletingType(null)),
+            colorVariant: "mid" },
           {text: "Delete", 
             onclick: () => deletingType === 'category' ? handleDeleteMutation.mutate() : handleDeleteMutationItem.mutate(),
             colorVariant: "danger" 
@@ -85,7 +87,7 @@ function RouteComponent() {
         ]} />
       )}    
 
-      {handleDeleteMutation.isSuccess && (
+      {(handleDeleteMutation.isSuccess || handleDeleteMutationItem.isSuccess) && (
         <Modal header={<div className='bolinhaModal'>✔️</div>} 
         title="Deleted!"
         subtitle='your action was successfully made, you can now exit this message' 
@@ -94,7 +96,7 @@ function RouteComponent() {
         ]} />
       )}
 
-      {handleDeleteMutation.isError && (
+      {(handleDeleteMutation.isError || handleDeleteMutationItem.isError) && (
         <Modal header={<div className='bolinhaModal'>❌</div>} 
         title="Something went wrong!" 
         subtitle="..." 

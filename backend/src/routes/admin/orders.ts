@@ -4,7 +4,7 @@ import { verificarAdmin } from "../../middleware/auth.js";
 import { z } from "zod";
 import { order, orderItem} from "shared/db/schema";
 import { menuItem } from "shared/db/schema";
-import { eq } from "drizzle-orm";
+import { eq, lt, and } from "drizzle-orm";
 
 export async function ordersRoutes(app: FastifyInstance){
     const createOrderSchema = z.object({
@@ -53,6 +53,10 @@ export async function ordersRoutes(app: FastifyInstance){
     })
 
     app.get("/", async(request, reply) => {
+        const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000) //  algm poderia inventar o 24h no ts 
+
+        const deletePedidos = await db.delete(order).where(and(eq(order.status, 'completed'), lt(order.createdAt, oneDayAgo)))
+
         const pedidos = await db.query.order.findMany({
             with:{
                 items: {
@@ -63,7 +67,6 @@ export async function ordersRoutes(app: FastifyInstance){
                 table: true
             }
         })
-
         return reply.send(pedidos)
     })
     

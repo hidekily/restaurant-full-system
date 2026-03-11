@@ -55,7 +55,7 @@ function RouteComponent() {
           {data && data.filter && data.filter(order => order.status === activeTab).map((order) => (
             <div key={order.id} className='bg-[#E8D8C4] w-60 shrink-0 flex flex-col rounded-2xl border border-[#C4956A]/40 shadow-md'>
               <div className='flex-1 min-h-0 overflow-y-auto p-3 flex flex-col gap-2 text-[#2C2118]'>
-                <p className='font-bold text-[#4A3728]'>Mesa: {order.tableId}</p>
+                <p className='font-bold text-[#4A3728]'>Mesa: {order.table.number}</p>
                 <p className='text-sm text-[#7A5C3E]'>Status: {order.status}</p>
                 <p className='text-xs text-[#C4956A]'>Data: {order.createdAt}</p>
                 <hr className='border-[#C4956A]/50'/>

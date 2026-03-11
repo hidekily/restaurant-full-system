@@ -18,7 +18,7 @@ export const Example = () => {
           <XAxis dataKey="name" />
           <YAxis />
           <Tooltip />
-          <Area type="monotone" dataKey="caixa" stroke="#2c9481" fill="#4d6ee3" />
+          <Area type="monotone" dataKey="revenue" stroke="#2c9481" fill="#4d6ee3" />
         </AreaChart>
       </ResponsiveContainer>
     </div>

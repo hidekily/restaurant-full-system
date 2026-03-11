@@ -18,7 +18,7 @@ export function clientOrders(app: FastifyInstance){
         const result = createOrderSchema.safeParse(request.body)
 
         if(!result.success){
-            return reply.status(400).send({error:"falha ao buscar dados"})
+            return reply.status(400).send({error:"invalid request body"})
         }
 
         const {table, items} = result.data
@@ -26,7 +26,7 @@ export function clientOrders(app: FastifyInstance){
         const [checkTable] = await db.select().from(diningTable).where(eq(diningTable.number, table))
 
         if(!checkTable){
-            return reply.status(404).send({error:"mesa não encontrada"})
+            return reply.status(404).send({error:"table not found"})
         }
 
         const [newOrderTableId] = await db.insert(order).values({
@@ -53,6 +53,6 @@ export function clientOrders(app: FastifyInstance){
 
         const [newOrderItems] = await db.insert(orderItem).values(storeOrderItemsValues).returning()
 
-        return reply.status(201).send({data: {newOrderItems, newOrderTableId}, message:"deu certo"})
+        return reply.status(201).send({data: {newOrderItems, newOrderTableId}, message:"order created"})
     })
 }

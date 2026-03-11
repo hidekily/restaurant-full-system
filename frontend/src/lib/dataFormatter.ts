@@ -1,4 +1,4 @@
-export function dataFormater(data: string){
+export function formatDate(data: string){
     return new Date(data).toLocaleDateString("en-GB", {
         day: "numeric",
         month: "long",

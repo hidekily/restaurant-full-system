@@ -49,9 +49,11 @@ function RouteComponent() {
 
     return (
         <div className='h-full w-full bg-[#F4EAE0] flex flex-col justify-center items-center gap-4'>
-            <Link to="/menu" className="bg-[#4A3728] text-[#F2C56B] w-[80%] h-10 rounded-lg flex items-center justify-center font-semibold">Voltar ao Menu</Link>
+            <Link to="/menu" className="bg-[#4A3728] text-[#F2C56B] w-[80%] h-10 rounded-lg flex items-center justify-center font-semibold">
+                Menu 
+            </Link>
             <div className='w-[80%] h-[65%] bg-[#E8D8C4] rounded-2xl flex flex-col justify-center items-center gap-4 p-4 overflow-auto border border-[#C4956A]/40 shadow-md'>
-                <span className='text-[#7A5C3E] font-semibold'>Mesa: {tableId}</span>
+                <span className='text-[#7A5C3E] font-semibold'>table: {tableId}</span>
                 {items.map(item => {
                     const details = cartItems.find(ci => ci.id === item.menuItemId)
                     if(!details) return null
@@ -65,10 +67,10 @@ function RouteComponent() {
                         </div>
                     )
                 })}
-                <span className='text-[#4A3728] font-bold text-lg'>{`Total: R$  ` + totalPrice}</span>
+                <span className='text-[#4A3728] font-bold text-lg'>{`Total: $  ` + totalPrice}</span>
             </div>
             <button className='w-[80%] h-[7%] bg-[#E8A838] text-[#2C2118] font-bold rounded-2xl shadow-md hover:bg-[#4A3728] hover:text-[#F2C56B] transition-colors active:scale-95 transition-transform' onClick={handleSubmitOrdersToOrderTab}>
-                Finalizar Pedido
+                Confirm Order
             </button>
         </div>
     )

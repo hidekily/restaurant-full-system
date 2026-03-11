@@ -62,7 +62,7 @@ export function RouteComponent() {
       <div className='input-box'>
         <h1 className='text-[#7A5C3E] customfont2'>add table</h1>
         <form className="input-form" onSubmit={handleSubmitTableNum}>
-          <input placeholder='adicione uma mesa' value={tableNum} className='input-dashboard' onChange={(e) => setTableNum(e.target.value)}/>
+          <input placeholder='eg, 1 | 2 | 3...' value={tableNum} className='input-dashboard' onChange={(e) => setTableNum(e.target.value)}/>
           <select className='input-dashboard' value={area} onChange={(e) => setArea(e.target.value)}>
             <option>select your area</option>
             <option value="indoor">indoor</option>

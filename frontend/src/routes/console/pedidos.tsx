@@ -4,6 +4,7 @@ import { API_URL } from '@/lib/api';
 import { useQueryClient, useQuery } from '@tanstack/react-query';
 import { OrderProps } from '@/types/orderTypes';
 import { useState } from 'react';
+import { dataFormater } from '@/lib/dataFormater';
 
 export const Route = createFileRoute('/console/pedidos')({
   component: RouteComponent,
@@ -57,7 +58,7 @@ function RouteComponent() {
               <div className='flex-1 min-h-0 overflow-y-auto p-3 flex flex-col gap-2 text-[#2C2118]'>
                 <p className='font-bold text-[#4A3728]'>Mesa: {order.table.number}</p>
                 <p className='text-sm text-[#7A5C3E]'>Status: {order.status}</p>
-                <p className='text-xs text-[#C4956A]'>Data: {order.createdAt}</p>
+                <p className='text-sm text-[#C4956A]'>date: {dataFormater(order.createdAt)}</p>
                 <hr className='border-[#C4956A]/50'/>
                 {order.items.map((items) => (
                   <p key={items.id} className='flex gap-2 text-sm'>

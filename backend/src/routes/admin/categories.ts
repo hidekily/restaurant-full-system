@@ -20,7 +20,7 @@ export async function categoriesRoutes(app: FastifyInstance){
     const result = createCategorySchema.safeParse(request.body)
     
     if(!result.success){
-      return reply.status(400).send({error: "invalid request body"})
+      return reply.status(400).send({error: "erro"})
     }
 
     const { name, imageUrl } = result.data
@@ -51,7 +51,7 @@ export async function categoriesRoutes(app: FastifyInstance){
     const parseResult = idParamsSchema.safeParse({ id })
 
     if(!parseResult.success){
-      return reply.status(400).send("invalid id")
+      return reply.status(400).send("id invalido")
     }
 
     await db.delete(category).where(eq(category.id, Number(id)))

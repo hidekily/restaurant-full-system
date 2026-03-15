@@ -1,10 +1,8 @@
 # About:
 
 ```bash
-I worked at this project for nearly 3 months. 
-It was exciting, but stressful... I learned a lot during this whole process.
-Relay( Synk ), is a Restaurant System made to manage restaurants orders, tables and menus.
-About the finance section, Im not going to add stripe and connect everything, so for now, it's empty.
+I worked at this project for nearly 3 months. It was exciting, but stressful... I learned a lot during this whole process.
+Relay( Synk ), is a Restaurant System made to manage restaurants orders, tables and menus. About the finance section, Im not going to add stripe and connect everything, so for now, it's empty.
 ```
 
 # Project:

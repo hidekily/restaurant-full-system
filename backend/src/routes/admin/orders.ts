@@ -55,7 +55,7 @@ export async function ordersRoutes(app: FastifyInstance){
     app.get("/", async(request, reply) => {
         const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000) //  algm poderia inventar o 24h no ts 
 
-        const deletePedidos = await db.delete(order).where(and(eq(order.status, 'completed'), lt(order.createdAt, oneDayAgo)))
+        const deletePedidos = await db.delete(order).where(and(eq(order.status, 'completed'), lt(order.updatedAt, oneDayAgo)))
 
         const pedidos = await db.query.order.findMany({
             with:{

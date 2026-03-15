@@ -27,7 +27,7 @@ function RouteComponent() {
       limit: 5,
       window: 60 * 500,
       onReject: () => {
-        alert("too many attempts, try again in 30 minutes")
+        alert("tente denovo daqui 30 minutos")
       },
     }
   )

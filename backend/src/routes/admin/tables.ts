@@ -18,7 +18,7 @@ export async function tablesRoutes(app: FastifyInstance){
         const res = table.safeParse(request.body)
 
         if(!res.success){
-            return reply.status(400).send("invalid request body")
+            return reply.status(400).send("erro")
         }
 
         const {number, area} = res.data
@@ -28,7 +28,7 @@ export async function tablesRoutes(app: FastifyInstance){
             area
         }).returning()
 
-        return reply.status(201).send({data: newTable, message:"table created"})
+        return reply.status(201).send({data: newTable, message:"deu certo"})
     })
 
     app.get("/", async(request, reply) => {
@@ -42,6 +42,6 @@ export async function tablesRoutes(app: FastifyInstance){
 
         await db.delete(diningTable).where(eq(diningTable.id, Number(id)))
 
-        return reply.status(201).send("deleted successfully")
+        return reply.status(201).send("sucesso ao deletar")
     })
 }

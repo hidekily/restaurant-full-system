@@ -55,20 +55,26 @@ function RouteComponent() {
 
         <hr className='h-[0.1rem] w-full bg-[#2C2118] mt-4'/>
 
-        <section className='flex flex-row mt-12 bg-[#C4956A] h-18 w-45 justify-center items-center rounded-full gap-4 text-bold text-[#2C2118]'>
-          <button onClick={() => {tryLogin('google')}} className='google text-white cursor-pointer'></button>
+        <button onClick={() => {tryLogin('google')}}
+                className='flex flex-row mt-12 bg-[#C4956A] h-18 w-45 justify-center items-center rounded-full gap-4 text-bold text-[#2C2118]'
+        >
+          <a className='google text-white cursor-pointer'></a>
           google
-        </section>
+        </button>
 
-        <section className='flex flex-row mt-7 bg-[#C4956A] h-18 w-45 justify-center items-center rounded-full gap-4 text-bold text-[#2C2118]'>
-          <button onClick={() => {tryLogin('discord')}} className='discord text-white cursor-pointer'></button>
+        <button onClick={() => {tryLogin('discord')}}
+                className='flex flex-row mt-7 bg-[#C4956A] h-18 w-45 justify-center items-center rounded-full gap-4 text-bold text-[#2C2118]'
+        >
+          <a className='discord text-white cursor-pointer'></a>
           discord
-        </section>
+        </button>
 
-        <section className='flex flex-row mt-7 bg-[#C4956A] h-18 w-45 justify-center items-center rounded-full gap-4 text-bold text-[#2C2118]'>
-          <button onClick={() => {tryLogin('github')}} className='github text-white cursor-pointer'></button>
+        <button onClick={() => {tryLogin('github')}}
+                className='flex flex-row mt-7 bg-[#C4956A] h-18 w-45 justify-center items-center rounded-full gap-4 text-bold text-[#2C2118]'
+        >
+          <a className='github text-white cursor-pointer'></a>
           github
-        </section>
+        </button>
 
         <hr className='h-[0.1rem] w-full bg-[#2C2118] mt-10'/>
 

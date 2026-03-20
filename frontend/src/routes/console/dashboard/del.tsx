@@ -60,8 +60,8 @@ function RouteComponent() {
 
   })
 
-  const getCategory = categoryData?.find(ci => ci.id === Number(categoryId))
-  const getItem = itemData?.find(ci => ci.id === Number(itemId))
+  const getCategory = categoryData?.find(index => index.id === Number(categoryId))
+  const getItem = itemData?.find(index => index.id === Number(itemId))
 
   if(!categoryData) return null
 
